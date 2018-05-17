@@ -10,33 +10,23 @@ import java.util.Calendar;
 
 public class SimpleDate {
 
-    private int date;
-    private int month;
-    private int year;
-
     private boolean noYear = false;
-
-    private int[] daysPerMonth = new int[] {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    private Calendar calendar;
 
     public SimpleDate(){
-        Calendar cal = Calendar.getInstance();
-        this.date = cal.get(Calendar.DAY_OF_MONTH);
-        this.month = cal.get(Calendar.MONTH) + 1; // Convert from 0-based month to 1-based month
-        this.year = cal.get(Calendar.YEAR);
+        calendar = Calendar.getInstance();
     }
 
     public SimpleDate(int date, int month, int year){
-        this.date = date;
-        this.month = month;
-        this.year = year;
-        adjustDate();
+        calendar = Calendar.getInstance();
+        calendar.set(year, month-1, date);
     }
 
     public SimpleDate (int date, int month){
-        this.date = date;
-        this.month = month;
-        this.year = -1;
-        adjustDate();
+        calendar = Calendar.getInstance();
+        calendar.set(Calendar.DAY_OF_MONTH, date);
+        calendar.set(Calendar.MONTH, month-1);
+        noYear = true;
     }
 
     /**
@@ -73,47 +63,21 @@ public class SimpleDate {
 
     @Override
     public String toString(){
-        return (getMonthString(month) + " " + date ) + ((year == -1) ? "" : ", " + year);
+        return (getMonthString(getMonth()) + " " + getDate() ) + ((noYear) ? "" : ", " + getYear());
     }
 
     public SimpleDate addOneWeek(){
-        date += 7;
-        adjustDate();
+        calendar.add(Calendar.DAY_OF_MONTH, 7);
         return this;
-    }
-
-    private void adjustDate(){
-        boolean modified = false;
-
-        // first, account for february: leap year or not?
-        daysPerMonth[1] = ((year - 2000) % 4 == 0) ? 29 : 28;
-
-        // then adjust the month. Increment the year if necessary.
-        int newMonth = month % 12;
-        if (newMonth != 0 && newMonth != month){
-            if (year != -1) {
-                year += (month - newMonth) / 12;
-            }
-            month = newMonth;
-            modified = true;
-        }
-
-        // next, adjust the date. Increment the month if necessary.
-        int newDate = date % daysPerMonth[month-1];
-        if (newDate != 0 && newDate != date){ // if it's not the last day of the month and the date had to be modified to stay inside
-            month += (date - newDate) / daysPerMonth[month-1];
-            date = newDate;
-            modified = true;
-        }
-
-        // if things had to be modified, run adjustDate again to make sure that drastic changes in dates will update the month correctly.
-        if (modified)
-            adjustDate();
     }
 
     /**
      * Returns the day of the month, generally 1-31 or 1-30
      * @return
      */
-    public int getDate () { return date; }
+    public int getDate () { return calendar.get(Calendar.DAY_OF_MONTH); }
+
+    public int getMonth() { return calendar.get(Calendar.MONTH) + 1; }
+
+    public int getYear() { return calendar.get(Calendar.YEAR); }
 }
