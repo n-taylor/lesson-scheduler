@@ -4,6 +4,8 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.ntaylor.lessonscheduler.util.SimpleDate;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -23,4 +25,5 @@ public class ExampleInstrumentedTest {
 
         assertEquals("com.ntaylor.lessonscheduler", appContext.getPackageName());
     }
+
 }
