@@ -34,8 +34,12 @@ public class UpcomingPresenter {
         ArrayList<SimpleDate> dates = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
         calendar.set(2018, 5, 27);
+        SimpleDate date = new SimpleDate();
         dates.add(new SimpleDate());
-        dates.add(new SimpleDate().addOneWeek());
+        for (int i = 0; i < 15; i++){
+            date = date.addOneWeek();
+            dates.add(date);
+        }
         UpcomingAdapter adapter = new UpcomingAdapter(context, dates);
         listView.setAdapter(adapter);
     }

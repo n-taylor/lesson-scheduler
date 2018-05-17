@@ -67,8 +67,7 @@ public class SimpleDate {
     }
 
     public SimpleDate addOneWeek(){
-        calendar.add(Calendar.DAY_OF_MONTH, 7);
-        return this;
+        return new SimpleDate(getDate()+7, getMonth(), getYear());
     }
 
     /**

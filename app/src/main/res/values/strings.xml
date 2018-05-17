@@ -5,4 +5,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="test_value">TESTING THIS VIEW</string>
+    <string name="test_classes_needed">UNFILLED CLASSES GO HERE</string>
+    <string name="init_box_value">3</string>
+
 </resources>
