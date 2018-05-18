@@ -1,4 +1,4 @@
-package com.ntaylor.lessonscheduler.upcoming;
+package com.ntaylor.lessonscheduler.fragments;
 
 import android.content.Context;
 import android.os.Bundle;

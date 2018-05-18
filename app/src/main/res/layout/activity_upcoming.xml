@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/upcoming_fragment"
-        class="com.ntaylor.lessonscheduler.upcoming.UpcomingFragment"
+        class="com.ntaylor.lessonscheduler.fragments.UpcomingFragment"
         tools:layout="@layout/fragment_upcoming"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

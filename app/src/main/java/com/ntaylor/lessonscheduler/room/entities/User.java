@@ -25,17 +25,12 @@ public class User {
     private String userName;
 
     @NonNull
-    @ColumnInfo(name = "name")
-    private String name;
-
-    @NonNull
     @ColumnInfo(name = "org_id")
     private String orgId;
 
-    public User(@NonNull String userName, @NonNull String name, @NonNull String orgId){
+    public User(@NonNull String userName, @NonNull String orgId){
         this.userId = UUID.randomUUID().toString();
         this.userName = userName;
-        this.name = name;
         this.orgId = orgId;
     }
 
@@ -55,15 +50,6 @@ public class User {
 
     public void setUserId(@NonNull String userId) {
         this.userId = userId;
-    }
-
-    @NonNull
-    public String getName() {
-        return name;
-    }
-
-    public void setName(@NonNull String name) {
-        this.name = name;
     }
 
     @NonNull

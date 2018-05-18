@@ -5,11 +5,31 @@ package com.ntaylor.lessonscheduler.util;
  */
 public class UserInfo {
 
-    private static boolean isLoggedIn = false;
-    private static String userId;
-    private static String userName;
-    private static String orgId;
-    private static String orgName;
+    private String userId;
+    private String userName;
+    private String orgId;
+    private String orgName;
 
-    private static boolean isLoggedIn(){ return isLoggedIn; }
+    private static UserInfo userInfo;
+
+    public static void startUserInfoSession(String userId, String userName, String orgId, String orgName){
+        userInfo = new UserInfo(userId, userName, orgId, orgName);
+    }
+
+    /**
+     * startUserInfoSession(...) must be called at 'login' before calling this method. If it has
+     * not been called, then this method will return null. Otherwise returns the singleton instance
+     * of UserInfo.
+     */
+    public static UserInfo getUserInfo(){
+        return userInfo;
+    }
+
+    private UserInfo(String userId, String userName, String orgId, String orgName) {
+        this.userId = userId;
+        this.userName = userName;
+        this.orgId = orgId;
+        this.orgName = orgName;
+    }
+
 }
