@@ -1,4 +1,4 @@
-package com.ntaylor.lessonscheduler.upcoming;
+package com.ntaylor.lessonscheduler.presenters;
 
 import android.content.Context;
 import android.text.style.TtsSpan;
@@ -6,6 +6,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.ntaylor.lessonscheduler.R;
+import com.ntaylor.lessonscheduler.upcoming.UpcomingAdapter;
 import com.ntaylor.lessonscheduler.util.SimpleDate;
 
 import java.util.ArrayList;

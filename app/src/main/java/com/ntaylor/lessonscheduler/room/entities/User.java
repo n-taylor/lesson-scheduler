@@ -13,7 +13,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 @Entity (tableName = "users", primaryKeys = {"user_id", "user_name"},
         foreignKeys = @ForeignKey(entity = Organization.class, parentColumns = "org_id", childColumns = "org_id", onDelete = CASCADE),
-        indices = {@Index(value = {"user_id", "user_name"}, unique = true), @Index("org_id")})
+        indices = {@Index("org_id"), @Index(value = "user_id", unique = true)})
 public class User {
 
     @NonNull

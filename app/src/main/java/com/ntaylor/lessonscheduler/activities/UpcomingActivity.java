@@ -1,10 +1,12 @@
-package com.ntaylor.lessonscheduler.upcoming;
+package com.ntaylor.lessonscheduler.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ListView;
 
 import com.ntaylor.lessonscheduler.R;
+import com.ntaylor.lessonscheduler.upcoming.UpcomingFragment;
+import com.ntaylor.lessonscheduler.presenters.UpcomingPresenter;
 
 public class UpcomingActivity extends AppCompatActivity implements UpcomingFragment.UpcomingFragmentListener, UpcomingPresenter.View {
 
