@@ -4,6 +4,8 @@ import com.ntaylor.lessonscheduler.util.SimpleDate;
 
 import org.junit.Test;
 
+import java.util.Calendar;
+
 import static org.junit.Assert.*;
 
 /**
@@ -20,20 +22,29 @@ public class ExampleUnitTest {
 
     @Test
     public void formatSimpleDate() {
-        SimpleDate dayMonthYear = new SimpleDate(17, 5, 2018);
-        SimpleDate  dayMonth = new SimpleDate(17, 5);
+        SimpleDate dayMonthYear = new SimpleDate(2018, 5, 17);
+        SimpleDate  dayMonth = new SimpleDate(5, 17);
         SimpleDate today = new SimpleDate();
-        SimpleDate extendedMonth = new SimpleDate(17, 17, 2018);
+        SimpleDate extendedMonth = new SimpleDate(2018, 17, 17);
         assertEquals("May 17, 2018", dayMonthYear.toString());
         assertEquals("May 17", dayMonth.toString());
-        assertEquals("May 17, 2018", today.toString());
+        assertEquals("May " + Calendar.getInstance().get(Calendar.DAY_OF_MONTH) + ", 2018", today.toString());
         assertEquals("May 17, 2019", extendedMonth.toString());
     }
 
     @Test
     public void leapYearDate(){
-        SimpleDate date = new SimpleDate(28, 2, 2020);
-        date.addOneWeek();
+        SimpleDate date = new SimpleDate(2020, 2, 28);
+        date = date.addOneWeek();
         assertEquals("March 6, 2020", date.toString());
+    }
+
+    @Test
+    public void parseDate(){
+        int today = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+        SimpleDate date = new SimpleDate();
+        assertEquals("2018/05/" + today, date.parseDate());
+        assertEquals(date.toString(), SimpleDate.deserializeDate("2018/05/" + today, true).toString());
+        assertEquals((new SimpleDate(5, 17)).toString(), SimpleDate.deserializeDate("05/17", false).toString());
     }
 }

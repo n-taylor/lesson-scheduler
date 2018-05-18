@@ -1,6 +1,7 @@
 package com.ntaylor.lessonscheduler.util;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 /**
  * Defines dates in a more simple way.
@@ -17,12 +18,12 @@ public class SimpleDate {
         calendar = Calendar.getInstance();
     }
 
-    public SimpleDate(int date, int month, int year){
+    public SimpleDate(int year, int month, int date){
         calendar = Calendar.getInstance();
         calendar.set(year, month-1, date);
     }
 
-    public SimpleDate (int date, int month){
+    public SimpleDate (int month, int date){
         calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, date);
         calendar.set(Calendar.MONTH, month-1);
@@ -67,7 +68,7 @@ public class SimpleDate {
     }
 
     public SimpleDate addOneWeek(){
-        return new SimpleDate(getDate()+7, getMonth(), getYear());
+        return new SimpleDate(getYear(), getMonth(), getDate()+7);
     }
 
     /**
@@ -79,4 +80,23 @@ public class SimpleDate {
     public int getMonth() { return calendar.get(Calendar.MONTH) + 1; }
 
     public int getYear() { return calendar.get(Calendar.YEAR); }
+
+    public String parseDate(){
+        String day = String.format(Locale.US, "%02d", getDate());
+        String month = String.format(Locale.US, "%02d", getMonth());
+        if (!noYear) {
+            String year = String.format(Locale.US, "%04d", getYear());
+            return year + "/" + month + "/" + day;
+        }
+        else
+            return month + "/" + day;
+    }
+
+    public static SimpleDate deserializeDate(String date, boolean withYear){
+        String[] units = date.split("/");
+        if (withYear)
+            return new SimpleDate(Integer.parseInt(units[0]), Integer.parseInt(units[1]), Integer.parseInt(units[2]));
+        else
+            return new SimpleDate(Integer.parseInt(units[0]), Integer.parseInt(units[1]));
+    }
 }
