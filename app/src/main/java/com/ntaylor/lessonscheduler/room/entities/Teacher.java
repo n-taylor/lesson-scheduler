@@ -5,23 +5,31 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 
+import java.util.UUID;
+
+import io.reactivex.annotations.NonNull;
+
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "teachers",
-        foreignKeys = @ForeignKey(entity = Organizations.class, parentColumns = "org_id", childColumns = "org_id", onDelete = CASCADE))
-public class Teachers {
+        foreignKeys = @ForeignKey(entity = Organization.class, parentColumns = "org_id", childColumns = "org_id", onDelete = CASCADE))
+public class Teacher {
 
     @PrimaryKey
+    @NonNull
     @ColumnInfo (name = "teacher_id")
     private String teacherId;
 
+    @NonNull
     @ColumnInfo (name = "org_id")
     private String orgId;
 
+    @NonNull
     @ColumnInfo (name = "name")
     private String name;
 
-    public Teachers (String teacherId, String orgId, String name){
+    public Teacher(String orgId, String name){
+        this.teacherId = UUID.randomUUID().toString();
         this.orgId = orgId;
         this.name = name;
     }
@@ -30,7 +38,7 @@ public class Teachers {
         return teacherId;
     }
 
-    public void setTeacherId(String teacherId) {
+    public void setTeacherId(@NonNull String teacherId) {
         this.teacherId = teacherId;
     }
 
@@ -38,7 +46,7 @@ public class Teachers {
         return orgId;
     }
 
-    public void setOrgId(String orgId) {
+    public void setOrgId(@NonNull String orgId) {
         this.orgId = orgId;
     }
 
@@ -46,7 +54,7 @@ public class Teachers {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(@NonNull String name) {
         this.name = name;
     }
 }

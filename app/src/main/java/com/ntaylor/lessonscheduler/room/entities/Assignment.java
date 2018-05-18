@@ -4,32 +4,36 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
-import android.support.v4.content.res.FontResourcesParserCompat;
+import android.support.annotation.NonNull;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
-@Entity (tableName = "assigned",
-        foreignKeys = {@ForeignKey(entity = Organizations.class, parentColumns = "org_id", childColumns = "org_id", onDelete = CASCADE),
-        @ForeignKey(entity = Teachers.class, parentColumns = "teacher_id", childColumns = "teacher_id", onDelete = CASCADE),
-        @ForeignKey(entity = Classes.class, parentColumns = "class_id", childColumns = "class_id", onDelete = CASCADE)})
-public class Assigned {
+@Entity (tableName = "assignments",
+        foreignKeys = {@ForeignKey(entity = Organization.class, parentColumns = "org_id", childColumns = "org_id", onDelete = CASCADE),
+        @ForeignKey(entity = Teacher.class, parentColumns = "teacher_id", childColumns = "teacher_id", onDelete = CASCADE),
+        @ForeignKey(entity = Class.class, parentColumns = "class_id", childColumns = "class_id", onDelete = CASCADE)})
+public class Assignment {
 
     @PrimaryKey (autoGenerate = true)
     private int index;
 
+    @NonNull
     @ColumnInfo (name = "date")
     private String date;
 
+    @NonNull
     @ColumnInfo (name = "org_id")
     private String orgId;
 
+    @NonNull
     @ColumnInfo (name = "class_id")
     private String classId;
 
+    @NonNull
     @ColumnInfo (name = "teacher_id")
     private String teacherId;
 
-    public Assigned (String date, String orgId, String classId, String teacherId){
+    public Assignment(@NonNull String date, @NonNull String orgId, @NonNull String classId, @NonNull String teacherId){
         this.date = date;
         this.classId = classId;
         this.teacherId = teacherId;
@@ -45,35 +49,39 @@ public class Assigned {
         this.index = index;
     }
 
+    @NonNull
     public String getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(@NonNull String date) {
         this.date = date;
     }
 
+    @NonNull
     public String getClassId() {
         return classId;
     }
 
-    public void setClassId(String classId) {
+    public void setClassId(@NonNull String classId) {
         this.classId = classId;
     }
 
+    @NonNull
     public String getTeacherId() {
         return teacherId;
     }
 
-    public void setTeacherId(String teacherId) {
+    public void setTeacherId(@NonNull String teacherId) {
         this.teacherId = teacherId;
     }
 
+    @NonNull
     public String getOrgId(){
         return this.orgId;
     }
 
-    public void setOrgId(String orgId){
+    public void setOrgId(@NonNull String orgId){
         this.orgId = orgId;
     }
 }

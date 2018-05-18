@@ -6,25 +6,30 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import java.util.UUID;
+
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "classes",
-        foreignKeys = @ForeignKey(entity = Organizations.class, parentColumns = "org_id", childColumns = "org_id", onDelete = CASCADE))
-public class Classes {
+        foreignKeys = @ForeignKey(entity = Organization.class, parentColumns = "org_id", childColumns = "org_id", onDelete = CASCADE))
+public class Class {
 
     @PrimaryKey
+    @NonNull
     @ColumnInfo (name = "class_id")
     private String classId;
 
+    @NonNull
     @ColumnInfo(name = "org_id")
     private String orgId;
 
+    @NonNull
     @ColumnInfo(name = "class_name")
     private String className;
 
-    public Classes(String classId, String orgId, String className){
+    public Class(@NonNull String orgId, @NonNull String className){
         this.orgId = orgId;
-        this.classId = classId;
+        this.classId = UUID.randomUUID().toString();
         this.className = className;
     }
 
@@ -34,7 +39,7 @@ public class Classes {
         return orgId;
     }
 
-    public void setOrgId(String orgId) {
+    public void setOrgId(@NonNull String orgId) {
         this.orgId = orgId;
     }
 
@@ -42,7 +47,7 @@ public class Classes {
         return className;
     }
 
-    public void setClassName(String className) {
+    public void setClassName(@NonNull String className) {
         this.className = className;
     }
 
@@ -50,7 +55,7 @@ public class Classes {
         return classId;
     }
 
-    public void setClassId(String classId) {
+    public void setClassId(@NonNull String classId) {
         this.classId = classId;
     }
 

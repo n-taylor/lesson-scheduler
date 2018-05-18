@@ -4,18 +4,23 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
-@Entity(tableName = "organizations")
-public class Organizations {
+import java.util.UUID;
 
-    @PrimaryKey
+import io.reactivex.annotations.NonNull;
+
+@Entity(tableName = "organizations", primaryKeys = {"org_id", "org_name"})
+public class Organization {
+
+    @NonNull
     @ColumnInfo (name = "org_id")
     private String orgId;
 
+    @NonNull
     @ColumnInfo (name = "org_name")
     private String orgName;
 
-    public Organizations(String orgId, String orgName){
-        this.orgId = orgId;
+    public Organization(String orgName){
+        this.orgId = UUID.randomUUID().toString();
         this.orgName = orgName;
     }
 
