@@ -3,6 +3,7 @@ package com.ntaylor.lessonscheduler.room.entities;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
@@ -11,7 +12,8 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 @Entity (tableName = "assignments",
         foreignKeys = {@ForeignKey(entity = Organization.class, parentColumns = "org_id", childColumns = "org_id", onDelete = CASCADE),
         @ForeignKey(entity = Teacher.class, parentColumns = "teacher_id", childColumns = "teacher_id", onDelete = CASCADE),
-        @ForeignKey(entity = Class.class, parentColumns = "class_id", childColumns = "class_id", onDelete = CASCADE)})
+        @ForeignKey(entity = Class.class, parentColumns = "class_id", childColumns = "class_id", onDelete = CASCADE)},
+        indices = {@Index("org_id"), @Index("teacher_id"), @Index("class_id")})
 public class Assignment {
 
     @PrimaryKey (autoGenerate = true)
@@ -34,6 +36,7 @@ public class Assignment {
     private String teacherId;
 
     public Assignment(@NonNull String date, @NonNull String orgId, @NonNull String classId, @NonNull String teacherId){
+        this.orgId = orgId;
         this.date = date;
         this.classId = classId;
         this.teacherId = teacherId;

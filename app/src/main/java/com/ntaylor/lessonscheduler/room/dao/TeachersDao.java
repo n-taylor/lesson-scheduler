@@ -14,13 +14,13 @@ public interface TeachersDao {
     @Insert
     void insert(Teacher teacher);
 
-    @Query("DELETE FROM Teacher WHERE teacher_id LIKE :teacherId")
+    @Query("DELETE FROM teachers WHERE teacher_id LIKE :teacherId")
     int deleteByTeacherId(String teacherId);
 
-    @Query("SELECT * FROM Teacher WHERE teacher_id LIKE :teacherId")
+    @Query("SELECT * FROM teachers WHERE teacher_id LIKE :teacherId")
     List<Teacher> getTeacherById(String teacherId);
 
-    @Query("DELETE FROM Teacher")
+    @Query("DELETE FROM teachers")
     void deleteAll();
 
 }

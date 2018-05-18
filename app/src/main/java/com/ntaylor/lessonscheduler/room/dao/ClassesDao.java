@@ -14,12 +14,12 @@ public interface ClassesDao {
     @Insert
     void insert(Class classes);
 
-    @Query("DELETE FROM Class")
+    @Query("DELETE FROM classes")
     void deleteAll();
 
-    @Query("SELECT * FROM Class WHERE class_id LIKE :classId")
+    @Query("SELECT * FROM classes WHERE class_id LIKE :classId")
     List<Class> getClassesById(String classId);
 
-    @Query("SELECT * FROM Class WHERE org_id LIKE :orgId")
+    @Query("SELECT * FROM classes WHERE org_id LIKE :orgId")
     List<Class> getClassesByOrg(String orgId);
 }
