@@ -60,12 +60,12 @@ public class CreateUserTask extends RoomTask<Void, Void, Boolean> {
 
     @Override
     public void onPostExecute(Boolean successful){
-        if (successful) {
-            showToast(LOGIN_SUCCESSFUL, context);
-            Intent intent = new Intent(context, UpcomingActivity.class);
-            context.startActivity(intent);
-        }
-        else
-            showToast(WRONG_ORG_MESSAGE, context);
+            if (successful) {
+                showToast(LOGIN_SUCCESSFUL, context);
+                Intent intent = new Intent(context, UpcomingActivity.class);
+                context.startActivity(intent);
+            }
+            else
+                showToast(WRONG_ORG_MESSAGE, context);
     }
 }

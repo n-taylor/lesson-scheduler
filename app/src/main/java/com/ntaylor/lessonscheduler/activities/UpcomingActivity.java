@@ -7,6 +7,10 @@ import android.widget.ListView;
 import com.ntaylor.lessonscheduler.R;
 import com.ntaylor.lessonscheduler.fragments.UpcomingFragment;
 import com.ntaylor.lessonscheduler.presenters.UpcomingPresenter;
+import com.ntaylor.lessonscheduler.room.entities.Assignment;
+import com.ntaylor.lessonscheduler.util.DataObserver;
+
+import java.util.List;
 
 public class UpcomingActivity extends AppCompatActivity implements UpcomingFragment.UpcomingFragmentListener, UpcomingPresenter.View {
 
@@ -24,6 +28,6 @@ public class UpcomingActivity extends AppCompatActivity implements UpcomingFragm
      */
     @Override
     public void onListInitialization(ListView listView) {
-        presenter.initializeListView(this, listView);
+        presenter.initializeListView(listView);
     }
 }

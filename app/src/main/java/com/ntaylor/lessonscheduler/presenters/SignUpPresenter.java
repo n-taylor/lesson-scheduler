@@ -31,9 +31,9 @@ public class SignUpPresenter {
             return;
         }
 
-        DataProvider dp =  DataProviderFactory.getDataProviderInstance(activity, DataProviderFactory.ROOM_PROVIDER);
+        DataProvider dp =  DataProviderFactory.initializeDataProvider(activity, DataProviderFactory.ROOM_PROVIDER);
         if (dp != null){
-            dp.createUser(userName, org);
+            dp.createUser(activity, userName, org);
         }
         else
         {

@@ -1,5 +1,7 @@
 package com.ntaylor.lessonscheduler.util;
 
+import com.ntaylor.lessonscheduler.tasks.classroom.CreateClassroomTask;
+
 /**
  * Stores information about the current user that is logged in.
  */
@@ -12,6 +14,15 @@ public class UserInfo {
 
     private static UserInfo userInfo;
 
+    /**
+     * This method MUST be called before getUserInfo(), or it will return null.
+     * Initializes the instance of UserInfo for the session.
+     *
+     * @param userId The user ID of the user logged in
+     * @param userName The user name of the user
+     * @param orgId The ID of the organization the user belongs to
+     * @param orgName The name of the user's organization
+     */
     public static void startUserInfoSession(String userId, String userName, String orgId, String orgName){
         userInfo = new UserInfo(userId, userName, orgId, orgName);
     }
@@ -31,5 +42,13 @@ public class UserInfo {
         this.orgId = orgId;
         this.orgName = orgName;
     }
+
+    public String getUserId(){ return this.userId; }
+
+    public String getOrgId() { return this.orgId; }
+
+    public String getUserName() { return this.userName; }
+
+    public String getOrgName() { return this.orgName; }
 
 }

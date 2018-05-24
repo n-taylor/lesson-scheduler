@@ -4,7 +4,7 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 
-import com.ntaylor.lessonscheduler.room.entities.Class;
+import com.ntaylor.lessonscheduler.room.entities.Classroom;
 
 import java.util.List;
 
@@ -12,14 +12,14 @@ import java.util.List;
 public interface ClassesDao {
 
     @Insert
-    void insert(Class classes);
+    void insert(Classroom classes);
 
     @Query("DELETE FROM classes")
     void deleteAll();
 
     @Query("SELECT * FROM classes WHERE class_id LIKE :classId")
-    List<Class> getClassesById(String classId);
+    List<Classroom> getClassesById(String classId);
 
     @Query("SELECT * FROM classes WHERE org_id LIKE :orgId")
-    List<Class> getClassesByOrg(String orgId);
+    List<Classroom> getClassesByOrg(String orgId);
 }

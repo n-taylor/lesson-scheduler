@@ -14,7 +14,7 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 @Entity(tableName = "classes",
         foreignKeys = @ForeignKey(entity = Organization.class, parentColumns = "org_id", childColumns = "org_id", onDelete = CASCADE),
         indices = {@Index("org_id")})
-public class Class {
+public class Classroom {
 
     @PrimaryKey
     @NonNull
@@ -29,7 +29,7 @@ public class Class {
     @ColumnInfo(name = "class_name")
     private String className;
 
-    public Class(@NonNull String orgId, @NonNull String className){
+    public Classroom(@NonNull String orgId, @NonNull String className){
         this.orgId = orgId;
         this.classId = UUID.randomUUID().toString();
         this.className = className;

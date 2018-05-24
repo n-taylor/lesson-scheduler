@@ -10,10 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.ntaylor.lessonscheduler.R;
-import com.ntaylor.lessonscheduler.util.SimpleDate;
+import com.ntaylor.lessonscheduler.room.entities.Assignment;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
 /**
  * The adapter for the upcoming weeks list to be displayed.
@@ -21,14 +20,14 @@ import java.util.Date;
  * Created by Nathan Taylor on 5/15/2018.
  */
 
-public class UpcomingAdapter extends ArrayAdapter<SimpleDate> {
+public class UpcomingAdapter extends ArrayAdapter<Assignment> {
 
-    private ArrayList<SimpleDate> dates;
+    private List<Assignment> assignments;
     private Context context;
 
-    public UpcomingAdapter(@NonNull Context context, ArrayList<SimpleDate> dates) {
-        super(context,0, dates);
-        this.dates = dates;
+    public UpcomingAdapter(@NonNull Context context, List<Assignment> assignments) {
+        super(context,0, assignments);
+        this.assignments = assignments;
         this.context = context;
     }
 
@@ -42,7 +41,7 @@ public class UpcomingAdapter extends ArrayAdapter<SimpleDate> {
 
         convertView.setBackgroundColor(Color.RED);
         TextView textView = (TextView)convertView.findViewById(R.id.upcoming_item_text);
-        textView.setText(dates.get(position).toString());
+        textView.setText(assignments.get(position).getDate());
 
         return convertView;
     }

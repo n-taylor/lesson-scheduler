@@ -73,15 +73,23 @@ public class SimpleDate {
 
     /**
      * Returns the day of the month, generally 1-31 or 1-30
-     * @return
      */
     public int getDate () { return calendar.get(Calendar.DAY_OF_MONTH); }
 
+    /**
+     * Returns the month of the year, 1-12
+     */
     public int getMonth() { return calendar.get(Calendar.MONTH) + 1; }
 
+    /**
+     * Returns the year
+     */
     public int getYear() { return calendar.get(Calendar.YEAR); }
 
-    public String parseDate(){
+    /**
+     * Formats the date in YYYY/MM/DD or MM/DD format for use with databases.
+     */
+    public String serializeDate(){
         String day = String.format(Locale.US, "%02d", getDate());
         String month = String.format(Locale.US, "%02d", getMonth());
         if (!noYear) {
@@ -92,6 +100,10 @@ public class SimpleDate {
             return month + "/" + day;
     }
 
+    /**
+     * Given a string date in the format YYYY/MM/DD (with year) or MM/DD (not with year),
+     * returns a SimpleDate with the corresponding values.
+     */
     public static SimpleDate deserializeDate(String date, boolean withYear){
         String[] units = date.split("/");
         if (withYear)

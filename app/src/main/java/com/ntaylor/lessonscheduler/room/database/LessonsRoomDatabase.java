@@ -9,12 +9,12 @@ import com.ntaylor.lessonscheduler.room.dao.AssignmentsDao;
 import com.ntaylor.lessonscheduler.room.dao.OrganizationsDao;
 import com.ntaylor.lessonscheduler.room.dao.UsersDao;
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
-import com.ntaylor.lessonscheduler.room.entities.Class;
+import com.ntaylor.lessonscheduler.room.entities.Classroom;
 import com.ntaylor.lessonscheduler.room.dao.ClassesDao;
 import com.ntaylor.lessonscheduler.room.entities.Organization;
 import com.ntaylor.lessonscheduler.room.entities.User;
 
-@Database(entities = {Class.class, Assignment.class, Organization.class, User.class}, version = 1, exportSchema = false)
+@Database(entities = {Classroom.class, Assignment.class, Organization.class, User.class}, version = 1, exportSchema = false)
 public abstract class LessonsRoomDatabase extends RoomDatabase{
 
     private static LessonsRoomDatabase INSTANCE;

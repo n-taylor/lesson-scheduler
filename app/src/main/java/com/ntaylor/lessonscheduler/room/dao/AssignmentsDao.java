@@ -33,6 +33,9 @@ public interface AssignmentsDao {
 
     @Query("SELECT * FROM assignments WHERE org_id LIKE :orgId AND date >= :date")
     List<Assignment> getFutureAssignmentByOrganization(String orgId, String date);
+
+    @Query("SELECT * FROM assignments")
+    List<Assignment> getAllAssignments();
     
     // Update ------------------------------------------------
     

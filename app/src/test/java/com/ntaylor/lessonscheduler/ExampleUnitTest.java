@@ -43,7 +43,7 @@ public class ExampleUnitTest {
     public void parseDate(){
         int today = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
         SimpleDate date = new SimpleDate();
-        assertEquals("2018/05/" + today, date.parseDate());
+        assertEquals("2018/05/" + today, date.serializeDate());
         assertEquals(date.toString(), SimpleDate.deserializeDate("2018/05/" + today, true).toString());
         assertEquals((new SimpleDate(5, 17)).toString(), SimpleDate.deserializeDate("05/17", false).toString());
     }
