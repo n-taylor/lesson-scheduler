@@ -32,6 +32,7 @@ public class GetAssignmentsTask extends AsyncTask<Void, Void, List<Assignment>> 
         this.id = id;
         this.filter = filter;
         this.timePeriod = timePeriod;
+        this.dao = dao;
     }
 
     @Override

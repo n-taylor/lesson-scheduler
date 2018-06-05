@@ -43,6 +43,9 @@ public class RoomRepository implements DataProvider {
     private List<Classroom> classes;
 
     RoomRepository(Activity activity){
+
+        observers = new ArrayList<>();
+
         LessonsRoomDatabase db = LessonsRoomDatabase.getInstance(activity);
         usersDao = db.getUsersDao();
         classesDao = db.getClassesDao();
@@ -92,14 +95,13 @@ public class RoomRepository implements DataProvider {
      */
     @Override
     public void fetchAssignments() {
-        fetchClasses();
-//        GetAssignmentsTask task = new GetAssignmentsTask(
-//                UserInfo.getUserInfo().getOrgId(),
-//                classes.get(0).getClassId(),
-//                -1,
-//                GetAssignmentsTask.FUTURE,
-//                assignmentsDao);
-//        task.execute();
+        GetAssignmentsTask task = new GetAssignmentsTask(
+                UserInfo.getUserInfo().getOrgId(),
+                "1c273b19-1610-457f-a5b7-702e7717c6b3",
+                -1,
+                GetAssignmentsTask.FUTURE,
+                assignmentsDao);
+        task.execute();
     }
 
     /**
@@ -133,14 +135,11 @@ public class RoomRepository implements DataProvider {
     public void updateClasses(List<Classroom> classes) {
         this.classes = classes;
 
-        // For testing purposes, get assignments
-        GetAssignmentsTask task = new GetAssignmentsTask(
-                UserInfo.getUserInfo().getOrgId(),
-                classes.get(0).getClassId(),
-                -1,
-                GetAssignmentsTask.FUTURE,
-                assignmentsDao);
-        task.execute();
+        // For testing purposes, delete all assignments
+
+
+        // For testing purposes, create an assignment
+//        createAssignment(UserInfo.getUserInfo().getUserId(), classes.get(0).getClassId(), new SimpleDate());
     }
 
     /**

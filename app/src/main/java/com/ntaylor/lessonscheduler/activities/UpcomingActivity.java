@@ -19,8 +19,8 @@ public class UpcomingActivity extends AppCompatActivity implements UpcomingFragm
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_upcoming);
         presenter = new UpcomingPresenter(this);
+        setContentView(R.layout.activity_upcoming);
     }
 
     /**
