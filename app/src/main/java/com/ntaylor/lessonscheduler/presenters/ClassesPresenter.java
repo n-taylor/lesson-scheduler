@@ -56,7 +56,8 @@ public class ClassesPresenter implements DataObserver{
      */
     @Override
     public void onClassesUpdated(List<Classroom> classes) {
-        adapter = new ClassesAdapter();
+        adapter = new ClassesAdapter(((Activity)view).getApplicationContext(), classes);
+        listView.setAdapter(adapter);
     }
 
     public interface ClassesView {

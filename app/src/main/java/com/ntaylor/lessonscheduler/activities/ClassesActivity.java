@@ -6,18 +6,28 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ListView;
 
 import com.ntaylor.lessonscheduler.R;
+import com.ntaylor.lessonscheduler.fragments.ClassesActivityFragment;
+import com.ntaylor.lessonscheduler.presenters.ClassesPresenter;
 
-public class ClassesActivity extends AppCompatActivity {
+public class ClassesActivity extends AppCompatActivity implements ClassesPresenter.ClassesView, ClassesActivityFragment.ClassesFragmentListener {
+
+    private ClassesPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        presenter = new ClassesPresenter(this);
         setContentView(R.layout.activity_classes);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        initializeButtons();
+    }
+
+    private void initializeButtons(){
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -28,4 +38,8 @@ public class ClassesActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onListInitialization(ListView listView) {
+        presenter.initializeListView(listView);
+    }
 }

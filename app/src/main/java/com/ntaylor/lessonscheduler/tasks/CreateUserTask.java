@@ -3,6 +3,7 @@ package com.ntaylor.lessonscheduler.tasks;
 import android.content.Context;
 import android.content.Intent;
 
+import com.ntaylor.lessonscheduler.activities.ClassesActivity;
 import com.ntaylor.lessonscheduler.activities.UpcomingActivity;
 import com.ntaylor.lessonscheduler.room.dao.OrganizationsDao;
 import com.ntaylor.lessonscheduler.room.dao.UsersDao;
@@ -62,7 +63,7 @@ public class CreateUserTask extends RoomTask<Void, Void, Boolean> {
     public void onPostExecute(Boolean successful){
             if (successful) {
                 showToast(LOGIN_SUCCESSFUL, context);
-                Intent intent = new Intent(context, UpcomingActivity.class);
+                Intent intent = new Intent(context, ClassesActivity.class);
                 context.startActivity(intent);
             }
             else
