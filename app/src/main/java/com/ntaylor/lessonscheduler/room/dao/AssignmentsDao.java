@@ -60,6 +60,6 @@ public interface AssignmentsDao {
     int deleteByClass(String classId);
 
     @Query("DELETE FROM assignments")
-    void deleteAll();
+    int deleteAll();
 
 }

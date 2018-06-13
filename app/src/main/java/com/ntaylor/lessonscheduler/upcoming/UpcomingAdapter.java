@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.ntaylor.lessonscheduler.R;
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
+import com.ntaylor.lessonscheduler.room.entities.Classroom;
+import com.ntaylor.lessonscheduler.util.SimpleDate;
 
 import java.util.List;
 
@@ -24,6 +26,8 @@ public class UpcomingAdapter extends ArrayAdapter<Assignment> {
 
     private List<Assignment> assignments;
     private Context context;
+
+    private List<Classroom> classes;
 
     public UpcomingAdapter(@NonNull Context context, List<Assignment> assignments) {
         super(context,0, assignments);
@@ -40,9 +44,18 @@ public class UpcomingAdapter extends ArrayAdapter<Assignment> {
         }
 
         convertView.setBackgroundColor(Color.RED);
-        TextView textView = (TextView)convertView.findViewById(R.id.upcoming_item_text);
+        TextView textView = (TextView)convertView.findViewById(R.id.classroom_name);
         textView.setText(assignments.get(position).getDate());
 
         return convertView;
+    }
+
+    private int getNumUnassignedClasses(SimpleDate date){
+
+        return 0;
+    }
+
+    public void setClasses(List<Classroom> classes){
+        this.classes = classes;
     }
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.widget.ListView;
 
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
+import com.ntaylor.lessonscheduler.room.entities.Classroom;
 import com.ntaylor.lessonscheduler.upcoming.UpcomingAdapter;
 import com.ntaylor.lessonscheduler.util.DataObserver;
 import com.ntaylor.lessonscheduler.util.DataProvider;
@@ -23,6 +24,9 @@ public class UpcomingPresenter implements DataObserver {
     private ListView listView;
 
     private DataProvider dataProvider;
+    private UpcomingAdapter adapter;
+
+    private List<Classroom> classes;
 
     public UpcomingPresenter(View activity){
         this.activity = activity;
@@ -44,9 +48,19 @@ public class UpcomingPresenter implements DataObserver {
     @Override
     public void onAssignmentsUpdated(List<Assignment> assignments) {
         if(dataProvider != null) {
-            UpcomingAdapter adapter = new UpcomingAdapter(((Activity) activity).getApplicationContext(), assignments);
+            adapter = new UpcomingAdapter(((Activity) activity).getApplicationContext(), assignments);
             listView.setAdapter(adapter);
         }
+    }
+
+    /**
+     * this will be called when the list of classes for the organization has been modified.
+     *
+     * @param classes The list of classes.
+     */
+    @Override
+    public void onClassesUpdated(List<Classroom> classes) {
+        this.classes = classes;
     }
 
     public interface View {

@@ -13,5 +13,9 @@
     <string name="sign_up_message">Enter UserName and Organization to Login / Sign up</string>
     <string name="user_name">User Name</string>
     <string name="org">Organization Name</string>
+    <string name="title_activity_classes">ClassesActivity</string>
+
+    <string name="classroom_title">CLASS NAME</string>
+    <string name="classroom_description">CLASSROOM DESCRIPTION TO BE PUT HERE</string>
 
 </resources>

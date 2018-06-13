@@ -1,0 +1,55 @@
+package com.ntaylor.lessonscheduler.presenters;
+
+import android.app.Activity;
+
+import com.ntaylor.lessonscheduler.room.entities.Assignment;
+import com.ntaylor.lessonscheduler.room.entities.Classroom;
+import com.ntaylor.lessonscheduler.util.DataObserver;
+import com.ntaylor.lessonscheduler.util.DataProvider;
+import com.ntaylor.lessonscheduler.util.DataProviderFactory;
+
+import java.util.List;
+
+public class ClassesPresenter implements DataObserver{
+
+    private ClassesView view;
+
+    private DataProvider dataProvider;
+
+    /**
+     * Registers this presenter as a data observer.
+     * @param activity Must also inherit from Activity
+     */
+    public ClassesPresenter(ClassesView activity){
+        this.view = activity;
+        if (activity instanceof Activity){
+            this.dataProvider = DataProviderFactory.getDataProviderInstance();
+            dataProvider.addObserver(this);
+        }
+    }
+
+
+    /**
+     * This will be called when the list of assignments has been modified.
+     *
+     * @param assignments The class-teacher assignments.
+     */
+    @Override
+    public void onAssignmentsUpdated(List<Assignment> assignments) {
+
+    }
+
+    /**
+     * this will be called when the list of classes for the organization has been modified.
+     *
+     * @param classes The list of classes.
+     */
+    @Override
+    public void onClassesUpdated(List<Classroom> classes) {
+
+    }
+
+    public interface ClassesView {
+
+    }
+}

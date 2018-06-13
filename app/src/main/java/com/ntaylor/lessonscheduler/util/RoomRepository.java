@@ -18,6 +18,7 @@ import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
 import com.ntaylor.lessonscheduler.tasks.CreateUserTask;
 import com.ntaylor.lessonscheduler.tasks.assignment.CreateAssignmentTask;
+import com.ntaylor.lessonscheduler.tasks.assignment.DeleteAssignmentsTask;
 import com.ntaylor.lessonscheduler.tasks.assignment.GetAssignmentsTask;
 import com.ntaylor.lessonscheduler.tasks.classroom.CreateClassroomTask;
 import com.ntaylor.lessonscheduler.tasks.classroom.GetClassroomsTask;
@@ -53,6 +54,13 @@ public class RoomRepository implements DataProvider {
         assignmentsDao = db.getAssignmentsDao();
 
         signUpView = activity.findViewById(R.id.sign_up_activity_id);
+    }
+
+    /**
+     * Returns the list of classes. May be null.
+     */
+    public List<Classroom> getClasses(){
+        return classes;
     }
 
     /**
@@ -95,10 +103,16 @@ public class RoomRepository implements DataProvider {
      */
     @Override
     public void fetchAssignments() {
+        // For testing purposes, delete all assignments
+//        deleteAssignmentByClass("1c273b19-1610-457f-a5b7-702e7717c6b3");
+
+        // For testing purposes, add an assignment
+//        createAssignment(UserInfo.getUserInfo().getUserId(), "1c273b19-1610-457f-a5b7-702e7717c6b3", new SimpleDate());
+
         GetAssignmentsTask task = new GetAssignmentsTask(
                 UserInfo.getUserInfo().getOrgId(),
-                "1c273b19-1610-457f-a5b7-702e7717c6b3",
-                -1,
+                null,
+                GetAssignmentsTask.BY_ORG_ID,
                 GetAssignmentsTask.FUTURE,
                 assignmentsDao);
         task.execute();
@@ -134,12 +148,12 @@ public class RoomRepository implements DataProvider {
     @Override
     public void updateClasses(List<Classroom> classes) {
         this.classes = classes;
-
-        // For testing purposes, delete all assignments
-
-
         // For testing purposes, create an assignment
 //        createAssignment(UserInfo.getUserInfo().getUserId(), classes.get(0).getClassId(), new SimpleDate());
+
+        for (DataObserver observer : observers){
+            observer.onClassesUpdated(classes);
+        }
     }
 
     /**
@@ -154,5 +168,17 @@ public class RoomRepository implements DataProvider {
         CreateAssignmentTask task = new CreateAssignmentTask(UserInfo.getUserInfo().getOrgId(), classId, teacherId, date, assignmentsDao);
         task.execute();
     }
+
+    /**
+     * Deletes all of the assignments by the given class ID
+     *
+     * @param classId The unique ID of the class to delete
+     */
+    @Override
+    public void deleteAssignmentByClass(String classId) {
+        DeleteAssignmentsTask task = new DeleteAssignmentsTask(classId, DeleteAssignmentsTask.BY_CLASS_ID, assignmentsDao);
+        task.execute();
+    }
+
 
 }

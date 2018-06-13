@@ -31,6 +31,11 @@ public interface DataProvider {
     void createClassroom(@NonNull String className, @NonNull String orgId);
 
     /**
+     * Returns the list of classes. May be null.
+     */
+    List<Classroom> getClasses();
+
+    /**
      * Adds the specified DataObserver to the list of observers to be notified when data has been updated.
      *
      * @param observer The observer to notify.
@@ -68,5 +73,12 @@ public interface DataProvider {
      * @param date The date of the class to be taught
      */
     void createAssignment(String teacherId, String classId, SimpleDate date);
+
+    /**
+     * Deletes all of the assignments by the given class ID
+     *
+     * @param classId The unique ID of the class to delete
+     */
+    void deleteAssignmentByClass(String classId);
 
 }
