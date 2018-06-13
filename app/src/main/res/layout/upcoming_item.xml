@@ -10,15 +10,15 @@
         android:padding="5dp">
 
         <include
-            android:id="@+id/class_image"
+            android:id="@+id/upcoming_numbered_box"
             layout="@layout/numbered_box"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/classroom_name"
+            app:layout_constraintEnd_toStartOf="@+id/upcoming_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/classroom_name"
+            android:id="@+id/upcoming_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="36dp"
@@ -27,12 +27,12 @@
             android:text="@string/test_value"
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/class_image"
+            app:layout_constraintStart_toEndOf="@+id/upcoming_numbered_box"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
-            android:id="@+id/classroom_description"
+            android:id="@+id/upcoming_subtext"
             android:layout_width="wrap_content"
             android:layout_height="17dp"
             android:layout_marginEnd="72dp"
@@ -41,8 +41,8 @@
             android:text="@string/test_classes_needed"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/class_image"
-            app:layout_constraintTop_toBottomOf="@+id/classroom_name" />
+            app:layout_constraintStart_toEndOf="@+id/upcoming_numbered_box"
+            app:layout_constraintTop_toBottomOf="@+id/upcoming_title" />
 
     </android.support.constraint.ConstraintLayout>
 

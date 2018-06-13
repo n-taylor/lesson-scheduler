@@ -1,4 +1,4 @@
-package com.ntaylor.lessonscheduler.upcoming;
+package com.ntaylor.lessonscheduler.classes;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -10,28 +10,19 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.ntaylor.lessonscheduler.R;
-import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
-import com.ntaylor.lessonscheduler.util.SimpleDate;
 
 import java.util.List;
 
-/**
- * The adapter for the upcoming weeks list to be displayed.
- *
- * Created by Nathan Taylor on 5/15/2018.
- */
+public class ClassesAdapter extends ArrayAdapter<Classroom> {
 
-public class UpcomingAdapter extends ArrayAdapter<Assignment> {
-
-    private List<Assignment> assignments;
+    private List<Classroom> classrooms;
     private Context context;
 
-    private List<Classroom> classes;
+    public ClassesAdapter(@NonNull Context context, List<Classroom> classesList){
+        super(context, 0, classesList);
 
-    public UpcomingAdapter(@NonNull Context context, List<Assignment> assignments) {
-        super(context,0, assignments);
-        this.assignments = assignments;
+        this.classrooms = classesList;
         this.context = context;
     }
 
@@ -45,17 +36,8 @@ public class UpcomingAdapter extends ArrayAdapter<Assignment> {
 
         convertView.setBackgroundColor(Color.RED);
         TextView textView = (TextView)convertView.findViewById(R.id.upcoming_title);
-        textView.setText(assignments.get(position).getDate());
+        textView.setText(classrooms.get(position).getClassName());
 
         return convertView;
-    }
-
-    private int getNumUnassignedClasses(SimpleDate date){
-
-        return 0;
-    }
-
-    public void setClasses(List<Classroom> classes){
-        this.classes = classes;
     }
 }

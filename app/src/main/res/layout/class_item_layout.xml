@@ -13,12 +13,12 @@
             android:id="@+id/class_image"
             layout="@layout/numbered_box"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/classroom_name"
+            app:layout_constraintEnd_toStartOf="@+id/class_name"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/classroom_name"
+            android:id="@+id/class_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="36dp"
@@ -33,7 +33,7 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
-            android:id="@+id/classroom_description"
+            android:id="@+id/class_description"
             android:layout_width="wrap_content"
             android:layout_height="17dp"
             android:layout_marginEnd="72dp"
@@ -43,7 +43,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/class_image"
-            app:layout_constraintTop_toBottomOf="@+id/classroom_name" />
+            app:layout_constraintTop_toBottomOf="@+id/class_name" />
 
     </android.support.constraint.ConstraintLayout>
 

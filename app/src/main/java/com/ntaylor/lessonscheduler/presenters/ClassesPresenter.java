@@ -1,7 +1,10 @@
 package com.ntaylor.lessonscheduler.presenters;
 
 import android.app.Activity;
+import android.widget.ListView;
 
+import com.ntaylor.lessonscheduler.activities.ClassesActivity;
+import com.ntaylor.lessonscheduler.classes.ClassesAdapter;
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
 import com.ntaylor.lessonscheduler.util.DataObserver;
@@ -13,6 +16,8 @@ import java.util.List;
 public class ClassesPresenter implements DataObserver{
 
     private ClassesView view;
+    private ListView listView;
+    private ClassesAdapter adapter;
 
     private DataProvider dataProvider;
 
@@ -26,6 +31,11 @@ public class ClassesPresenter implements DataObserver{
             this.dataProvider = DataProviderFactory.getDataProviderInstance();
             dataProvider.addObserver(this);
         }
+    }
+
+    public void initializeListView(ListView listView){
+        this.listView = listView;
+        dataProvider.fetchClasses();
     }
 
 
@@ -46,7 +56,7 @@ public class ClassesPresenter implements DataObserver{
      */
     @Override
     public void onClassesUpdated(List<Classroom> classes) {
-
+        adapter = new ClassesAdapter();
     }
 
     public interface ClassesView {
