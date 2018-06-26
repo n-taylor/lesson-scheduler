@@ -19,4 +19,9 @@
     <string name="classroom_description">CLASSROOM DESCRIPTION TO BE PUT HERE</string>
     <string name="title_activity_classroom_edit">ClassroomEditActivity</string>
 
+    <string name="classroom_edit_name_hint">Class Name</string>
+    <string name="classroom_edit_description_hint">Short Description</string>
+    <string name="classroom_edit_confirm_button">Confirm</string>
+    <string name="classroom_edit_delete_button">Delete</string>
+
 </resources>
