@@ -31,7 +31,7 @@ public class ClassesAdapter extends ArrayAdapter<Classroom> {
     public View getView(int position, View convertView, ViewGroup parent){
 
         if (convertView == null){
-            convertView = LayoutInflater.from(context).inflate(R.layout.upcoming_item, parent, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.class_item_layout, parent, false);
         }
 
         convertView.setBackgroundColor(Color.RED);

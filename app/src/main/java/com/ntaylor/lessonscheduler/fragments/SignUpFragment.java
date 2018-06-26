@@ -11,9 +11,9 @@ import com.ntaylor.lessonscheduler.R;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class SignUpActivityFragment extends Fragment {
+public class SignUpFragment extends Fragment {
 
-    public SignUpActivityFragment() {
+    public SignUpFragment() {
     }
 
     @Override

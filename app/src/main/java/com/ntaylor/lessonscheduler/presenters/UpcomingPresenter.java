@@ -42,6 +42,9 @@ public class UpcomingPresenter implements DataObserver {
      */
     public void initializeListView(ListView listView){
         this.listView = listView;
+        if (adapter != null){
+            listView.setAdapter(adapter);
+        }
         DataProviderFactory.getDataProviderInstance().fetchAssignments();
     }
 
@@ -49,7 +52,9 @@ public class UpcomingPresenter implements DataObserver {
     public void onAssignmentsUpdated(List<Assignment> assignments) {
         if(dataProvider != null) {
             adapter = new UpcomingAdapter(((Activity) activity).getApplicationContext(), assignments);
-            listView.setAdapter(adapter);
+            if (listView != null) {
+                listView.setAdapter(adapter);
+            }
         }
     }
 

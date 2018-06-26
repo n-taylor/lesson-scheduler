@@ -9,10 +9,10 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.ntaylor.lessonscheduler.R;
-import com.ntaylor.lessonscheduler.fragments.ClassesActivityFragment;
+import com.ntaylor.lessonscheduler.fragments.ClassesFragment;
 import com.ntaylor.lessonscheduler.presenters.ClassesPresenter;
 
-public class ClassesActivity extends AppCompatActivity implements ClassesPresenter.ClassesView, ClassesActivityFragment.ClassesFragmentListener {
+public class ClassesActivity extends AppCompatActivity implements ClassesPresenter.ClassesView, ClassesFragment.ClassesFragmentListener {
 
     private ClassesPresenter presenter;
 
@@ -21,8 +21,6 @@ public class ClassesActivity extends AppCompatActivity implements ClassesPresent
         super.onCreate(savedInstanceState);
         presenter = new ClassesPresenter(this);
         setContentView(R.layout.activity_classes);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         initializeButtons();
     }

@@ -4,15 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
-    tools:context=".fragments.ClassesFragment"
-    tools:showIn="@layout/activity_classes">
-
-    <ListView
-        android:id="@+id/classes_list_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </ListView>
+    tools:context=".fragments.ClassroomEditFragment"
+    tools:showIn="@layout/activity_classroom_edit">
 
 </android.support.constraint.ConstraintLayout>

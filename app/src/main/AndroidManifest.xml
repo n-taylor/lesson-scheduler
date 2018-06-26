@@ -27,6 +27,10 @@
             android:name=".activities.ClassesActivity"
             android:label="@string/title_activity_classes"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.ClassroomEditActivity"
+            android:label="@string/title_activity_classroom_edit"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>

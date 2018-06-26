@@ -4,14 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ClassesActivity">
+    tools:context=".activities.ClassroomEditActivity">
 
-    <fragment
-        android:id="@+id/classes_fragment"
-        class="com.ntaylor.lessonscheduler.fragments.ClassesFragment"
-        tools:layout="@layout/fragment_upcoming"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
@@ -19,6 +13,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_add_black_24dp" />
+        app:srcCompat="@android:drawable/ic_dialog_email" />
 
 </android.support.design.widget.CoordinatorLayout>

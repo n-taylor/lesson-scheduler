@@ -17,5 +17,6 @@
 
     <string name="classroom_title">CLASS NAME</string>
     <string name="classroom_description">CLASSROOM DESCRIPTION TO BE PUT HERE</string>
+    <string name="title_activity_classroom_edit">ClassroomEditActivity</string>
 
 </resources>
