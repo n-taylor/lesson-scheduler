@@ -31,6 +31,18 @@ public interface DataProvider {
     void createClassroom(@NonNull String className, @NonNull String orgId);
 
     /**
+     * Executes a task to update the given classroom. Fetches the updated classroom list afterwards.
+     * @param classroom The classroom to update.
+     */
+    void updateClassroom(@NonNull Classroom classroom);
+
+    /**
+     * Executes an asynchronous task the delete the given classroom. Fetches the update class list.
+     * @param classroom The classroom to delete.
+     */
+    void deleteClassroom(@NonNull Classroom classroom);
+
+    /**
      * Returns the list of classes. May be null.
      */
     List<Classroom> getClasses();
@@ -41,6 +53,14 @@ public interface DataProvider {
      * @param observer The observer to notify.
      */
     void addObserver(DataObserver observer);
+
+    /**
+     * Removes the specified DataObserver from the list of observers to be notified iff the
+     * specified DataObserver is already a member of the list.
+     *
+     * @param observer The observer to remove.
+     */
+    void removeObserver(DataObserver observer);
 
     /**
      * Retrieves an updated list of all assignments for the current user's organization. Calls updateAssignments when

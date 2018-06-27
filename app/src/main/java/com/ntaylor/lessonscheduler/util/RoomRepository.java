@@ -21,7 +21,9 @@ import com.ntaylor.lessonscheduler.tasks.assignment.CreateAssignmentTask;
 import com.ntaylor.lessonscheduler.tasks.assignment.DeleteAssignmentsTask;
 import com.ntaylor.lessonscheduler.tasks.assignment.GetAssignmentsTask;
 import com.ntaylor.lessonscheduler.tasks.classroom.CreateClassroomTask;
+import com.ntaylor.lessonscheduler.tasks.classroom.DeleteClassroomTask;
 import com.ntaylor.lessonscheduler.tasks.classroom.GetClassroomsTask;
+import com.ntaylor.lessonscheduler.tasks.classroom.UpdateClassroomTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,6 +90,28 @@ public class RoomRepository implements DataProvider {
     }
 
     /**
+     * Executes a task to update the given classroom. Fetches the updated classroom list afterwards.
+     *
+     * @param classroom The classroom to update.
+     */
+    @Override
+    public void updateClassroom(@NonNull Classroom classroom) {
+        UpdateClassroomTask task = new UpdateClassroomTask(classroom, classesDao);
+        task.execute();
+    }
+
+    /**
+     * Executes an asynchronous task the delete the given classroom. Fetches the update class list.
+     *
+     * @param classroom The classroom to delete.
+     */
+    @Override
+    public void deleteClassroom(@NonNull Classroom classroom) {
+        DeleteClassroomTask task = new DeleteClassroomTask(classroom, classesDao);
+        task.execute();
+    }
+
+    /**
      * Adds the specified DataObserver to the list of observers to be notified when data has been updated.
      *
      * @param observer The observer to notify.
@@ -95,6 +119,19 @@ public class RoomRepository implements DataProvider {
     @Override
     public void addObserver(DataObserver observer){
         this.observers.add(observer);
+    }
+
+    /**
+     * Removes the specified DataObserver from the list of observers to be notified iff the
+     * specified DataObserver is already a member of the list.
+     *
+     * @param observer The observer to remove.
+     */
+    @Override
+    public void removeObserver(DataObserver observer) {
+        if (observers.contains(observer)){
+            observers.remove(observer);
+        }
     }
 
     /**
