@@ -66,13 +66,15 @@ public class ClassroomEditPresenter implements DataObserver {
             Toast.makeText(context, NO_NAME_MESSAGE, Toast.LENGTH_SHORT).show();
         }
         else if (classroom == null){
-            // Create a new class with the given name
+            // Create a new class with the given name and finish the activity
             provider.createClassroom(name, UserInfo.getUserInfo().getOrgId());
+            view.destroySelf();
         }
         else {
-            // Update the classroom
+            // Update the classroom and finish the activity
             classroom.setClassName(name);
             provider.updateClassroom(classroom);
+            view.destroySelf();
         }
     }
 
