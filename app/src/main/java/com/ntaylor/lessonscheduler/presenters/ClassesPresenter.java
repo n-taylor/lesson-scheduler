@@ -1,9 +1,10 @@
 package com.ntaylor.lessonscheduler.presenters;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.widget.ListView;
 
-import com.ntaylor.lessonscheduler.activities.ClassesActivity;
+import com.ntaylor.lessonscheduler.activities.ClassroomEditActivity;
 import com.ntaylor.lessonscheduler.classes.ClassesAdapter;
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
@@ -41,6 +42,33 @@ public class ClassesPresenter implements DataObserver{
         dataProvider.fetchClasses();
     }
 
+    /**
+     * To be called when the user presses a classroom in the list of classes.
+     * Starts the ClassroomEditActivity with the given classroom.
+     * @param classroom The classroom selected.
+     */
+    public void onClassroomPressed(Classroom classroom){
+        if (view instanceof Activity){
+            Activity activity = (Activity)view;
+            Intent intent = new Intent(activity.getApplicationContext(), ClassroomEditActivity.class);
+            intent.putExtra(ClassroomEditActivity.CLASS_ID_KEY, classroom.getClassId());
+            intent.putExtra(ClassroomEditActivity.CLASS_NAME_KEY, classroom.getClassName());
+            activity.startActivity(intent);
+        }
+    }
+
+    /**
+     * To be called when the user presses a button to add a classroom.
+     * Starts the ClassroomEditActivity with the intention of adding a classroom.
+     */
+    public void onAddButtonPressed(){
+        if (view instanceof Activity){
+            Activity activity = (Activity)view;
+            Intent intent = new Intent(activity.getApplicationContext(), ClassroomEditActivity.class);
+            activity.startActivity(intent);
+        }
+    }
+
 
     /**
      * This will be called when the list of assignments has been modified.
@@ -59,7 +87,7 @@ public class ClassesPresenter implements DataObserver{
      */
     @Override
     public void onClassesUpdated(List<Classroom> classes) {
-        adapter = new ClassesAdapter(((Activity)view).getApplicationContext(), classes);
+        adapter = new ClassesAdapter(((Activity)view).getApplicationContext(), classes, this);
         if (listView != null) {
             listView.setAdapter(adapter);
         }

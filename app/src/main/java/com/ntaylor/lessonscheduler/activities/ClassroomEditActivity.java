@@ -7,16 +7,20 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.ntaylor.lessonscheduler.R;
+import com.ntaylor.lessonscheduler.fragments.ClassroomEditFragment;
 import com.ntaylor.lessonscheduler.presenters.ClassroomEditPresenter;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
+import com.ntaylor.lessonscheduler.util.UserInfo;
 
 /**
  * Updates, deletes or adds a classroom to the organization's list of classrooms.
- * To update a classroom, add it to this activity's bundle under the key CLASSROOM_KEY.
+ * To update a classroom, add it to this activity's bundle under the key CLASS_ID_KEY.
  */
-public class ClassroomEditActivity extends AppCompatActivity implements ClassroomEditPresenter.ClassroomEditView {
+public class ClassroomEditActivity extends AppCompatActivity implements ClassroomEditPresenter.ClassroomEditView,
+        ClassroomEditFragment.ClassroomEditFragmentListener {
 
-    public static final String CLASSROOM_KEY = "class_key";
+    public static final String CLASS_ID_KEY = "class_id_key";
+    public static final String CLASS_NAME_KEY = "class_name_key";
 
     private ClassroomEditPresenter presenter;
     private Button deleteButton;
@@ -27,9 +31,9 @@ public class ClassroomEditActivity extends AppCompatActivity implements Classroo
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_classroom_edit);
         initializeViews();
         initializePresenter();
-        setContentView(R.layout.activity_classroom_edit);
         initializeButtons();
     }
 
@@ -39,11 +43,14 @@ public class ClassroomEditActivity extends AppCompatActivity implements Classroo
      */
     private void initializePresenter(){
         Bundle bundle = getIntent().getExtras();
-        if (bundle == null || bundle.isEmpty() || !bundle.containsKey(CLASSROOM_KEY)) {
+        if (bundle == null || bundle.isEmpty() || !bundle.containsKey(CLASS_ID_KEY) || !bundle.containsKey(CLASS_NAME_KEY)) {
             presenter = new ClassroomEditPresenter(this, null);
         }
         else {
-            Classroom room = (Classroom)bundle.get(CLASSROOM_KEY);
+            String classId = (String)bundle.get(CLASS_ID_KEY);
+            String className = (String)bundle.get(CLASS_NAME_KEY);
+            Classroom room = new Classroom(UserInfo.getUserInfo().getOrgId(), className);
+            room.setClassId(classId);
             presenter = new ClassroomEditPresenter(this, room);
         }
     }
