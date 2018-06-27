@@ -1,7 +1,9 @@
 package com.ntaylor.lessonscheduler.presenters;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.support.design.widget.Snackbar;
 import android.view.View;
 import android.widget.Toast;
@@ -19,6 +21,9 @@ import java.util.List;
 public class ClassroomEditPresenter implements DataObserver {
 
     private static final String NO_NAME_MESSAGE = "Please enter a name for the class";
+    private static final String CONFIRM_DELETE = "Are you sure you want to delete this class?";
+    private static final String YES_DELETE = "Delete";
+    private static final String NO_DELETE = "Cancel";
 
     private ClassroomEditView view;
     private DataProvider provider;
@@ -43,6 +48,21 @@ public class ClassroomEditPresenter implements DataObserver {
      * To be called when the delete button is pressed. Removes the classroom from the db.
      */
     public void onDeleteClicked(Context context){
+
+        // Show a dialog confirming that the user wants to delete the classroom
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(context);
+        dialogBuilder.setMessage(CONFIRM_DELETE);
+        dialogBuilder.setNegativeButton(NO_DELETE, null);
+        dialogBuilder.setPositiveButton(YES_DELETE, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                deleteClassroom();
+            }
+        });
+        dialogBuilder.create().show();
+    }
+
+    private void deleteClassroom(){
         provider.removeObserver(this);
         if (classroom == null){
             // Just finish the activity
