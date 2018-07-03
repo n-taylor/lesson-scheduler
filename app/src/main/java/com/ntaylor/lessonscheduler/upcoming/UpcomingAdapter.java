@@ -43,7 +43,7 @@ public class UpcomingAdapter extends ArrayAdapter<Assignment> {
             convertView = LayoutInflater.from(context).inflate(R.layout.upcoming_item, parent, false);
         }
 
-        convertView.setBackgroundColor(Color.RED);
+//        convertView.setBackgroundColor(Color.RED);
         TextView textView = (TextView)convertView.findViewById(R.id.upcoming_title);
         textView.setText(assignments.get(position).getDate());
 

@@ -5,20 +5,30 @@
     <string name="test_classes_needed">UNFILLED CLASSES GO HERE</string>
     <string name="init_box_value">3</string>
     <string name="action_settings">Settings</string>
+    <string name="action_account">Account Info</string>
 
     <string name="title_activity_sign_up">SignUpActivity</string>
     <string name="sign_up_message">Enter UserName and Organization to Login / Sign up</string>
     <string name="user_name">User Name</string>
     <string name="org">Organization Name</string>
-    <string name="title_activity_classes">ClassesActivity</string>
+    <string name="title_activity_classes">Classes</string>
 
     <string name="classroom_title">CLASS NAME</string>
     <string name="classroom_description">CLASSROOM DESCRIPTION TO BE PUT HERE</string>
-    <string name="title_activity_classroom_edit">ClassroomEditActivity</string>
+    <string name="title_activity_classroom_edit">Add/Edit Class</string>
 
     <string name="classroom_edit_name_hint">Class Name</string>
     <string name="classroom_edit_description_hint">Short Description</string>
     <string name="classroom_edit_confirm_button">Confirm</string>
     <string name="classroom_edit_delete_button">Delete</string>
+
+    <string name="title_activity_account">AccountActivity</string>
+    <string name="user_image_descripton">User Image</string>
+    <string name="account_user_name_label">User Name</string>
+    <string name="account_org_label">Organization</string>
+    <string name="account_org_default">Your organization</string>
+    <string name="account_last_lesson_label">Last Taught</string>
+    <string name="account_last_lesson_default">July 3, 2018</string>
+    <string name="account_save_button_label">Apply Changes</string>
 
 </resources>

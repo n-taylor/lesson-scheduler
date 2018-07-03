@@ -2,8 +2,6 @@ package com.ntaylor.lessonscheduler;
 
 import android.os.AsyncTask;
 
-import com.ntaylor.lessonscheduler.tasks.CreateUserTask;
-
 import org.junit.Test;
 
 public class RoomUnitTest {

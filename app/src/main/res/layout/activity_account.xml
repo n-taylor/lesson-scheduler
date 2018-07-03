@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ClassesActivity">
+    tools:context=".activities.AccountActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -16,20 +16,11 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"/>
 
     <fragment
-        android:id="@+id/classes_fragment"
-        class="com.ntaylor.lessonscheduler.fragments.ClassesFragment"
-        tools:layout="@layout/fragment_upcoming"
+        android:id="@+id/account_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="?android:attr/actionBarSize"/>
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:backgroundTint="@color/colorPrimary"
-        app:srcCompat="@drawable/ic_add_black_24dp" />
+        android:layout_marginTop="?android:attr/actionBarSize"
+        tools:layout="@layout/fragment_account"
+        class="com.ntaylor.lessonscheduler.fragments.AccountFragment" />
 
 </android.support.design.widget.CoordinatorLayout>

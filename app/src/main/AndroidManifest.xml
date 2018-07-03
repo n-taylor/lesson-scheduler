@@ -26,11 +26,16 @@
         <activity
             android:name=".activities.ClassesActivity"
             android:label="@string/title_activity_classes"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activities.ClassroomEditActivity"
             android:label="@string/title_activity_classroom_edit"
             android:theme="@style/AppTheme" />
+        <activity
+            android:name=".activities.AccountActivity"
+            android:label="@string/title_activity_account"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".activities.BaseActivity"></activity>
     </application>
 
 </manifest>

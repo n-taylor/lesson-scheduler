@@ -1,9 +1,11 @@
 package com.ntaylor.lessonscheduler.presenters;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.widget.ListView;
 
+import com.ntaylor.lessonscheduler.activities.AccountActivity;
 import com.ntaylor.lessonscheduler.activities.ClassroomEditActivity;
 import com.ntaylor.lessonscheduler.classes.ClassesAdapter;
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
@@ -40,6 +42,14 @@ public class ClassesPresenter implements DataObserver{
             listView.setAdapter(adapter);
         }
         dataProvider.fetchClasses();
+    }
+
+    /**
+     * Displays account information for the current user.
+     */
+    public void onAccountItemPressed(Context context){
+        Intent intent = new Intent(context, AccountActivity.class);
+        context.startActivity(intent);
     }
 
     /**

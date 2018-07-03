@@ -1,8 +1,7 @@
-package com.ntaylor.lessonscheduler.tasks;
+package com.ntaylor.lessonscheduler.tasks.util;
 
 import android.content.Context;
 import android.os.AsyncTask;
-import android.view.View;
 import android.widget.Toast;
 
 public abstract class RoomTask<P, U, T> extends AsyncTask<P, U, T> {

@@ -9,4 +9,6 @@
     <dimen name="message_text_size">30sp</dimen>
 
     <dimen name="classroom_edit_button_size">100dp</dimen>
+
+    <dimen name="account_label_size">18sp</dimen>
 </resources>

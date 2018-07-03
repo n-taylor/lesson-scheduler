@@ -2,13 +2,10 @@ package com.ntaylor.lessonscheduler.util;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.ntaylor.lessonscheduler.R;
-import com.ntaylor.lessonscheduler.activities.UpcomingActivity;
 import com.ntaylor.lessonscheduler.room.dao.AssignmentsDao;
 import com.ntaylor.lessonscheduler.room.dao.ClassesDao;
 import com.ntaylor.lessonscheduler.room.dao.OrganizationsDao;
@@ -16,7 +13,7 @@ import com.ntaylor.lessonscheduler.room.dao.UsersDao;
 import com.ntaylor.lessonscheduler.room.database.LessonsRoomDatabase;
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
-import com.ntaylor.lessonscheduler.tasks.CreateUserTask;
+import com.ntaylor.lessonscheduler.tasks.user.CreateUserTask;
 import com.ntaylor.lessonscheduler.tasks.assignment.CreateAssignmentTask;
 import com.ntaylor.lessonscheduler.tasks.assignment.DeleteAssignmentsTask;
 import com.ntaylor.lessonscheduler.tasks.assignment.GetAssignmentsTask;

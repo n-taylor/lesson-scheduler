@@ -39,7 +39,7 @@ public class ClassesAdapter extends ArrayAdapter<Classroom> {
         }
 
         final int index = position;
-        convertView.setBackgroundColor(Color.RED);
+//        convertView.setBackgroundColor(Color.RED);
         TextView classNameTextView = (TextView)convertView.findViewById(R.id.class_name);
         classNameTextView.setText(classrooms.get(position).getClassName());
 
