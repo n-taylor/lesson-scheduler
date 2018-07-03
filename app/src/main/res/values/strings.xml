@@ -12,6 +12,7 @@
     <string name="user_name">User Name</string>
     <string name="org">Organization Name</string>
     <string name="title_activity_classes">Classes</string>
+    <string name="classes_menu_title">Classes</string>
 
     <string name="classroom_title">CLASS NAME</string>
     <string name="classroom_description">CLASSROOM DESCRIPTION TO BE PUT HERE</string>
@@ -22,7 +23,7 @@
     <string name="classroom_edit_confirm_button">Confirm</string>
     <string name="classroom_edit_delete_button">Delete</string>
 
-    <string name="title_activity_account">AccountActivity</string>
+    <string name="title_activity_account">Account Info</string>
     <string name="user_image_descripton">User Image</string>
     <string name="account_user_name_label">User Name</string>
     <string name="account_org_label">Organization</string>

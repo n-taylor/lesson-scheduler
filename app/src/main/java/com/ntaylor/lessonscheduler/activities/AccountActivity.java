@@ -11,10 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.ntaylor.lessonscheduler.R;
+import com.ntaylor.lessonscheduler.presenters.AccountPresenter;
 
-public class AccountActivity extends AppCompatActivity {
+public class AccountActivity extends AppCompatActivity implements AccountPresenter.AccountView{
 
-
+    private AccountPresenter presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,8 @@ public class AccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account);
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
+
+        this.presenter = new AccountPresenter(this);
     }
 
     @Override
