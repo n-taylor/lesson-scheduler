@@ -1,5 +1,6 @@
 package com.ntaylor.lessonscheduler.util;
 
+import com.ntaylor.lessonscheduler.room.entities.User;
 import com.ntaylor.lessonscheduler.tasks.classroom.CreateClassroomTask;
 
 /**
@@ -27,6 +28,10 @@ public class UserInfo {
         userInfo = new UserInfo(userId, userName, orgId, orgName);
     }
 
+    public static void changeUserInfo(User user, String orgName){
+        userInfo = new UserInfo(user.getUserId(), user.getUserName(), user.getOrgId(), orgName);
+    }
+
     /**
      * startUserInfoSession(...) must be called at 'login' before calling this method. If it has
      * not been called, then this method will return null. Otherwise returns the singleton instance
@@ -48,6 +53,8 @@ public class UserInfo {
     public String getOrgId() { return this.orgId; }
 
     public String getUserName() { return this.userName; }
+
+    public void setUserName(String name) { this.userName = name; }
 
     public String getOrgName() { return this.orgName; }
 

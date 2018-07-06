@@ -11,4 +11,5 @@
     <dimen name="classroom_edit_button_size">100dp</dimen>
 
     <dimen name="account_label_size">18sp</dimen>
+    <dimen name="account_button_width">180dp</dimen>
 </resources>

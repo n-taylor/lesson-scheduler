@@ -31,5 +31,6 @@
     <string name="account_last_lesson_label">Last Taught</string>
     <string name="account_last_lesson_default">July 3, 2018</string>
     <string name="account_save_button_label">Apply Changes</string>
+    <string name="account_cancel_button_label">Cancel</string>
 
 </resources>

@@ -103,6 +103,17 @@ public class ClassesPresenter implements DataObserver{
         }
     }
 
+    /**
+     * To be called when an attempt to modify the user name has been fully attempted.
+     *
+     * @param successful true if the username was changed, false if not valid or already taken.
+     * @param name
+     */
+    @Override
+    public void onUserNameChanged(boolean successful, String name) {
+
+    }
+
     public interface ClassesView {
 
     }

@@ -13,6 +13,7 @@ import com.ntaylor.lessonscheduler.room.dao.UsersDao;
 import com.ntaylor.lessonscheduler.room.database.LessonsRoomDatabase;
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
+import com.ntaylor.lessonscheduler.tasks.user.ChangeUsernameTask;
 import com.ntaylor.lessonscheduler.tasks.user.CreateUserTask;
 import com.ntaylor.lessonscheduler.tasks.assignment.CreateAssignmentTask;
 import com.ntaylor.lessonscheduler.tasks.assignment.DeleteAssignmentsTask;
@@ -72,6 +73,31 @@ public class RoomRepository implements DataProvider {
     @Override
     public void createUser(Context context, final String userName, final String orgName) {
         new CreateUserTask(context, usersDao, organizationsDao, userName, orgName).execute();
+    }
+
+    /**
+     * If the given username is unchanged or empty, shows an error message. Otherwise, updates the user
+     *
+     * @param context
+     * @param name The new username
+     */
+    @Override
+    public void attemptChangeUserName(Context context, String name) {
+        ChangeUsernameTask task = new ChangeUsernameTask(context, name, usersDao);
+        task.execute();
+    }
+
+    /**
+     * To be called when a change of username has been attempted.
+     *
+     * @param changed true if the username was successfully changed. False otherwise.
+     * @param name
+     */
+    @Override
+    public void onUserNameChanged(boolean changed, String name) {
+        for(DataObserver observer : observers){
+            observer.onUserNameChanged(changed, name);
+        }
     }
 
     /**

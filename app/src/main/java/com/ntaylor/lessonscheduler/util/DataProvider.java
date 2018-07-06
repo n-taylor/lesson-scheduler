@@ -1,12 +1,10 @@
 package com.ntaylor.lessonscheduler.util;
 
 import android.content.Context;
-import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
-import com.ntaylor.lessonscheduler.room.entities.User;
 
 import java.util.List;
 
@@ -22,6 +20,22 @@ public interface DataProvider {
      * @param orgName The name of the organization.
      */
     void createUser(Context context, String userName, String orgName);
+
+    /**
+     * If the given username is unchanged or empty, shows an error message. Otherwise, updates the user
+     *
+     * @param context
+     * @param name The new username
+     */
+    void attemptChangeUserName(Context context, String name);
+
+    /**
+     * To be called when a change of username has been attempted.
+     *
+     * @param changed true if the username was successfully changed. False otherwise.
+     * @param name The requested new username
+     */
+    void onUserNameChanged(boolean changed, String name);
 
     /**
      * Inserts a new classroom into the classes table with the specified organization. Generates a unique ID for the class.
