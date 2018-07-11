@@ -1,10 +1,11 @@
 package com.ntaylor.lessonscheduler.util;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Locale;
 
 /**
- * Defines dates in a more simple way.
+ * A wrapper class of Calendar that defines dates in a more simple way.
  *
  * Created by Nathan Taylor on 5/15/2018.
  */
@@ -110,5 +111,22 @@ public class SimpleDate {
             return new SimpleDate(Integer.parseInt(units[0]), Integer.parseInt(units[1]), Integer.parseInt(units[2]));
         else
             return new SimpleDate(Integer.parseInt(units[0]), Integer.parseInt(units[1]));
+    }
+
+    /**
+     * If the current date is a Sunday, returns the current date. Otherwise, returns the SimpleDate of
+     * the next date that is a Sunday.
+     */
+    public SimpleDate upcomingSunday(){
+        int weekday = calendar.get(Calendar.DAY_OF_WEEK);
+        // If today is Sunday, return a SimpleDate with today's info
+        if (weekday == Calendar.SUNDAY){
+            return new SimpleDate();
+        }
+        else {
+            // Add on the necessary days to get the next Sunday
+            int offset = 8 - weekday;
+            return new SimpleDate(getYear(), getMonth(), getDate()+offset);
+        }
     }
 }

@@ -10,6 +10,7 @@ import com.ntaylor.lessonscheduler.R;
 import com.ntaylor.lessonscheduler.fragments.ClassroomEditFragment;
 import com.ntaylor.lessonscheduler.presenters.ClassroomEditPresenter;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
+import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 import com.ntaylor.lessonscheduler.util.UserInfo;
 
 /**
@@ -35,6 +36,14 @@ public class ClassroomEditActivity extends AppCompatActivity implements Classroo
         initializeViews();
         initializePresenter();
         initializeButtons();
+    }
+
+    @Override
+    protected void onDestroy(){
+        if (presenter != null){
+            DataProviderFactory.getDataProviderInstance().removeObserver(presenter);
+        }
+        super.onDestroy();
     }
 
     /**

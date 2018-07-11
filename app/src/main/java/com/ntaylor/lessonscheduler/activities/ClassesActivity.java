@@ -14,10 +14,13 @@ import android.widget.ListView;
 import com.ntaylor.lessonscheduler.R;
 import com.ntaylor.lessonscheduler.fragments.ClassesFragment;
 import com.ntaylor.lessonscheduler.presenters.ClassesPresenter;
+import com.ntaylor.lessonscheduler.util.DataProvider;
+import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 
-public class ClassesActivity extends AppCompatActivity implements ClassesPresenter.ClassesView, ClassesFragment.ClassesFragmentListener {
+public class ClassesActivity extends AppCompatActivity implements ClassesPresenter.ClassesView {
 
     private ClassesPresenter presenter;
+    private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,15 @@ public class ClassesActivity extends AppCompatActivity implements ClassesPresent
         Toolbar toolbar = (Toolbar)findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
         initializeButtons();
+        initializeListView();
+    }
+
+    @Override
+    protected void onDestroy(){
+        if (presenter != null){
+            DataProviderFactory.getDataProviderInstance().removeObserver(presenter);
+        }
+        super.onDestroy();
     }
 
     private void initializeButtons(){
@@ -39,8 +51,11 @@ public class ClassesActivity extends AppCompatActivity implements ClassesPresent
         });
     }
 
-    @Override
-    public void onListInitialization(ListView listView) {
+    /**
+     * Sets up the list view using the listener
+     */
+    private void initializeListView(){
+        listView = (ListView)findViewById(R.id.classes_list_view);
         presenter.initializeListView(listView);
     }
 

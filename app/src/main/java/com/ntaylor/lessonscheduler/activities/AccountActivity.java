@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.ntaylor.lessonscheduler.R;
 import com.ntaylor.lessonscheduler.presenters.AccountPresenter;
+import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 
 public class AccountActivity extends AppCompatActivity implements AccountPresenter.AccountView{
 
@@ -35,6 +36,14 @@ public class AccountActivity extends AppCompatActivity implements AccountPresent
         initializeViews();
         this.presenter = new AccountPresenter(this);
         initializeButtons();
+    }
+
+    @Override
+    protected void onDestroy(){
+        if (presenter != null){
+            DataProviderFactory.getDataProviderInstance().removeObserver(presenter);
+        }
+        super.onDestroy();
     }
 
     /**

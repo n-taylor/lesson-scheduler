@@ -15,9 +15,6 @@ import com.ntaylor.lessonscheduler.R;
  */
 public class ClassesFragment extends Fragment {
 
-    private ClassesFragmentListener listener;
-    private ListView listView;
-
     public ClassesFragment() {
     }
 
@@ -25,42 +22,5 @@ public class ClassesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_classes, container, false);
-    }
-
-
-    @Override
-    public void onStart(){
-        initializeListView();
-        super.onStart();
-    }
-
-    /**
-     * Sets up the list view using the listener
-     */
-    private void initializeListView(){
-        listView = (ListView) getActivity().findViewById(R.id.classes_list_view);
-        listener.onListInitialization(listView);
-    }
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof ClassesFragmentListener) {
-            listener = (ClassesFragmentListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement ClassesFragmentListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        listener = null;
-    }
-
-    public interface ClassesFragmentListener {
-        void onListInitialization(ListView listView);
     }
 }

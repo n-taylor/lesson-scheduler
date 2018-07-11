@@ -9,6 +9,7 @@ import com.ntaylor.lessonscheduler.fragments.UpcomingFragment;
 import com.ntaylor.lessonscheduler.presenters.UpcomingPresenter;
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.util.DataObserver;
+import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 
 import java.util.List;
 
@@ -21,6 +22,14 @@ public class UpcomingActivity extends AppCompatActivity implements UpcomingFragm
         super.onCreate(savedInstanceState);
         presenter = new UpcomingPresenter(this);
         setContentView(R.layout.activity_upcoming);
+    }
+
+    @Override
+    protected void onDestroy(){
+        if (presenter != null){
+            DataProviderFactory.getDataProviderInstance().removeObserver(presenter);
+        }
+        super.onDestroy();
     }
 
     /**
