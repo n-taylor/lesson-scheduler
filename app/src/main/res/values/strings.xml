@@ -34,5 +34,6 @@
     <string name="account_cancel_button_label">Cancel</string>
 
     <string name="upcoming_title">Upcoming Weeks</string>
+    <string name="title_activity_assign">AssignActivity</string>
 
 </resources>

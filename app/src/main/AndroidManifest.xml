@@ -29,13 +29,17 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".activities.ClassroomEditActivity"
-            android:noHistory="true"
             android:label="@string/title_activity_classroom_edit"
+            android:noHistory="true"
             android:theme="@style/AppTheme" />
         <activity
             android:name=".activities.AccountActivity"
-            android:noHistory="true"
             android:label="@string/title_activity_account"
+            android:noHistory="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".AssignActivity"
+            android:label="@string/title_activity_assign"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 
