@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="16dp"
-        android:contentDescription="@string/user_image_descripton"
+        android:contentDescription="@string/user_image_description"
         android:src="@drawable/ic_mood_black_24dp"
         app:layout_constraintEnd_toStartOf="@+id/vertical"
         app:layout_constraintTop_toTopOf="parent" />

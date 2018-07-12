@@ -1,6 +1,7 @@
 package com.ntaylor.lessonscheduler.presenters;
 
 import android.app.Activity;
+import android.content.Context;
 import android.widget.ListView;
 
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
@@ -20,7 +21,7 @@ import java.util.List;
  * Created by Nathan Taylor on 5/14/2018.
  */
 
-public class UpcomingPresenter implements DataObserver {
+public class UpcomingPresenter extends Presenter implements DataObserver {
 
     private View activity;
     private ListView listView;
@@ -44,18 +45,7 @@ public class UpcomingPresenter implements DataObserver {
         }
     }
 
-    private void initializeDates(){
-        SimpleDate sunday = new SimpleDate().upcomingSunday();
-        dates = new ArrayList<>();
-        for (int i = 0; i < weeks_to_show; i++){
-            dates.add(sunday.addWeeks(i));
-        }
-    }
-
-    private void initializeAdapter(){
-        adapter = new UpcomingAdapter(((Activity)activity).getApplicationContext(), dates, assignments, classes);
-        listView.setAdapter(adapter);
-    }
+    // Public methods =======================================================================
 
     /**
      * Allows the list view to be filled with incoming data
@@ -65,6 +55,8 @@ public class UpcomingPresenter implements DataObserver {
         DataProviderFactory.getDataProviderInstance().fetchAssignments();
         DataProviderFactory.getDataProviderInstance().fetchClasses();
     }
+
+    // Overrides ============================================================================
 
     @Override
     public void onAssignmentsUpdated(List<Assignment> assignments) {
@@ -92,6 +84,21 @@ public class UpcomingPresenter implements DataObserver {
     @Override
     public void onUserNameChanged(boolean successful, String name) {
 
+    }
+
+    // Private utility methods =============================================================
+
+    private void initializeDates(){
+        SimpleDate sunday = new SimpleDate().upcomingSunday();
+        dates = new ArrayList<>();
+        for (int i = 0; i < weeks_to_show; i++){
+            dates.add(sunday.addWeeks(i));
+        }
+    }
+
+    private void initializeAdapter() {
+        adapter = new UpcomingAdapter(((Activity) activity).getApplicationContext(), dates, assignments, classes);
+        listView.setAdapter(adapter);
     }
 
     public interface View {

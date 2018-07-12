@@ -24,7 +24,7 @@
     <string name="classroom_edit_delete_button">Delete</string>
 
     <string name="title_activity_account">Account Info</string>
-    <string name="user_image_descripton">User Image</string>
+    <string name="user_image_description">User Image</string>
     <string name="account_user_name_label">User Name</string>
     <string name="account_org_label">Organization</string>
     <string name="account_org_default">Your organization</string>
@@ -32,5 +32,7 @@
     <string name="account_last_lesson_default">July 3, 2018</string>
     <string name="account_save_button_label">Apply Changes</string>
     <string name="account_cancel_button_label">Cancel</string>
+
+    <string name="upcoming_title">Upcoming Weeks</string>
 
 </resources>
