@@ -9,13 +9,8 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.ntaylor.lessonscheduler.R;
-import com.ntaylor.lessonscheduler.fragments.UpcomingFragment;
 import com.ntaylor.lessonscheduler.presenters.UpcomingPresenter;
-import com.ntaylor.lessonscheduler.room.entities.Assignment;
-import com.ntaylor.lessonscheduler.util.DataObserver;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
-
-import java.util.List;
 
 public class UpcomingActivity extends AppCompatActivity implements UpcomingPresenter.View {
 
@@ -47,18 +42,18 @@ public class UpcomingActivity extends AppCompatActivity implements UpcomingPrese
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater mi = getMenuInflater();
-        mi.inflate(R.menu.menu_classes, menu);
+        mi.inflate(R.menu.menu_upcoming, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_classes:
+            case R.id.upcoming_action_classes:
                 // User chose the "Settings" item, show the app settings UI...
                 presenter.onClassesItemPressed(this);
                 return true;
-            case R.id.action_account:
+            case R.id.upcoming_action_account:
                 presenter.onAccountItemPressed(this);
                 return true;
             default:

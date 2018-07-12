@@ -16,7 +16,7 @@ import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 
 import java.util.List;
 
-public class ClassesPresenter implements DataObserver{
+public class ClassesPresenter extends Presenter implements DataObserver{
 
     private ClassesView view;
     private ListView listView;

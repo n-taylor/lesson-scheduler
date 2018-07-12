@@ -2,7 +2,6 @@ package com.ntaylor.lessonscheduler.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -12,9 +11,7 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.ntaylor.lessonscheduler.R;
-import com.ntaylor.lessonscheduler.fragments.ClassesFragment;
 import com.ntaylor.lessonscheduler.presenters.ClassesPresenter;
-import com.ntaylor.lessonscheduler.util.DataProvider;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 
 public class ClassesActivity extends AppCompatActivity implements ClassesPresenter.ClassesView {
@@ -69,10 +66,11 @@ public class ClassesActivity extends AppCompatActivity implements ClassesPresent
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
+            case R.id.classes_action_upcoming:
                 // User chose the "Settings" item, show the app settings UI...
+                presenter.onUpcomingItemPressed(this);
                 return true;
-            case R.id.action_account:
+            case R.id.classes_action_account:
                 presenter.onAccountItemPressed(this);
                 return true;
             default:

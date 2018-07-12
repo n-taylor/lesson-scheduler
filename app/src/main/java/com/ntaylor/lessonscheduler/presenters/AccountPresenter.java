@@ -15,7 +15,7 @@ import com.ntaylor.lessonscheduler.util.UserInfo;
 
 import java.util.List;
 
-public class AccountPresenter implements DataObserver {
+public class AccountPresenter extends Presenter implements DataObserver {
 
     private static final String EMPTY_NAME = "Please enter a non-empty name";
     private static final String SAME_NAME = "No changes found";

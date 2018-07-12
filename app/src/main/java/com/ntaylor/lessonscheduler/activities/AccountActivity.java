@@ -1,9 +1,6 @@
 package com.ntaylor.lessonscheduler.activities;
 
-import android.accounts.Account;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -85,10 +82,10 @@ public class AccountActivity extends AppCompatActivity implements AccountPresent
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                // User chose the "Settings" item, show the app settings UI...
+            case R.id.account_action_upcoming:
+                presenter.onUpcomingItemPressed(this);
                 return true;
-            case R.id.action_classes:
+            case R.id.account_action_classes:
                 presenter.onClassesActionPressed(AccountActivity.this);
                 return true;
             default:
