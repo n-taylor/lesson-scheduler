@@ -72,6 +72,10 @@ public class SimpleDate {
         return new SimpleDate(getYear(), getMonth(), getDate()+7);
     }
 
+    public SimpleDate addWeeks(int numWeeks) {
+        return new SimpleDate(getYear(), getMonth(), getDate() + (7*numWeeks));
+    }
+
     /**
      * Returns the day of the month, generally 1-31 or 1-30
      */

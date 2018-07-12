@@ -50,6 +50,7 @@ public class ClassesPresenter implements DataObserver{
     public void onAccountItemPressed(Context context){
         Intent intent = new Intent(context, AccountActivity.class);
         context.startActivity(intent);
+        view.destroySelf();
     }
 
     /**
@@ -115,6 +116,9 @@ public class ClassesPresenter implements DataObserver{
     }
 
     public interface ClassesView {
-
+        /**
+         * Call finish()
+         */
+        void destroySelf();
     }
 }

@@ -9,7 +9,9 @@ import com.ntaylor.lessonscheduler.upcoming.UpcomingAdapter;
 import com.ntaylor.lessonscheduler.util.DataObserver;
 import com.ntaylor.lessonscheduler.util.DataProvider;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
+import com.ntaylor.lessonscheduler.util.SimpleDate;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,9 +29,14 @@ public class UpcomingPresenter implements DataObserver {
     private UpcomingAdapter adapter;
 
     private List<Classroom> classes;
+    private List<Assignment> assignments;
+    private ArrayList<SimpleDate> dates;
+
+    private static final int weeks_to_show = 5;
 
     public UpcomingPresenter(View activity){
         this.activity = activity;
+        initializeDates();
         if (activity instanceof Activity){
             Activity act = (Activity)activity;
             dataProvider = DataProviderFactory.getDataProviderInstance();
@@ -37,25 +44,32 @@ public class UpcomingPresenter implements DataObserver {
         }
     }
 
+    private void initializeDates(){
+        SimpleDate sunday = new SimpleDate().upcomingSunday();
+        dates = new ArrayList<>();
+        for (int i = 0; i < weeks_to_show; i++){
+            dates.add(sunday.addWeeks(i));
+        }
+    }
+
+    private void initializeAdapter(){
+        adapter = new UpcomingAdapter(((Activity)activity).getApplicationContext(), dates, assignments, classes);
+        listView.setAdapter(adapter);
+    }
+
     /**
      * Allows the list view to be filled with incoming data
      */
     public void initializeListView(ListView listView){
         this.listView = listView;
-        if (adapter != null){
-            listView.setAdapter(adapter);
-        }
         DataProviderFactory.getDataProviderInstance().fetchAssignments();
+        DataProviderFactory.getDataProviderInstance().fetchClasses();
     }
 
     @Override
     public void onAssignmentsUpdated(List<Assignment> assignments) {
-        if(dataProvider != null) {
-            adapter = new UpcomingAdapter(((Activity) activity).getApplicationContext(), assignments);
-            if (listView != null) {
-                listView.setAdapter(adapter);
-            }
-        }
+        this.assignments = assignments;
+        initializeAdapter();
     }
 
     /**
@@ -66,6 +80,7 @@ public class UpcomingPresenter implements DataObserver {
     @Override
     public void onClassesUpdated(List<Classroom> classes) {
         this.classes = classes;
+        initializeAdapter();
     }
 
     /**

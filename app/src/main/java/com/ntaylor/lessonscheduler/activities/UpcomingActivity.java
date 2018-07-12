@@ -13,30 +13,35 @@ import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 
 import java.util.List;
 
-public class UpcomingActivity extends AppCompatActivity implements UpcomingFragment.UpcomingFragmentListener, UpcomingPresenter.View {
+public class UpcomingActivity extends AppCompatActivity implements UpcomingPresenter.View {
 
     private UpcomingPresenter presenter;
+
+    private ListView listView;
+
+    // Overrides ========================================================================
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         presenter = new UpcomingPresenter(this);
         setContentView(R.layout.activity_upcoming);
+
+        initializeListView();
     }
 
     @Override
-    protected void onDestroy(){
-        if (presenter != null){
+    protected void onDestroy() {
+        if (presenter != null) {
             DataProviderFactory.getDataProviderInstance().removeObserver(presenter);
         }
         super.onDestroy();
     }
 
-    /**
-     * Retrieves the appropriate data for the list and hooks it up to an adapter.
-     */
-    @Override
-    public void onListInitialization(ListView listView) {
+    // Private Methods ===================================================================
+
+    private void initializeListView(){
+        listView = (ListView)findViewById(R.id.upcoming_list_view);
         presenter.initializeListView(listView);
     }
 }

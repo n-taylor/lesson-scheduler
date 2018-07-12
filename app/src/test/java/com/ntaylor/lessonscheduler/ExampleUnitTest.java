@@ -1,4 +1,4 @@
-package com.ntaylor.lessonscheduler.tests;
+package com.ntaylor.lessonscheduler;
 
 import com.ntaylor.lessonscheduler.util.SimpleDate;
 

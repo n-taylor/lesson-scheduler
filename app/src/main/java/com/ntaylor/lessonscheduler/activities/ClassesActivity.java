@@ -82,4 +82,13 @@ public class ClassesActivity extends AppCompatActivity implements ClassesPresent
 
         }
     }
+
+    /**
+     * Call finish()
+     */
+    @Override
+    public void destroySelf() {
+        DataProviderFactory.getDataProviderInstance().removeObserver(presenter);
+        finish();
+    }
 }
