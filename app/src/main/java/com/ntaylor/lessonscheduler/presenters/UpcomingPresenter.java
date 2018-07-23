@@ -6,6 +6,7 @@ import android.widget.ListView;
 
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
+import com.ntaylor.lessonscheduler.room.entities.User;
 import com.ntaylor.lessonscheduler.upcoming.UpcomingAdapter;
 import com.ntaylor.lessonscheduler.util.DataObserver;
 import com.ntaylor.lessonscheduler.util.DataProvider;
@@ -21,7 +22,7 @@ import java.util.List;
  * Created by Nathan Taylor on 5/14/2018.
  */
 
-public class UpcomingPresenter extends Presenter implements DataObserver {
+public class UpcomingPresenter extends Presenter {
 
     private View activity;
     private ListView listView;
@@ -73,17 +74,6 @@ public class UpcomingPresenter extends Presenter implements DataObserver {
     public void onClassesUpdated(List<Classroom> classes) {
         this.classes = classes;
         initializeAdapter();
-    }
-
-    /**
-     * To be called when an attempt to modify the user name has been fully attempted.
-     *
-     * @param successful true if the username was changed, false if not valid or already taken.
-     * @param name
-     */
-    @Override
-    public void onUserNameChanged(boolean successful, String name) {
-
     }
 
     // Private utility methods =============================================================

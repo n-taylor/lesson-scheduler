@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AssignActivity"
+    tools:context=".activities.AssignActivity"
     android:orientation="vertical">
 
     <android.support.v7.widget.Toolbar
@@ -18,7 +18,7 @@
 
     <fragment
         android:id="@+id/assign_fragment_view"
-        class="com.ntaylor.lessonscheduler.AssignFragment"
+        class="com.ntaylor.lessonscheduler.fragments.AssignFragment"
         tools:layout="@layout/fragment_assign"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -13,6 +13,7 @@ import com.ntaylor.lessonscheduler.room.dao.UsersDao;
 import com.ntaylor.lessonscheduler.room.database.LessonsRoomDatabase;
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
+import com.ntaylor.lessonscheduler.room.entities.User;
 import com.ntaylor.lessonscheduler.tasks.user.ChangeUsernameTask;
 import com.ntaylor.lessonscheduler.tasks.user.CreateUserTask;
 import com.ntaylor.lessonscheduler.tasks.assignment.CreateAssignmentTask;
@@ -22,6 +23,7 @@ import com.ntaylor.lessonscheduler.tasks.classroom.CreateClassroomTask;
 import com.ntaylor.lessonscheduler.tasks.classroom.DeleteClassroomTask;
 import com.ntaylor.lessonscheduler.tasks.classroom.GetClassroomsTask;
 import com.ntaylor.lessonscheduler.tasks.classroom.UpdateClassroomTask;
+import com.ntaylor.lessonscheduler.tasks.user.GetUsersTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -97,6 +99,27 @@ public class RoomRepository implements DataProvider {
     public void onUserNameChanged(boolean changed, String name) {
         for(DataObserver observer : observers){
             observer.onUserNameChanged(changed, name);
+        }
+    }
+
+    /**
+     * Retrieves the users associated with the same organization as the current user.
+     */
+    @Override
+    public void fetchUsers() {
+        GetUsersTask task = new GetUsersTask(UserInfo.getUserInfo().getOrgId(), usersDao);
+        task.execute();
+    }
+
+    /**
+     * Notifies all data observers that the list of users for the organization has been updated.
+     *
+     * @param users The updated list of users in the organization
+     */
+    @Override
+    public void updateUsers(List<User> users) {
+        for (DataObserver observer : observers){
+            observer.onUsersUpdated(users);
         }
     }
 

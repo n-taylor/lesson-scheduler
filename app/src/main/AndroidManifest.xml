@@ -38,7 +38,7 @@
             android:noHistory="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".AssignActivity"
+            android:name=".activities.AssignActivity"
             android:label="@string/title_activity_assign"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>

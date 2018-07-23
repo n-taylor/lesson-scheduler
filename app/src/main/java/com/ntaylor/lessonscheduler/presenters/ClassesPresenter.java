@@ -10,13 +10,14 @@ import com.ntaylor.lessonscheduler.activities.ClassroomEditActivity;
 import com.ntaylor.lessonscheduler.classes.ClassesAdapter;
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
+import com.ntaylor.lessonscheduler.room.entities.User;
 import com.ntaylor.lessonscheduler.util.DataObserver;
 import com.ntaylor.lessonscheduler.util.DataProvider;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 
 import java.util.List;
 
-public class ClassesPresenter extends Presenter implements DataObserver{
+public class ClassesPresenter extends Presenter {
 
     private ClassesView view;
     private ListView listView;
@@ -80,17 +81,6 @@ public class ClassesPresenter extends Presenter implements DataObserver{
         }
     }
 
-
-    /**
-     * This will be called when the list of assignments has been modified.
-     *
-     * @param assignments The class-teacher assignments.
-     */
-    @Override
-    public void onAssignmentsUpdated(List<Assignment> assignments) {
-
-    }
-
     /**
      * this will be called when the list of classes for the organization has been modified.
      *
@@ -102,17 +92,6 @@ public class ClassesPresenter extends Presenter implements DataObserver{
         if (listView != null) {
             listView.setAdapter(adapter);
         }
-    }
-
-    /**
-     * To be called when an attempt to modify the user name has been fully attempted.
-     *
-     * @param successful true if the username was changed, false if not valid or already taken.
-     * @param name
-     */
-    @Override
-    public void onUserNameChanged(boolean successful, String name) {
-
     }
 
     public interface ClassesView {

@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
+import com.ntaylor.lessonscheduler.room.entities.User;
 import com.ntaylor.lessonscheduler.util.DataObserver;
 import com.ntaylor.lessonscheduler.util.DataProvider;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
@@ -15,7 +16,7 @@ import com.ntaylor.lessonscheduler.util.UserInfo;
 
 import java.util.List;
 
-public class ClassroomEditPresenter implements DataObserver {
+public class ClassroomEditPresenter extends Presenter {
 
     private static final String NO_NAME_MESSAGE = "Please enter a name for the class";
     private static final String CONFIRM_DELETE = "Are you sure you want to delete this class?";
@@ -93,37 +94,6 @@ public class ClassroomEditPresenter implements DataObserver {
             provider.updateClassroom(classroom);
             view.destroySelf();
         }
-    }
-
-    /**
-     * This will be called when the list of assignments has been modified.
-     *
-     * @param assignments The class-teacher assignments.
-     */
-    @Override
-    public void onAssignmentsUpdated(List<Assignment> assignments) {
-
-    }
-
-    /**
-     * this will be called when the list of classes for the organization has been modified.
-     *
-     * @param classes The list of classes.
-     */
-    @Override
-    public void onClassesUpdated(List<Classroom> classes) {
-
-    }
-
-    /**
-     * To be called when an attempt to modify the user name has been fully attempted.
-     *
-     * @param successful true if the username was changed, false if not valid or already taken.
-     * @param name
-     */
-    @Override
-    public void onUserNameChanged(boolean successful, String name) {
-
     }
 
     // Interface =====================================================================================

@@ -2,6 +2,7 @@ package com.ntaylor.lessonscheduler.util;
 
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
+import com.ntaylor.lessonscheduler.room.entities.User;
 
 import java.util.List;
 
@@ -28,5 +29,11 @@ public interface DataObserver {
      * @param name The new username requested
      */
     void onUserNameChanged(boolean successful, String name);
+
+    /**
+     * To be called when the list of users in an organization has been updated.
+     * @param users The current list of teachers in the user's organization.
+     */
+    void onUsersUpdated(List<User> users);
 
 }
