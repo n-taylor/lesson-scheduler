@@ -112,6 +112,7 @@ public class AssignPresenter extends Presenter {
      */
     private void makeAssignment(User teacher){
         provider.createAssignment(teacher.getUserId(), this.classId, SimpleDate.deserializeDate(this.date, true));
+        view.destroySelf();
     }
 
     public interface AssignView {
