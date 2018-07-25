@@ -1,14 +1,17 @@
 package com.ntaylor.lessonscheduler.presenters;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.widget.ListView;
 
+import com.ntaylor.lessonscheduler.activities.AssignActivity;
+import com.ntaylor.lessonscheduler.activities.UpcomingActivity;
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
-import com.ntaylor.lessonscheduler.room.entities.User;
 import com.ntaylor.lessonscheduler.upcoming.UpcomingAdapter;
-import com.ntaylor.lessonscheduler.util.DataObserver;
 import com.ntaylor.lessonscheduler.util.DataProvider;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 import com.ntaylor.lessonscheduler.util.SimpleDate;
@@ -23,6 +26,8 @@ import java.util.List;
  */
 
 public class UpcomingPresenter extends Presenter {
+
+    private static final String select_class_title = "Which class do you want to assign?";
 
     private View activity;
     private ListView listView;
@@ -47,6 +52,30 @@ public class UpcomingPresenter extends Presenter {
     }
 
     // Public methods =======================================================================
+
+    /**
+     * Shows a dialog that allows the user to select the class to which they want to assign a teacher
+     */
+    public void onDatePressed(final Context context, final String date){
+        // Add the class names to the user's options
+        CharSequence[] options = new CharSequence[classes.size()];
+        for (int i = 0; i < options.length; i++){
+            options[i] = classes.get(i).getClassName();
+        }
+
+        // Create the dialog box
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(select_class_title);
+        builder.setItems(options, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int selected) {
+                // Open the assign activity with the appropriate class
+                Classroom chosen = classes.get(selected);
+                startAssignActivity(context, chosen.getClassId(), chosen.getClassName(), date);
+            }
+        });
+        builder.create().show();
+    }
 
     /**
      * Allows the list view to be filled with incoming data
@@ -76,7 +105,19 @@ public class UpcomingPresenter extends Presenter {
         initializeAdapter();
     }
 
-    // Private utility methods =============================================================
+    // Private utility methods ==============================================================
+
+    /**
+     * Starts the assign activity.
+     * @param id The ID of the class for which to make an assignment.
+     */
+    private void startAssignActivity(Context context, String id, String name, String date){
+        Intent intent = new Intent(context, AssignActivity.class);
+        intent.putExtra(AssignActivity.EXTRA_CLASS_ID, id);
+        intent.putExtra(AssignActivity.EXTRA_CLASS_NAME, name);
+        intent.putExtra(AssignActivity.EXTRA_DATE, date);
+        context.startActivity(intent);
+    }
 
     private void initializeDates(){
         SimpleDate sunday = new SimpleDate().upcomingSunday();
@@ -87,7 +128,7 @@ public class UpcomingPresenter extends Presenter {
     }
 
     private void initializeAdapter() {
-        adapter = new UpcomingAdapter(((Activity) activity).getApplicationContext(), dates, assignments, classes);
+        adapter = new UpcomingAdapter(this, ((UpcomingActivity) activity), dates, assignments, classes);
         listView.setAdapter(adapter);
     }
 

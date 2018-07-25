@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 
 import com.ntaylor.lessonscheduler.room.dao.UsersDao;
 import com.ntaylor.lessonscheduler.room.entities.User;
+import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 
 import java.util.List;
 
@@ -24,6 +25,6 @@ public class GetUsersTask extends AsyncTask<Void, Void, List<User>> {
 
     @Override
     protected void onPostExecute(List<User> users){
-
+        DataProviderFactory.getDataProviderInstance().updateUsers(users);
     }
 }

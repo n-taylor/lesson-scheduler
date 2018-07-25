@@ -31,6 +31,6 @@ public class CreateAssignmentTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void voids){
-//        DataProviderFactory.getDataProviderInstance().fetchAssignments(); // May cause an infinite loop
+        DataProviderFactory.getDataProviderInstance().fetchAssignments();
     }
 }

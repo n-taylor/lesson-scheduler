@@ -53,14 +53,6 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.ViewHolder
         TextView header = (TextView)userView.findViewById(R.id.user_name_label);
         TextView subtext = (TextView)userView.findViewById(R.id.user_subtext);
 
-        // set up the on-click listener
-        userView.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
         // create the view holder
         return new ViewHolder(userView, header, subtext);
     }
@@ -90,6 +82,16 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.ViewHolder
         // Set the header and subtext for the user
         holder.nameText.setText(users.get(position).getUserName());
         holder.subtext.setText(default_subtext);
+
+        final int pos = position;
+
+        // set up the on-click listener
+        holder.userView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                presenter.onTeacherPressed(users.get(pos));
+            }
+        });
     }
 
     /**

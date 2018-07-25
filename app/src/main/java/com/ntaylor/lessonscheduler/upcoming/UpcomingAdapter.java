@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.ntaylor.lessonscheduler.R;
+import com.ntaylor.lessonscheduler.presenters.UpcomingPresenter;
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
 import com.ntaylor.lessonscheduler.util.SimpleDate;
@@ -31,8 +32,11 @@ public class UpcomingAdapter extends ArrayAdapter<SimpleDate> {
     private List<Classroom> classes;
     private List<Assignment> assignments;
 
-    public UpcomingAdapter(@NonNull Context context, List<SimpleDate> dates, List<Assignment> assignments, List<Classroom> classes) {
+    private UpcomingPresenter presenter;
+
+    public UpcomingAdapter(UpcomingPresenter presenter, @NonNull Context context, List<SimpleDate> dates, List<Assignment> assignments, List<Classroom> classes) {
         super(context,0, dates);
+        this.presenter = presenter;
         this.dates = dates;
         this.context = context;
         this.classes = classes;
@@ -41,7 +45,7 @@ public class UpcomingAdapter extends ArrayAdapter<SimpleDate> {
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent){
+    public View getView(final int position, View convertView, ViewGroup parent){
 
         if (convertView == null){
             convertView = LayoutInflater.from(context).inflate(R.layout.upcoming_item, parent, false);
@@ -58,6 +62,13 @@ public class UpcomingAdapter extends ArrayAdapter<SimpleDate> {
         assignmentsLeft.setText(String.valueOf(getNumUnassignedClasses(date)));
         subtext.setText(getUnassignedClassNames());
 
+        convertView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                presenter.onDatePressed(context, dates.get(position).serializeDate());
+            }
+        });
+
         return convertView;
     }
 
@@ -72,7 +83,7 @@ public class UpcomingAdapter extends ArrayAdapter<SimpleDate> {
             }
         }
 
-        return sb.substring(0, max_characters) + "...";
+        return (sb.length() > max_characters) ? sb.substring(0, max_characters) + "..." : sb.toString();
     }
 
     private boolean assignmentsContain(Classroom classroom){
