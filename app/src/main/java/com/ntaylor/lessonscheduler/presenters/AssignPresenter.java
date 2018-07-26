@@ -1,5 +1,6 @@
 package com.ntaylor.lessonscheduler.presenters;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -54,7 +55,7 @@ public class AssignPresenter extends Presenter {
      * Sets up the view that displays which classroom is being assigned
      * @param activity
      */
-    public void initializeClassroomView(AssignActivity activity){
+    public void initializeClassroomView(Activity activity){
         TextView header = (TextView)activity.findViewById(R.id.class_name);
         header.setText(this.name);
         ((TextView)activity.findViewById(R.id.class_description)).setText(SimpleDate.deserializeDate(this.date, true).toString());
