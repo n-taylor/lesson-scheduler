@@ -17,7 +17,7 @@ import com.ntaylor.lessonscheduler.room.dao.ClassesDao;
 import com.ntaylor.lessonscheduler.room.entities.Organization;
 import com.ntaylor.lessonscheduler.room.entities.User;
 
-@Database(entities = {Classroom.class, Assignment.class, Organization.class, User.class}, version = 3, exportSchema = false)
+@Database(entities = {Classroom.class, Assignment.class, Organization.class, User.class}, version = 4, exportSchema = false)
 public abstract class LessonsRoomDatabase extends RoomDatabase{
 
     private static LessonsRoomDatabase INSTANCE;
@@ -31,7 +31,7 @@ public abstract class LessonsRoomDatabase extends RoomDatabase{
         if (INSTANCE == null){
             synchronized (LessonsRoomDatabase.class){
                 INSTANCE = Room.databaseBuilder(context.getApplicationContext(), LessonsRoomDatabase.class, "lessons_database")
-                        .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+                        .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
                         .build();
             }
         }
@@ -51,6 +51,33 @@ public abstract class LessonsRoomDatabase extends RoomDatabase{
             // Add columns last_class and next_class
             database.execSQL("ALTER TABLE users ADD COLUMN last_class TEXT");
             database.execSQL("ALTER TABLE users ADD COLUMN next_class TEXT");
+        }
+    };
+
+    private static final Migration MIGRATION_3_4 = new Migration(3, 4) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            // Create the new table
+            database.execSQL("CREATE TABLE users_new (user_id TEXT NOT NULL, user_name TEXT NOT NULL, org_id TEXT NOT NULL, " +
+                    "last_class TEXT, next_class TEXT, PRIMARY KEY(user_id), " +
+                    "FOREIGN KEY (org_id) REFERENCES organizations(org_id) ON DELETE CASCADE)");
+
+            // Drop and recreate indices
+            database.execSQL("DROP INDEX index_users_org_id");
+            database.execSQL("DROP INDEX index_users_user_id");
+
+            database.execSQL("CREATE INDEX index_users_org_id ON users_new(org_id)");
+            database.execSQL("CREATE UNIQUE INDEX index_users_user_id ON users_new(user_id)");
+
+            // Copy the data
+            database.execSQL("INSERT INTO users_new (user_id, user_name, org_id, last_class, next_class) " +
+                    "SELECT user_id, user_name, org_id, last_class, next_class FROM users");
+
+            // Remove the old table
+            database.execSQL("DROP TABLE users");
+
+            // Rename the new table to the old table name
+            database.execSQL("ALTER TABLE users_new RENAME TO users");
         }
     };
 }

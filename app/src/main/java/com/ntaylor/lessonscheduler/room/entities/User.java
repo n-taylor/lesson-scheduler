@@ -7,16 +7,18 @@ import android.arch.persistence.room.ForeignKey;
 import java.util.UUID;
 
 import android.arch.persistence.room.Index;
+import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
-@Entity (tableName = "users", primaryKeys = {"user_id", "user_name"},
+@Entity (tableName = "users",
         foreignKeys = @ForeignKey(entity = Organization.class, parentColumns = "org_id", childColumns = "org_id", onDelete = CASCADE),
         indices = {@Index("org_id"), @Index(value = "user_id", unique = true)})
 public class User {
 
     @NonNull
+    @PrimaryKey
     @ColumnInfo(name = "user_id")
     private String userId;
 
