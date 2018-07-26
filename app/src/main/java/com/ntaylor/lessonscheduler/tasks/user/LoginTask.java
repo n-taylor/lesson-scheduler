@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import com.ntaylor.lessonscheduler.activities.UpcomingActivity;
+import com.ntaylor.lessonscheduler.activities.UsersActivity;
 import com.ntaylor.lessonscheduler.room.dao.OrganizationsDao;
 import com.ntaylor.lessonscheduler.room.dao.UsersDao;
 import com.ntaylor.lessonscheduler.room.entities.Organization;
@@ -61,7 +62,7 @@ public class LoginTask extends AsyncTask<Void, Void, Boolean> {
     protected void onPostExecute(Boolean success){
         if (success){
             Toast.makeText(context, LOGIN_SUCCESSFUL, Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(context, UpcomingActivity.class);
+            Intent intent = new Intent(context, UsersActivity.class);
             context.startActivity(intent);
         }
         else {

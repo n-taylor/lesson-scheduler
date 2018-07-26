@@ -7,6 +7,7 @@ import android.content.Intent;
 import com.ntaylor.lessonscheduler.activities.AccountActivity;
 import com.ntaylor.lessonscheduler.activities.ClassesActivity;
 import com.ntaylor.lessonscheduler.activities.UpcomingActivity;
+import com.ntaylor.lessonscheduler.activities.UsersActivity;
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
 import com.ntaylor.lessonscheduler.room.entities.User;
@@ -44,7 +45,15 @@ public abstract class Presenter implements DataObserver {
         context.startActivity(intent);
     }
 
-    // Implement DataObserver methods
+    /**
+     * Starts the users activity.
+     */
+    public void onUsersItemPressed(Context context){
+        Intent intent = new Intent(context, UsersActivity.class);
+        context.startActivity(intent);
+    }
+
+    // Implement DataObserver methods =======================================================
 
     /**
      * This will be called when the list of assignments has been modified.
