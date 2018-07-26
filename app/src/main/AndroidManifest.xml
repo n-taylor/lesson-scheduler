@@ -42,6 +42,10 @@
             android:name=".activities.AssignActivity"
             android:label="@string/title_activity_assign"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".activities.UsersActivity"
+            android:label="@string/title_activity_users"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

@@ -35,5 +35,6 @@
 
     <string name="upcoming_title">Make an Assignment</string>
     <string name="title_activity_assign">Make/Edit an Assignment</string>
+    <string name="title_activity_users">UsersActivity</string>
 
 </resources>
