@@ -7,7 +7,7 @@
     <string name="action_settings">Settings</string>
     <string name="action_account">Account Info</string>
 
-    <string name="title_activity_sign_up">SignUpActivity</string>
+    <string name="title_activity_sign_up">Enter Organization</string>
     <string name="sign_up_message">Enter UserName and Organization to Login / Sign up</string>
     <string name="user_name">User Name</string>
     <string name="org">Organization Name</string>
@@ -33,7 +33,7 @@
     <string name="account_save_button_label">Apply Changes</string>
     <string name="account_cancel_button_label">Cancel</string>
 
-    <string name="upcoming_title">Upcoming Weeks</string>
-    <string name="title_activity_assign">AssignActivity</string>
+    <string name="upcoming_title">Make an Assignment</string>
+    <string name="title_activity_assign">Make/Edit an Assignment</string>
 
 </resources>
