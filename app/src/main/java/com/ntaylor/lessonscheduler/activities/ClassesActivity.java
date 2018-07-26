@@ -72,6 +72,9 @@ public class ClassesActivity extends AppCompatActivity implements ClassesPresent
             case R.id.action_account:
                 presenter.onAccountItemPressed(this);
                 return true;
+            case R.id.action_users:
+                presenter.onUsersItemPressed(this);
+                return true;
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.

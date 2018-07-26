@@ -13,4 +13,9 @@
         android:orderInCategory="2"
         android:title="@string/upcoming_title"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_users"
+        android:orderInCategory="4"
+        android:title="@string/users_menu_title"
+        app:showAsAction="never" />
 </menu>
