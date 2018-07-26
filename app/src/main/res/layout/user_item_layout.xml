@@ -23,21 +23,18 @@
             android:id="@+id/user_name_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="36dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="2dp"
             android:text="@string/classroom_title"
-            android:textStyle="bold"
             android:textSize="24sp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/user_image"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/user_subtext"
             android:layout_width="wrap_content"
-            android:layout_height="17dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="72dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"

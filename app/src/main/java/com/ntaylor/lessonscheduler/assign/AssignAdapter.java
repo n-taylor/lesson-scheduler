@@ -10,13 +10,14 @@ import android.widget.TextView;
 import com.ntaylor.lessonscheduler.R;
 import com.ntaylor.lessonscheduler.presenters.AssignPresenter;
 import com.ntaylor.lessonscheduler.room.entities.User;
+import com.ntaylor.lessonscheduler.util.SimpleDate;
 
 import java.util.List;
 import java.util.Locale;
 
 public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.ViewHolder> {
 
-    private static final String subtext = "Last taught: %1$s, Next assignment: %2$s";
+    private static final String subtext = "Last taught: %1$s\r\nNext assignment: %2$s";
     private static final String neverTaught = "";
     private static final String noUpcomingAssignment = "";
 
@@ -84,10 +85,10 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.ViewHolder
     public void onBindViewHolder(ViewHolder holder, int position) {
         User user = users.get(position);
         String lastTaught = user.getLastClass();
-        lastTaught = (lastTaught == null) ? neverTaught : lastTaught;
+        lastTaught = (lastTaught == null) ? neverTaught : SimpleDate.deserializeDate(lastTaught, true).toString();
 
         String nextAssignment = user.getNextClass();
-        nextAssignment = (nextAssignment == null) ? noUpcomingAssignment : nextAssignment;
+        nextAssignment = (nextAssignment == null) ? noUpcomingAssignment : SimpleDate.deserializeDate(nextAssignment, true).toString();
 
         // Set the header and subtext for the user
         holder.nameText.setText(user.getUserName());
