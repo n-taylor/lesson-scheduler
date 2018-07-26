@@ -66,11 +66,10 @@ public class ClassesActivity extends AppCompatActivity implements ClassesPresent
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.classes_action_upcoming:
-                // User chose the "Settings" item, show the app settings UI...
+            case R.id.action_upcoming:
                 presenter.onUpcomingItemPressed(this);
                 return true;
-            case R.id.classes_action_account:
+            case R.id.action_account:
                 presenter.onAccountItemPressed(this);
                 return true;
             default:

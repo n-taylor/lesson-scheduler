@@ -6,6 +6,9 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.ntaylor.lessonscheduler.R;
@@ -39,6 +42,34 @@ public class AssignActivity extends AppCompatActivity implements AssignPresenter
     public void destroySelf() {
         DataProviderFactory.getDataProviderInstance().removeObserver(presenter);
         finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater mi = getMenuInflater();
+        mi.inflate(R.menu.menu_assign, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_upcoming:
+                // User chose the "Settings" item, show the app settings UI...
+                presenter.onUpcomingItemPressed(this);
+                return true;
+            case R.id.action_account:
+                presenter.onAccountItemPressed(this);
+                return true;
+            case R.id.action_classes:
+                presenter.onClassesItemPressed(this);
+                return true;
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     // private methods ===================================================================

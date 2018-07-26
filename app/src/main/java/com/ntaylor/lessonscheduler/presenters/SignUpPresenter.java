@@ -43,6 +43,6 @@ public class SignUpPresenter {
 
 
     public interface View {
-
+        void destroySelf();
     }
 }

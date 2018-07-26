@@ -16,6 +16,7 @@
         <activity
             android:name=".activities.SignUpActivity"
             android:label="@string/title_activity_sign_up"
+            android:noHistory="true"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

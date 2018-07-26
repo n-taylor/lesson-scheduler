@@ -2,6 +2,9 @@ package com.ntaylor.lessonscheduler.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -92,6 +95,33 @@ public class ClassroomEditActivity extends AppCompatActivity implements Classroo
                 presenter.onConfirmClicked(ClassroomEditActivity.this);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater mi = getMenuInflater();
+        mi.inflate(R.menu.menu_classroom_edit, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_upcoming:
+                presenter.onUpcomingItemPressed(this);
+                return true;
+            case R.id.action_account:
+                presenter.onAccountItemPressed(this);
+                return true;
+            case R.id.action_classes:
+                presenter.onAccountItemPressed(this);
+                return true;
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     /**

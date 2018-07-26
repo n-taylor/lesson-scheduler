@@ -24,6 +24,10 @@ public class SignUpActivity extends AppCompatActivity implements SignUpPresenter
         initializeViews();
         presenter = new SignUpPresenter(this);
         initializeButtons();
+
+        // for ease of debugging quickly, automatically log in
+        presenter.onButtonPressed(this, "nathan", "test");
+        finish();
     }
 
     private void initializeViews(){
@@ -47,4 +51,8 @@ public class SignUpActivity extends AppCompatActivity implements SignUpPresenter
 
     }
 
+    @Override
+    public void destroySelf() {
+        finish();
+    }
 }

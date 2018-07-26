@@ -82,10 +82,10 @@ public class AccountActivity extends AppCompatActivity implements AccountPresent
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.account_action_upcoming:
+            case R.id.action_upcoming:
                 presenter.onUpcomingItemPressed(this);
                 return true;
-            case R.id.account_action_classes:
+            case R.id.action_classes:
                 presenter.onClassesActionPressed(AccountActivity.this);
                 return true;
             default:
