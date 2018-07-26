@@ -12,13 +12,13 @@ import java.util.List;
 public interface DataObserver {
 
     /**
-     * This will be called when the list of assignments has been modified.
+     * To be called when the list of assignments has been modified.
      * @param assignments The class-teacher assignments.
      */
     void onAssignmentsUpdated(List<Assignment> assignments);
 
     /**
-     * this will be called when the list of classes for the organization has been modified.
+     * To be called when the list of classes for the organization has been modified.
      * @param classes The list of classes.
      */
     void onClassesUpdated(List<Classroom> classes);
@@ -29,6 +29,12 @@ public interface DataObserver {
      * @param name The new username requested
      */
     void onUserNameChanged(boolean successful, String name);
+
+    /**
+     * To be called when an attempt to create a user has either succeeded or failed.
+     * @param success True if the user was created.
+     */
+    void onUserCreationAttempted(boolean success, String name);
 
     /**
      * To be called when the list of users in an organization has been updated.

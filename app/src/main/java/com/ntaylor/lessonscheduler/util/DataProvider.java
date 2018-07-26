@@ -20,15 +20,31 @@ public interface DataProvider {
      * @param userName The requested user name
      * @param orgName The name of the organization.
      */
-    void createUser(Context context, String userName, String orgName);
+    void login(Context context, String userName, String orgName);
+
+    /**
+     * Attempts to create a user in the specified organization. Alerts DataObservers through
+     * DataProvider.onUserCreationAttempted().
+     *
+     * @param userName The username requested.
+     * @param orgId The ID of the organization requested.
+     */
+    void attemptCreateUser(String userName, String orgId);
+
+    /**
+     * Alerts DataObservers whether a user was created successfully.
+     * @param success true if the user was created.
+     */
+    void onUserCreationAttempted(boolean success, String name);
 
     /**
      * If the given username is unchanged or empty, shows an error message. Otherwise, updates the user
      *
      * @param context
+     * @param userId The id of the user whose name should be changed
      * @param name The new username
      */
-    void attemptChangeUserName(Context context, String name);
+    void attemptChangeUserName(Context context, String userId, String name);
 
     /**
      * To be called when a change of username has been attempted.

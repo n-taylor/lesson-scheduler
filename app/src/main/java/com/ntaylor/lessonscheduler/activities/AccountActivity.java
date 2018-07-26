@@ -15,13 +15,17 @@ import com.ntaylor.lessonscheduler.R;
 import com.ntaylor.lessonscheduler.presenters.AccountPresenter;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 
+/**
+ * Displays, creates or edits a user's account information
+ */
 public class AccountActivity extends AppCompatActivity implements AccountPresenter.AccountView{
+
+    public static final String EXTRA_USER_NAME = "name";
+    public static final String EXTRA_USER_ID = "id";
 
     private AccountPresenter presenter;
     private EditText userNameText;
     private TextView orgText;
-    private Button saveButton;
-    private Button cancelButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +35,7 @@ public class AccountActivity extends AppCompatActivity implements AccountPresent
         setSupportActionBar(toolbar);
 
         initializeViews();
-        this.presenter = new AccountPresenter(this);
+        this.presenter = createPresenter();
         initializeButtons();
     }
 
@@ -41,6 +45,13 @@ public class AccountActivity extends AppCompatActivity implements AccountPresent
             DataProviderFactory.getDataProviderInstance().removeObserver(presenter);
         }
         super.onDestroy();
+    }
+
+    private AccountPresenter createPresenter(){
+        Bundle bundle = getIntent().getExtras();
+        String name = (bundle.containsKey(EXTRA_USER_NAME)) ? (String)bundle.get(EXTRA_USER_NAME) : null;
+        String id = (bundle.containsKey(EXTRA_USER_ID)) ? (String)bundle.get(EXTRA_USER_ID) : null;
+        return new AccountPresenter(this, id, name);
     }
 
     /**
@@ -55,7 +66,7 @@ public class AccountActivity extends AppCompatActivity implements AccountPresent
      * Initializes all buttons
      */
     private void initializeButtons(){
-        saveButton = (Button)findViewById(R.id.account_save_button);
+        Button saveButton = (Button) findViewById(R.id.account_save_button);
         saveButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -63,7 +74,7 @@ public class AccountActivity extends AppCompatActivity implements AccountPresent
             }
         });
 
-        cancelButton = (Button)findViewById(R.id.account_cancel_button);
+        Button cancelButton = (Button) findViewById(R.id.account_cancel_button);
         cancelButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {

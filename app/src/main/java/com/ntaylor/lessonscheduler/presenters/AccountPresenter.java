@@ -6,15 +6,10 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.ntaylor.lessonscheduler.activities.ClassesActivity;
-import com.ntaylor.lessonscheduler.room.entities.Assignment;
-import com.ntaylor.lessonscheduler.room.entities.Classroom;
-import com.ntaylor.lessonscheduler.room.entities.User;
 import com.ntaylor.lessonscheduler.util.DataObserver;
 import com.ntaylor.lessonscheduler.util.DataProvider;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 import com.ntaylor.lessonscheduler.util.UserInfo;
-
-import java.util.List;
 
 public class AccountPresenter extends Presenter implements DataObserver {
 
@@ -22,17 +17,31 @@ public class AccountPresenter extends Presenter implements DataObserver {
     private static final String SAME_NAME = "No changes found";
     private static final String NAME_CHANGE_FAIL = "The username entered is not valid or already taken. Please try another.";
     private static final String NAME_CHANGE_SUCCESS = "Username successfully changed to ";
+    private static final String USER_CREATED_SUCCESS = "%s was successfully added as a user";
 
     private AccountView view;
     private DataProvider provider;
 
-    public AccountPresenter(AccountView view){
+    private String userId;
+    private String userName;
+
+    private boolean createUser = false;
+
+    public AccountPresenter(AccountView view, String userID, String userName){
         this.view = view;
         if (view instanceof Activity) {
             this.provider = DataProviderFactory.getDataProviderInstance();
             provider.addObserver(this);
         }
-        view.setUserText(UserInfo.getUserInfo().getUserName());
+
+        this.userId = userID;
+        this.userName = userName;
+
+        if (userId == null){
+            createUser = true;
+        }
+
+        view.setUserText(userName);
         view.setOrgLabel(UserInfo.getUserInfo().getOrgName());
     }
 
@@ -43,14 +52,19 @@ public class AccountPresenter extends Presenter implements DataObserver {
     public void onSaveButtonPressed(Context context){
         String name = view.getUserText();
         String current = UserInfo.getUserInfo().getUserName();
-        if (!name.equals(current)){
+        if (!name.equals(userName)){
             // the name field has been edited
             if (name.trim().isEmpty()){
                 Toast.makeText(context, EMPTY_NAME, Toast.LENGTH_SHORT).show();
             }
             else {
-                // change username here
-                DataProviderFactory.getDataProviderInstance().attemptChangeUserName(context, name);
+                // change username or create user here
+                if (createUser){
+                    DataProviderFactory.getDataProviderInstance().login(context, name, UserInfo.getUserInfo().getOrgName());
+                }
+                else {
+                    DataProviderFactory.getDataProviderInstance().attemptChangeUserName(context, userId, name);
+                }
             }
         }
         else {
@@ -91,6 +105,17 @@ public class AccountPresenter extends Presenter implements DataObserver {
         }
         else {
             Toast.makeText(context, NAME_CHANGE_FAIL, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onUserCreationAttempted(boolean success, String name){
+        if (success){
+            Toast.makeText((Activity)view, USER_CREATED_SUCCESS, Toast.LENGTH_SHORT).show();
+            view.destroySelf();
+        }
+        else {
+            Toast.makeText((Activity)view, NAME_CHANGE_FAIL, Toast.LENGTH_SHORT).show();
         }
     }
 

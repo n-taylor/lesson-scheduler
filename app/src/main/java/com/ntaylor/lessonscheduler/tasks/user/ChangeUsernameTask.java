@@ -16,9 +16,11 @@ public class ChangeUsernameTask extends RoomTask<Void, Void, Boolean> {
     private User user;
     private String name;
     private UsersDao dao;
+    private String userId;
 
-    public ChangeUsernameTask(Context context, String name, UsersDao dao){
+    public ChangeUsernameTask(Context context, String userId, String name, UsersDao dao){
         this.context = context;
+        this.userId = userId;
         this.name = name;
         this.user = new User(name, UserInfo.getUserInfo().getOrgId());
         this.user.setUserId(UserInfo.getUserInfo().getUserId());
@@ -36,11 +38,19 @@ public class ChangeUsernameTask extends RoomTask<Void, Void, Boolean> {
         List<User> takenName = dao.getUserByUserName(name);
         if (takenName != null && takenName.size() < 1){
             // The user name is not taken already
-            dao.deleteByUserName(UserInfo.getUserInfo().getUserName());
-            User nextUser = new User(name, UserInfo.getUserInfo().getOrgId());
-            dao.insert(nextUser);
-            UserInfo.changeUserInfo(nextUser, UserInfo.getUserInfo().getOrgName());
-            return true;
+            List<User> byId = dao.getUserById(userId);
+            if (byId != null && byId.size() > 0){
+                User toUpdate = byId.get(0);
+                toUpdate.setUserName(name);
+                dao.update(toUpdate);
+                if (UserInfo.getUserInfo().getUserId().equals(userId)) {
+                    UserInfo.changeUserInfo(toUpdate, UserInfo.getUserInfo().getOrgName());
+                }
+                return true;
+            }
+            else {
+                return false;
+            }
         }
         else {
             return false;

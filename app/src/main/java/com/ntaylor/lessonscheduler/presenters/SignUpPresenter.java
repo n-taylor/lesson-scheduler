@@ -2,12 +2,9 @@ package com.ntaylor.lessonscheduler.presenters;
 
 
 import android.app.Activity;
-import android.content.Context;
-import android.os.AsyncTask;
 import android.support.design.widget.Snackbar;
 
 import com.ntaylor.lessonscheduler.R;
-import com.ntaylor.lessonscheduler.room.database.LessonsRoomDatabase;
 import com.ntaylor.lessonscheduler.util.DataProvider;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 
@@ -33,7 +30,7 @@ public class SignUpPresenter {
 
         DataProvider dp =  DataProviderFactory.initializeDataProvider(activity, DataProviderFactory.ROOM_PROVIDER);
         if (dp != null){
-            dp.createUser(activity, userName, org);
+            dp.login(activity, userName, org);
         }
         else
         {

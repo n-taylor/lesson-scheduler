@@ -11,6 +11,7 @@ import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
 import com.ntaylor.lessonscheduler.room.entities.User;
 import com.ntaylor.lessonscheduler.util.DataObserver;
+import com.ntaylor.lessonscheduler.util.UserInfo;
 
 import java.util.List;
 
@@ -22,6 +23,8 @@ public abstract class Presenter implements DataObserver {
      */
     public void onAccountItemPressed(Context context){
         Intent intent = new Intent(context, AccountActivity.class);
+        intent.putExtra(AccountActivity.EXTRA_USER_NAME, UserInfo.getUserInfo().getUserName());
+        intent.putExtra(AccountActivity.EXTRA_USER_ID, UserInfo.getUserInfo().getUserId());
         context.startActivity(intent);
     }
 
@@ -71,6 +74,15 @@ public abstract class Presenter implements DataObserver {
      */
     @Override
     public void onUserNameChanged(boolean successful, String name) {
+
+    }
+
+    /**
+     * To be called when an attempt to create a user has either succeeded or failed.
+     * @param success True if the user was created.
+     */
+    @Override
+    public void onUserCreationAttempted(boolean success, String name){
 
     }
 

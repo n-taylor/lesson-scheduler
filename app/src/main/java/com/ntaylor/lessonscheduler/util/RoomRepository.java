@@ -24,6 +24,7 @@ import com.ntaylor.lessonscheduler.tasks.classroom.DeleteClassroomTask;
 import com.ntaylor.lessonscheduler.tasks.classroom.GetClassroomsTask;
 import com.ntaylor.lessonscheduler.tasks.classroom.UpdateClassroomTask;
 import com.ntaylor.lessonscheduler.tasks.user.GetUsersTask;
+import com.ntaylor.lessonscheduler.tasks.user.LoginTask;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,19 +74,46 @@ public class RoomRepository implements DataProvider {
      * @param orgName  The name of the organization.
      */
     @Override
-    public void createUser(Context context, final String userName, final String orgName) {
-        new CreateUserTask(context, usersDao, organizationsDao, userName, orgName).execute();
+    public void login(Context context, final String userName, final String orgName) {
+        new LoginTask(context, userName, orgName, usersDao, organizationsDao).execute();
+    }
+
+    /**
+     * Attempts to create a user in the specified organization. Alerts DataObservers through
+     * DataProvider.onUserCreationAttempted().
+     *
+     * @param userName The username requested.
+     * @param orgId    The ID of the organization requested.
+     */
+    @Override
+    public void attemptCreateUser(String userName, String orgId) {
+        CreateUserTask task = new CreateUserTask(userName, orgId, usersDao, organizationsDao);
+        task.execute();
+    }
+
+    /**
+     * Alerts DataObservers whether a user was created successfully.
+     *
+     * @param success true if the user was created.
+     * @param name The name of the user created.
+     */
+    @Override
+    public void onUserCreationAttempted(boolean success, String name) {
+        for (DataObserver observer : observers){
+            observer.onUserCreationAttempted(success, name);
+        }
     }
 
     /**
      * If the given username is unchanged or empty, shows an error message. Otherwise, updates the user
      *
      * @param context
-     * @param name The new username
+     * @param userId  The id of the user whose name should be changed
+     * @param name    The new username
      */
     @Override
-    public void attemptChangeUserName(Context context, String name) {
-        ChangeUsernameTask task = new ChangeUsernameTask(context, name, usersDao);
+    public void attemptChangeUserName(Context context, String userId, String name) {
+        ChangeUsernameTask task = new ChangeUsernameTask(context, userId, name, usersDao);
         task.execute();
     }
 
