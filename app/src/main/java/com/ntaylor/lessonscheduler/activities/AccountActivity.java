@@ -49,8 +49,8 @@ public class AccountActivity extends AppCompatActivity implements AccountPresent
 
     private AccountPresenter createPresenter(){
         Bundle bundle = getIntent().getExtras();
-        String name = (bundle.containsKey(EXTRA_USER_NAME)) ? (String)bundle.get(EXTRA_USER_NAME) : null;
-        String id = (bundle.containsKey(EXTRA_USER_ID)) ? (String)bundle.get(EXTRA_USER_ID) : null;
+        String name = (bundle != null && bundle.containsKey(EXTRA_USER_NAME)) ? (String)bundle.get(EXTRA_USER_NAME) : null;
+        String id = (bundle != null && bundle.containsKey(EXTRA_USER_ID)) ? (String)bundle.get(EXTRA_USER_ID) : null;
         return new AccountPresenter(this, id, name);
     }
 

@@ -38,7 +38,11 @@ public class CreateUserTask extends RoomTask<Void, Void, Boolean> {
 
         // now we know the organization exists, make sure the username isn't taken
         List<User> users = usersDao.getUserByUserName(userName);
-        if (users != null || users.size() > 0){
+        if (users == null || users.size() > 0){
+            return false;
+        }
+
+        if (userName == null || userName.isEmpty()){
             return false;
         }
 

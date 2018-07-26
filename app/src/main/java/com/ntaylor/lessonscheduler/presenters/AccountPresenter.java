@@ -11,6 +11,8 @@ import com.ntaylor.lessonscheduler.util.DataProvider;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 import com.ntaylor.lessonscheduler.util.UserInfo;
 
+import java.util.Locale;
+
 public class AccountPresenter extends Presenter implements DataObserver {
 
     private static final String EMPTY_NAME = "Please enter a non-empty name";
@@ -60,7 +62,7 @@ public class AccountPresenter extends Presenter implements DataObserver {
             else {
                 // change username or create user here
                 if (createUser){
-                    DataProviderFactory.getDataProviderInstance().login(context, name, UserInfo.getUserInfo().getOrgName());
+                    DataProviderFactory.getDataProviderInstance().attemptCreateUser(name, UserInfo.getUserInfo().getOrgId());
                 }
                 else {
                     DataProviderFactory.getDataProviderInstance().attemptChangeUserName(context, userId, name);
@@ -111,7 +113,8 @@ public class AccountPresenter extends Presenter implements DataObserver {
     @Override
     public void onUserCreationAttempted(boolean success, String name){
         if (success){
-            Toast.makeText((Activity)view, USER_CREATED_SUCCESS, Toast.LENGTH_SHORT).show();
+            String message = String.format(Locale.US, USER_CREATED_SUCCESS, name);
+            Toast.makeText((Activity)view, message, Toast.LENGTH_SHORT).show();
             view.destroySelf();
         }
         else {
