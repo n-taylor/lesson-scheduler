@@ -13,7 +13,9 @@ import com.ntaylor.lessonscheduler.users.UsersAdapter;
 import com.ntaylor.lessonscheduler.util.DataObserver;
 import com.ntaylor.lessonscheduler.util.DataProvider;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
+import com.ntaylor.lessonscheduler.util.UserInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class UsersPresenter extends Presenter implements DataObserver {
@@ -70,6 +72,15 @@ public class UsersPresenter extends Presenter implements DataObserver {
      */
     @Override
     public void onUsersUpdated(List<User> users){
+        // Remove the current user's name from the list
+        ArrayList<User> temp = new ArrayList<>(users);
+        for (User user : temp){
+            if (user.getUserId().equals(UserInfo.getUserInfo().getUserId())){
+                users.remove(user);
+            }
+        }
+
+        // Initialize the adapter
         UsersAdapter adapter = new UsersAdapter(this, users);
         recyclerView.setAdapter(adapter);
     }
