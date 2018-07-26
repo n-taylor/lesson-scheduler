@@ -17,67 +17,68 @@ import java.util.List;
  */
 public class GetUsersTask extends AsyncTask<Void, Void, List<User>> {
 
+    private static final int past_multiplier = 4;
+
     private String orgId;
     private UsersDao usersDao;
     private AssignmentsDao assignmentsDao;
 
     public GetUsersTask(String orgId, UsersDao usersDao, AssignmentsDao assignmentsDao){
-        this.orgId = orgId;
         this.usersDao = usersDao;
+        this.orgId = orgId;
         this.assignmentsDao = assignmentsDao;
     }
 
     @Override
     protected List<User> doInBackground(Void... voids) {
+        SimpleDate today = new SimpleDate();
+
         // Get all users in the organization
         List<User> users = usersDao.getUsersByOrg(orgId);
-        boolean updateNeeded = false;
 
-        // Foreach user, check if the next_class date has passed
+        // Get some past and all future assignments for the organization
+        List<Assignment> futures = assignmentsDao.getFutureAssignmentByOrganization(orgId, today.serializeDate());
+        List<Assignment> pasts = assignmentsDao.getPastAssignmentsByOrganization(orgId, today.serializeDate(), users.size()*past_multiplier);
+
+
+        // Foreach user, find the next and last assignments and update them in the user's columns if necessary
         for (User user : users){
+            boolean updateNeeded = false;
+
+            // Find the latest past assignment taught by 'user'
+            String lastAssignment = null;
+            for (Assignment assignment : pasts){
+                if (assignment.getTeacherId().equals(user.getUserId()) && (lastAssignment == null || assignment.getDate().compareTo(lastAssignment) > 0)){
+                    lastAssignment = assignment.getDate();
+                }
+            }
+
+            // Compare it with the teacher's last listed assignment
+            String last = user.getLastClass();
+            if ((last == null && lastAssignment != null) || (last != null && !last.equals(lastAssignment))){
+                updateNeeded = true;
+                user.setLastClass(lastAssignment);
+            }
+
+            // Find the earliest future assignment taught by 'user'
+            String nextAssignment = null;
+            for (Assignment assignment : futures){
+                // If the assignment is for the current user && [nextAssignment is null or nextAssignment is earlier than the previously found]
+                if (assignment.getTeacherId().equals(user.getUserId()) && (nextAssignment == null || assignment.getDate().compareTo(nextAssignment) < 0)){
+                    nextAssignment = assignment.getDate();
+                }
+            }
+
+            // Compare it with the user's listed next assignment
             String next = user.getNextClass();
-
-            if (next != null){
-                SimpleDate nextDate = SimpleDate.deserializeDate(next, true);
-
-                // If nextDate has already passed (i.e. nextDate < today)
-                if (nextDate.isBefore(new SimpleDate())){
-
-                    // Update is necessary: update last_class and check for future assignments
-                    updateNeeded = true;
-                    user.setLastClass(next);
-
-                    // Get future assignments for this user
-                    List<Assignment> futureClasses = assignmentsDao.getFutureAssignmentsByTeacher(orgId,
-                            user.getUserId(), (new SimpleDate()).serializeDate());
-
-                    // Assign a new next_class
-                    if (futureClasses.size() > 0){
-                        user.setNextClass(futureClasses.get(0).getDate());
-                    }
-                    else {
-                        user.setNextClass(null);
-                    }
-
-                    // Update
-                    usersDao.update(user);
-                }
+            if ((next == null && nextAssignment != null) || (next != null && !next.equals(nextAssignment))){
+                updateNeeded = true;
+                user.setNextClass(nextAssignment);
             }
-            else {
-                SimpleDate today = new SimpleDate();
-                // Check if the next assignment needs to be updated
-                List<Assignment> futureClasses = assignmentsDao.getFutureAssignmentsByTeacher(orgId,
-                        user.getUserId(), today.serializeDate());
 
-                // Assign a new next_class
-                if (futureClasses.size() > 0){
-                    user.setNextClass(futureClasses.get(0).getDate());
-                }
+            if (updateNeeded){
+                usersDao.update(user);
             }
-        }
-
-        if (updateNeeded){
-            users = usersDao.getUsersByOrg(orgId);
         }
 
         return users;
