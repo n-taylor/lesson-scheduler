@@ -107,7 +107,7 @@ public class RoomRepository implements DataProvider {
      */
     @Override
     public void fetchUsers() {
-        GetUsersTask task = new GetUsersTask(UserInfo.getUserInfo().getOrgId(), usersDao);
+        GetUsersTask task = new GetUsersTask(UserInfo.getUserInfo().getOrgId(), usersDao, assignmentsDao);
         task.execute();
     }
 

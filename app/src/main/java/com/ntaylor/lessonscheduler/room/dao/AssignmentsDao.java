@@ -28,7 +28,7 @@ public interface AssignmentsDao {
     @Query("SELECT * FROM assignments WHERE org_id LIKE :orgId AND  teacher_id LIKE :teacherId AND date < :date")
     List<Assignment> getPastAssignmentsByTeacher(String orgId, String teacherId, String date);
 
-    @Query("SELECT * FROM assignments WHERE org_id LIKE :orgId AND  teacher_id LIKE :teacherId AND date >= :date")
+    @Query("SELECT * FROM assignments WHERE org_id LIKE :orgId AND  teacher_id LIKE :teacherId AND date >= :date ORDER BY date ASC")
     List<Assignment> getFutureAssignmentsByTeacher(String orgId, String teacherId, String date);
 
     @Query("SELECT * FROM assignments WHERE org_id LIKE :orgId AND class_id LIKE :classId")

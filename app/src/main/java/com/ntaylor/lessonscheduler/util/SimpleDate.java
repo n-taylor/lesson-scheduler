@@ -1,5 +1,7 @@
 package com.ntaylor.lessonscheduler.util;
 
+import android.support.annotation.NonNull;
+
 import java.time.LocalDate;
 import java.util.Calendar;
 import java.util.Locale;
@@ -134,6 +136,18 @@ public class SimpleDate {
         }
     }
 
+    /**
+     * Compares this simple date with another given simple date.
+     * @param toCompare The date with which to compare this.
+     * @return true if this is earlier than toCompare. False if the same day or after toCompare.
+     */
+    public boolean isBefore(SimpleDate toCompare) {
+        // If this is earlier than toCompare, this.year < toCompare.year and so on
+        return this.getYear() < toCompare.getYear() ||
+                this.getMonth() < toCompare.getMonth() ||
+                this.getDate() < toCompare.getDate();
+    }
+
     @Override
     public boolean equals(Object other){
         if (other instanceof SimpleDate){
@@ -151,4 +165,6 @@ public class SimpleDate {
     public int hashCode(){
         return this.toString().hashCode();
     }
+
+
 }
