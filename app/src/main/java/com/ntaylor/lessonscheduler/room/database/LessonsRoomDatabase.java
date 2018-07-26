@@ -17,7 +17,7 @@ import com.ntaylor.lessonscheduler.room.dao.ClassesDao;
 import com.ntaylor.lessonscheduler.room.entities.Organization;
 import com.ntaylor.lessonscheduler.room.entities.User;
 
-@Database(entities = {Classroom.class, Assignment.class, Organization.class, User.class}, version = 2, exportSchema = false)
+@Database(entities = {Classroom.class, Assignment.class, Organization.class, User.class}, version = 3, exportSchema = false)
 public abstract class LessonsRoomDatabase extends RoomDatabase{
 
     private static LessonsRoomDatabase INSTANCE;
@@ -31,7 +31,7 @@ public abstract class LessonsRoomDatabase extends RoomDatabase{
         if (INSTANCE == null){
             synchronized (LessonsRoomDatabase.class){
                 INSTANCE = Room.databaseBuilder(context.getApplicationContext(), LessonsRoomDatabase.class, "lessons_database")
-                        .addMigrations(MIGRATION_1_2)
+                        .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
                         .build();
             }
         }
@@ -42,6 +42,15 @@ public abstract class LessonsRoomDatabase extends RoomDatabase{
         @Override
         public void migrate(@NonNull SupportSQLiteDatabase database) {
             // try doing nothing
+        }
+    };
+
+    private static final Migration MIGRATION_2_3 = new Migration(2, 3) {
+        @Override
+        public void migrate(@NonNull SupportSQLiteDatabase database) {
+            // Add columns last_class and next_class
+            database.execSQL("ALTER TABLE users ADD COLUMN last_class TEXT");
+            database.execSQL("ALTER TABLE users ADD COLUMN next_class TEXT");
         }
     };
 }

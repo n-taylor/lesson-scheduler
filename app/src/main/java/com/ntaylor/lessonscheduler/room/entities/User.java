@@ -28,6 +28,12 @@ public class User {
     @ColumnInfo(name = "org_id")
     private String orgId;
 
+    @ColumnInfo(name = "last_class")
+    private String lastClass;
+
+    @ColumnInfo(name = "next_class")
+    private String nextClass;
+
     public User(@NonNull String userName, @NonNull String orgId){
         this.userId = UUID.randomUUID().toString();
         this.userName = userName;
@@ -60,5 +66,13 @@ public class User {
     public void setOrgId(@NonNull String orgId) {
         this.orgId = orgId;
     }
+
+    public String getLastClass() { return this.lastClass; }
+
+    public void setLastClass(String lastClass) { this.lastClass = lastClass; }
+
+    public String getNextClass() { return this.nextClass; }
+
+    public void setNextClass(String nextClass) { this.nextClass = nextClass; }
 
 }
