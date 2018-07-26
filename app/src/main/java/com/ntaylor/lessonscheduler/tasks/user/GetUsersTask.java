@@ -24,6 +24,7 @@ public class GetUsersTask extends AsyncTask<Void, Void, List<User>> {
     public GetUsersTask(String orgId, UsersDao usersDao, AssignmentsDao assignmentsDao){
         this.orgId = orgId;
         this.usersDao = usersDao;
+        this.assignmentsDao = assignmentsDao;
     }
 
     @Override
@@ -60,6 +61,17 @@ public class GetUsersTask extends AsyncTask<Void, Void, List<User>> {
 
                     // Update
                     usersDao.update(user);
+                }
+            }
+            else {
+                SimpleDate today = new SimpleDate();
+                // Check if the next assignment needs to be updated
+                List<Assignment> futureClasses = assignmentsDao.getFutureAssignmentsByTeacher(orgId,
+                        user.getUserId(), today.serializeDate());
+
+                // Assign a new next_class
+                if (futureClasses.size() > 0){
+                    user.setNextClass(futureClasses.get(0).getDate());
                 }
             }
         }

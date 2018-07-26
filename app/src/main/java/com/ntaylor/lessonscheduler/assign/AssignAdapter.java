@@ -12,10 +12,13 @@ import com.ntaylor.lessonscheduler.presenters.AssignPresenter;
 import com.ntaylor.lessonscheduler.room.entities.User;
 
 import java.util.List;
+import java.util.Locale;
 
 public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.ViewHolder> {
 
-    private static final String default_subtext = "What a great teacher!";
+    private static final String subtext = "Last taught: %1$s, Next assignment: %2$s";
+    private static final String neverTaught = "";
+    private static final String noUpcomingAssignment = "";
 
     private List<User> users;
     private AssignPresenter presenter;
@@ -79,9 +82,16 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.ViewHolder
      */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        User user = users.get(position);
+        String lastTaught = user.getLastClass();
+        lastTaught = (lastTaught == null) ? neverTaught : lastTaught;
+
+        String nextAssignment = user.getNextClass();
+        nextAssignment = (nextAssignment == null) ? noUpcomingAssignment : nextAssignment;
+
         // Set the header and subtext for the user
-        holder.nameText.setText(users.get(position).getUserName());
-        holder.subtext.setText(default_subtext);
+        holder.nameText.setText(user.getUserName());
+        holder.subtext.setText(String.format(Locale.US, subtext, lastTaught, nextAssignment));
 
         final int pos = position;
 
