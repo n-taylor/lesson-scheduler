@@ -14,6 +14,8 @@ import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
 import com.ntaylor.lessonscheduler.util.SimpleDate;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -31,6 +33,7 @@ public class UpcomingAdapter extends ArrayAdapter<SimpleDate> {
 
     private List<Classroom> classes;
     private List<Assignment> assignments;
+    private HashMap<SimpleDate, List<Assignment>> assignmentsMap;
 
     private UpcomingPresenter presenter;
 
@@ -41,6 +44,8 @@ public class UpcomingAdapter extends ArrayAdapter<SimpleDate> {
         this.context = context;
         this.classes = classes;
         this.assignments = assignments;
+
+        initializeAssignmentsMap();
     }
 
     @NonNull
@@ -60,7 +65,7 @@ public class UpcomingAdapter extends ArrayAdapter<SimpleDate> {
 
         dateTextView.setText(date.toString());
         assignmentsLeft.setText(String.valueOf(getNumUnassignedClasses(date)));
-        subtext.setText(getUnassignedClassNames());
+        subtext.setText(getUnassignedClassNames(date));
 
         convertView.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -72,21 +77,41 @@ public class UpcomingAdapter extends ArrayAdapter<SimpleDate> {
         return convertView;
     }
 
-    private String getUnassignedClassNames(){
+    /**
+     * Gets a list of the classes yet to be assigned a teacher for the particular date.
+     * If the list is too long, shortens it and appends "..."
+     * @param date The date on which the unassigned classes are relevant
+     * @return Ex. "Class 1, Class 2, Class 3, Cl..."
+     */
+    private String getUnassignedClassNames(SimpleDate date){
         StringBuilder sb = new StringBuilder();
+        ArrayList<String> unassigned = new ArrayList<>();
+
+        // fill the unassigned list with all the classes' IDs
         for (Classroom classroom : classes){
-            if (!assignmentsContain(classroom)){
-                if (!sb.toString().isEmpty()){
+            unassigned.add((classroom.getClassId()));
+        }
+
+        // remove any classes that have been assigned
+        for (Assignment assignment : assignmentsMap.get(date)){
+            unassigned.remove(assignment.getClassId());
+        }
+
+        // match class IDs to names and add to the string builder
+        for (Classroom classroom : classes){
+            if (unassigned.contains(classroom.getClassId())){
+                if (sb.length() != 0){
                     sb.append(", ");
                 }
                 sb.append(classroom.getClassName());
             }
         }
 
+        // shorten the full description if needed
         return (sb.length() > max_characters) ? sb.substring(0, max_characters) + "..." : sb.toString();
     }
 
-    private boolean assignmentsContain(Classroom classroom){
+    private boolean assignmentsContain(Classroom classroom, SimpleDate date){
         for (Assignment assignment : assignments){
             if (assignment.getClassId().equals(classroom.getClassId())){
                 return true;
@@ -120,5 +145,27 @@ public class UpcomingAdapter extends ArrayAdapter<SimpleDate> {
      */
     public void setAssignments(List<Assignment> assignments) {
         this.assignments = assignments;
+
+        initializeAssignmentsMap();
+    }
+
+    /**
+     * Populates the assignments hashmap with all the current assignments for each date listed
+     * in this adapter.
+     */
+    private void initializeAssignmentsMap(){
+
+        this.assignmentsMap = new HashMap<>();
+        for (SimpleDate date : dates){
+            assignmentsMap.put(date, new ArrayList<Assignment>());
+        }
+
+        for (Assignment assignment : assignments){
+            SimpleDate date = SimpleDate.deserializeDate(assignment.getDate(), true);
+            if (assignmentsMap.keySet().contains(date)){
+                assignmentsMap.get(date).add(assignment);
+            }
+        }
+
     }
 }

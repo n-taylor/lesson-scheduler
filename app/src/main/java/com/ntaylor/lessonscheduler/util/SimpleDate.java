@@ -133,4 +133,22 @@ public class SimpleDate {
             return new SimpleDate(getYear(), getMonth(), getDate()+offset);
         }
     }
+
+    @Override
+    public boolean equals(Object other){
+        if (other instanceof SimpleDate){
+            SimpleDate otherDate = (SimpleDate)other;
+            return otherDate.getDate() == getDate() &&
+                    otherDate.getMonth() == getMonth() &&
+                    otherDate.getYear() == getYear() &&
+                    otherDate.noYear == noYear;
+
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode(){
+        return this.toString().hashCode();
+    }
 }
