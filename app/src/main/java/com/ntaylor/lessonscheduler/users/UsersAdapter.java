@@ -1,5 +1,6 @@
 package com.ntaylor.lessonscheduler.users;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -95,6 +96,11 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         // Set the header and subtext for the user
         holder.nameText.setText(user.getUserName());
         holder.subtext.setText(String.format(Locale.US, subtext, lastTaught, nextAssignment));
+
+        TextView image = (TextView)holder.userView.findViewById(R.id.upcoming_number_left);
+        View box = holder.userView.findViewById(R.id.user_image);
+        box.setBackgroundColor(Color.BLACK);
+        image.setText(user.getUserName().substring(0,1).toUpperCase());
 
         final int pos = position;
 
