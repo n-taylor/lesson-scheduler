@@ -38,6 +38,13 @@ public class SignUpPresenter {
         }
     }
 
+    /**
+     * Starts the CreateOrgActivity
+     */
+    public void onCreateLinkPressed(Activity activity){
+        // TODO: Make the CreateOrgActivity and link to it here
+    }
+
 
     public interface View {
         void destroySelf();
