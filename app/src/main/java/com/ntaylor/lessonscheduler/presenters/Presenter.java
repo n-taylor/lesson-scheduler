@@ -111,4 +111,9 @@ public abstract class Presenter implements DataObserver {
     public void onUserDeleted(boolean success){
 
     }
+
+    @Override
+    public void onClassroomDeleted(){
+
+    }
 }

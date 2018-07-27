@@ -21,7 +21,7 @@
     <string name="classroom_edit_name_hint">Class Name</string>
     <string name="classroom_edit_description_hint">Short Description</string>
     <string name="classroom_edit_confirm_button">Confirm</string>
-    <string name="classroom_edit_delete_button">Delete</string>
+    <string name="classroom_edit_cancel_button">Cancel</string>
 
     <string name="title_activity_account">My Account</string>
     <string name="user_image_description">User Image</string>
@@ -40,5 +40,7 @@
 
     <string name="users_menu_title">Users</string>
     <string name="title_activity_users">All Users</string>
+
+    <string name="empty"> </string>
 
 </resources>

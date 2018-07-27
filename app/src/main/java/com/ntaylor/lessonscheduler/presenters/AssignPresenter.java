@@ -58,7 +58,7 @@ public class AssignPresenter extends Presenter {
     public void initializeClassroomView(Activity activity){
         TextView header = (TextView)activity.findViewById(R.id.class_name);
         header.setText(this.name);
-        ((TextView)activity.findViewById(R.id.class_description)).setText(SimpleDate.deserializeDate(this.date, true).toString());
+        ((TextView)activity.findViewById(R.id.class_subtext)).setText(SimpleDate.deserializeDate(this.date, true).toString());
     }
 
     public void initializeRecyclerView(Context context, RecyclerView recyclerView){

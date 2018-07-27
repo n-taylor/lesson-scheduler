@@ -98,6 +98,11 @@ public interface DataProvider {
     void deleteClassroom(@NonNull Classroom classroom);
 
     /**
+     * Notifies observers that a classroom has been deleted.
+     */
+    void onClassroomDeleted();
+
+    /**
      * Returns the list of classes. May be null.
      */
     List<Classroom> getClasses();

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.ntaylor.lessonscheduler.activities.AccountActivity;
 import com.ntaylor.lessonscheduler.activities.ClassroomEditActivity;
@@ -18,6 +19,8 @@ import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 import java.util.List;
 
 public class ClassesPresenter extends Presenter {
+
+    private static final String classroomDeleteMessage = "Class successfully deleted.";
 
     private ClassesView view;
     private ListView listView;
@@ -70,6 +73,13 @@ public class ClassesPresenter extends Presenter {
     }
 
     /**
+     * Deletes the classroom indicated.
+     */
+    public void onDeletePressed(Classroom classroom){
+        DataProviderFactory.getDataProviderInstance().deleteClassroom(classroom);
+    }
+
+    /**
      * To be called when the user presses a button to add a classroom.
      * Starts the ClassroomEditActivity with the intention of adding a classroom.
      */
@@ -92,6 +102,11 @@ public class ClassesPresenter extends Presenter {
         if (listView != null) {
             listView.setAdapter(adapter);
         }
+    }
+
+    @Override
+    public void onClassroomDeleted(){
+        Toast.makeText((Activity)view, classroomDeleteMessage, Toast.LENGTH_SHORT).show();
     }
 
     public interface ClassesView {

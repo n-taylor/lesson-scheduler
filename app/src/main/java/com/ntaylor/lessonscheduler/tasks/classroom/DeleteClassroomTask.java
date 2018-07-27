@@ -27,6 +27,7 @@ public class DeleteClassroomTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void nothing){
+        DataProviderFactory.getDataProviderInstance().onClassroomDeleted();
         DataProviderFactory.getDataProviderInstance().fetchClasses();
     }
 }

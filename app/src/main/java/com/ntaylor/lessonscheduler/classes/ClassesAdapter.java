@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.ntaylor.lessonscheduler.R;
@@ -45,6 +46,14 @@ public class ClassesAdapter extends ArrayAdapter<Classroom> {
 
         TextView image = (TextView)convertView.findViewById(R.id.upcoming_number_left);
         image.setText(classrooms.get(position).getClassName().substring(0,1));
+
+        ImageButton delete = (ImageButton)convertView.findViewById(R.id.class_delete_button);
+        delete.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                presenter.onDeletePressed(classrooms.get(index));
+            }
+        });
 
         convertView.setOnClickListener(new View.OnClickListener(){
             @Override

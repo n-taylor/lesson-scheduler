@@ -85,7 +85,7 @@ public class ClassroomEditActivity extends AppCompatActivity implements Classroo
         deleteButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                presenter.onDeleteClicked(ClassroomEditActivity.this);
+                presenter.onCancelPressed(ClassroomEditActivity.this);
             }
         });
 

@@ -24,6 +24,11 @@ public interface DataObserver {
     void onClassesUpdated(List<Classroom> classes);
 
     /**
+     * To be called when a classroom has been deleted
+     */
+    void onClassroomDeleted();
+
+    /**
      * To be called when an attempt to modify the user name has been fully attempted.
      * @param successful true if the username was changed, false if not valid or already taken.
      * @param name The new username requested

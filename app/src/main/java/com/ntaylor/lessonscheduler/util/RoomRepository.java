@@ -210,6 +210,16 @@ public class RoomRepository implements DataProvider {
     }
 
     /**
+     * Notifies observers that a classroom has been deleted.
+     */
+    @Override
+    public void onClassroomDeleted() {
+        for (DataObserver observer : observers){
+            observer.onClassroomDeleted();
+        }
+    }
+
+    /**
      * Adds the specified DataObserver to the list of observers to be notified when data has been updated.
      *
      * @param observer The observer to notify.
