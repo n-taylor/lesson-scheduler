@@ -52,6 +52,9 @@ public class UsersActivity extends AppCompatActivity implements UsersPresenter.U
             case R.id.action_upcoming:
                 presenter.onUpcomingItemPressed(this);
                 return true;
+            case R.id.action_assignments:
+                presenter.onAssignmentsItemPressed(this);
+                return true;
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.

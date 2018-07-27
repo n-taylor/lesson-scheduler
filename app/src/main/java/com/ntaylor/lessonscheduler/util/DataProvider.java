@@ -136,6 +136,18 @@ public interface DataProvider {
     void updateAssignments(List<Assignment> assignments);
 
     /**
+     * Deletes the specified assignment from the database.
+     * @param assignment The assignment to delete.
+     */
+    void deleteAssignment(Assignment assignment);
+
+    /**
+     * Notifies observers whether an assignment was successufully deleted.
+     * @param success True if the assignment was fully deleted.
+     */
+    void onAssignmentDeleted(boolean success);
+
+    /**
      * Requests the data provider to update its list of classes from the database
      */
     void fetchClasses();

@@ -50,6 +50,9 @@ public interface AssignmentsDao {
     
     // Delete ------------------------------------------------
 
+    @Query("DELETE FROM assignments WHERE `index` = :index")
+    int delete(int index);
+
     @Query("DELETE FROM assignments WHERE org_id LIKE :orgId AND class_id LIKE :classId AND date LIKE :date")
     int deleteByClassAndDate(String orgId, String classId, String date);
 

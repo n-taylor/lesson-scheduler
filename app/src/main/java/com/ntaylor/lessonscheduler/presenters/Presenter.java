@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.ntaylor.lessonscheduler.activities.AccountActivity;
+import com.ntaylor.lessonscheduler.activities.AssignmentsActivity;
 import com.ntaylor.lessonscheduler.activities.ClassesActivity;
 import com.ntaylor.lessonscheduler.activities.UpcomingActivity;
 import com.ntaylor.lessonscheduler.activities.UsersActivity;
@@ -52,6 +53,14 @@ public abstract class Presenter implements DataObserver {
      */
     public void onUsersItemPressed(Context context){
         Intent intent = new Intent(context, UsersActivity.class);
+        context.startActivity(intent);
+    }
+
+    /**
+     * Starts the assignments activity
+     */
+    public void onAssignmentsItemPressed(Context context){
+        Intent intent = new Intent(context, AssignmentsActivity.class);
         context.startActivity(intent);
     }
 
@@ -114,6 +123,15 @@ public abstract class Presenter implements DataObserver {
 
     @Override
     public void onClassroomDeleted(){
+
+    }
+
+    /**
+     * To be called when an attempt was made to delete an assignment.
+     * @param success True if the assignment was successfully deleted.
+     */
+    @Override
+    public void onAssignmentDeleted(boolean success){
 
     }
 }

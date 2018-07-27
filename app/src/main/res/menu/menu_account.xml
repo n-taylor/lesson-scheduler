@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.ntaylor.lessonscheduler.activities.AccountActivity">
     <item
+        android:id="@+id/action_assignments"
+        android:orderInCategory="1"
+        android:title="@string/assignments_menu_title"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/action_upcoming"
         android:orderInCategory="2"
         android:title="@string/upcoming_title"

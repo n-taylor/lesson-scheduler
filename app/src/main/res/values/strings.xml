@@ -49,5 +49,6 @@
     <string name="assignment_top_label">Top Label</string>
     <string name="assignment_middle_label">Middle Label</string>
     <string name="assignment_bottom_label">Bottom Label</string>
+    <string name="assignments_menu_title">Assignments</string>
 
 </resources>

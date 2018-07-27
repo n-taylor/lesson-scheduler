@@ -1,12 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.ntaylor.lessonscheduler.activities.AssignActivity">
-    <item
-        android:id="@+id/action_assignments"
-        android:orderInCategory="1"
-        android:title="@string/assignments_menu_title"
-        app:showAsAction="never" />
+    tools:context="com.ntaylor.lessonscheduler.activities.AssignmentsActivity">
     <item
         android:id="@+id/action_upcoming"
         android:orderInCategory="2"

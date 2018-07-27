@@ -14,6 +14,7 @@ import com.ntaylor.lessonscheduler.room.database.LessonsRoomDatabase;
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
 import com.ntaylor.lessonscheduler.room.entities.User;
+import com.ntaylor.lessonscheduler.tasks.assignment.DeleteAssignmentTask;
 import com.ntaylor.lessonscheduler.tasks.user.ChangeUsernameTask;
 import com.ntaylor.lessonscheduler.tasks.user.CreateUserTask;
 import com.ntaylor.lessonscheduler.tasks.assignment.CreateAssignmentTask;
@@ -273,6 +274,29 @@ public class RoomRepository implements DataProvider {
         this.assignments = assignments;
         for (DataObserver observer : observers){
             observer.onAssignmentsUpdated(assignments);
+        }
+    }
+
+    /**
+     * Deletes the specified assignment from the database.
+     *
+     * @param assignment The assignment to delete.
+     */
+    @Override
+    public void deleteAssignment(Assignment assignment) {
+        DeleteAssignmentTask task = new DeleteAssignmentTask(assignment, assignmentsDao);
+        task.execute();
+    }
+
+    /**
+     * Notifies observers whether an assignment was successufully deleted.
+     *
+     * @param success True if the assignment was fully deleted.
+     */
+    @Override
+    public void onAssignmentDeleted(boolean success) {
+        for (DataObserver observer : observers){
+            observer.onAssignmentDeleted(success);
         }
     }
 

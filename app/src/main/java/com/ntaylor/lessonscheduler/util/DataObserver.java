@@ -18,6 +18,12 @@ public interface DataObserver {
     void onAssignmentsUpdated(List<Assignment> assignments);
 
     /**
+     * To be called when an attempt was made to delete an assignment.
+     * @param success True if the assignment was successfully deleted.
+     */
+    void onAssignmentDeleted(boolean success);
+
+    /**
      * To be called when the list of classes for the organization has been modified.
      * @param classes The list of classes.
      */
