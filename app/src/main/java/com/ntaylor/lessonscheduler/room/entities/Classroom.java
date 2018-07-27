@@ -53,6 +53,7 @@ public class Classroom {
         this.className = className;
     }
 
+    @NonNull
     public String getClassId() {
         return classId;
     }

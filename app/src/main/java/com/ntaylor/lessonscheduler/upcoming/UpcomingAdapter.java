@@ -60,21 +60,51 @@ public class UpcomingAdapter extends ArrayAdapter<SimpleDate> {
         TextView dateTextView = (TextView)convertView.findViewById(R.id.upcoming_title);
         TextView assignmentsLeft = (TextView)convertView.findViewById(R.id.upcoming_number_left);
         TextView subtext = (TextView)convertView.findViewById(R.id.upcoming_subtext);
+        View image = convertView.findViewById(R.id.upcoming_numbered_box);
 
-        SimpleDate date = dates.get(position);
+        final SimpleDate date = dates.get(position);
 
         dateTextView.setText(date.toString());
-        assignmentsLeft.setText(String.valueOf(getNumUnassignedClasses(date)));
+        final int numUnassigned = getNumUnassignedClasses(date);
+        if (numUnassigned == 0){
+            image.setBackgroundResource(R.drawable.checkmark_blue_white);
+            assignmentsLeft.setVisibility(View.INVISIBLE);
+        }
+        else {
+            assignmentsLeft.setText(String.valueOf(numUnassigned));
+        }
         subtext.setText(getUnassignedClassNames(date));
 
         convertView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                presenter.onDatePressed(context, dates.get(position).serializeDate());
+                if (numUnassigned > 0) {
+                    presenter.onDatePressed(context, dates.get(position).serializeDate(), getUnassignedClasses(date));
+                }
             }
         });
 
         return convertView;
+    }
+
+    /**
+     * @return The names of all the unassigned classes for a particular date.
+     */
+    private CharSequence[] getUnassignedClasses(SimpleDate date){
+        HashMap<String, String> unassigned = new HashMap<>();
+
+        // fill the unassigned list with all the classes' IDs
+        for (Classroom classroom : classes){
+            unassigned.put(classroom.getClassId(), classroom.getClassName());
+        }
+
+        // remove any classes that have been assigned
+        for (Assignment assignment : assignmentsMap.get(date)){
+            unassigned.remove(assignment.getClassId());
+        }
+
+        CharSequence[] seq = new CharSequence[unassigned.size()];
+        return unassigned.values().toArray(seq);
     }
 
     /**

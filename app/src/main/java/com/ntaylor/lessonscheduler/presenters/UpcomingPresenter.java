@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.widget.ListView;
 
 import com.ntaylor.lessonscheduler.activities.AssignActivity;
@@ -55,26 +56,36 @@ public class UpcomingPresenter extends Presenter {
 
     /**
      * Shows a dialog that allows the user to select the class to which they want to assign a teacher
+     * @param date The date of the assignment to be made.
+     * @param unassigned The names of all the unassigned classes.
      */
-    public void onDatePressed(final Context context, final String date){
-        // Add the class names to the user's options
-        CharSequence[] options = new CharSequence[classes.size()];
-        for (int i = 0; i < options.length; i++){
-            options[i] = classes.get(i).getClassName();
+    public void onDatePressed(final Context context, final String date, final CharSequence[] unassigned){
+        // If there are no unassigned classes, do nothing
+        // If there is only 1 unassigned class, start the assign activity for that class
+        // Otherwise, have the user select the course to assign
+        if (unassigned.length == 0){
+            return;
         }
-
-        // Create the dialog box
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle(select_class_title);
-        builder.setItems(options, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int selected) {
-                // Open the assign activity with the appropriate class
-                Classroom chosen = classes.get(selected);
-                startAssignActivity(context, chosen.getClassId(), chosen.getClassName(), date);
+        else if (unassigned.length == 1){
+            Classroom toAssign = getClassByName(unassigned[0].toString());
+            if (toAssign != null) {
+                startAssignActivity(context, toAssign.getClassId(), toAssign.getClassName(), date);
             }
-        });
-        builder.create().show();
+        }
+        else {
+            // Create the dialog box
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle(select_class_title);
+            builder.setItems(unassigned, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int selected) {
+                    // Open the assign activity with the appropriate class
+                    Classroom chosen = getClassByName(unassigned[selected].toString());
+                    startAssignActivity(context, chosen.getClassId(), chosen.getClassName(), date);
+                }
+            });
+            builder.create().show();
+        }
     }
 
     /**
@@ -130,6 +141,16 @@ public class UpcomingPresenter extends Presenter {
     private void initializeAdapter() {
         adapter = new UpcomingAdapter(this, ((UpcomingActivity) activity), dates, assignments, classes);
         listView.setAdapter(adapter);
+    }
+
+    private Classroom getClassByName(@NonNull String name){
+        Classroom toReturn = null;
+        for (Classroom classroom : classes){
+            if (classroom.getClassName().equals(name)){
+                return classroom;
+            }
+        }
+        return null;
     }
 
     public interface View {
