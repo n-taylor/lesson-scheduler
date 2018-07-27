@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.ntaylor.lessonscheduler.R;
@@ -26,8 +27,8 @@ public class SignUpActivity extends AppCompatActivity implements SignUpPresenter
         initializeButtons();
 
         // for ease of debugging quickly, automatically log in
-        presenter.onButtonPressed(this, "nathan", "test");
-        finish();
+//        presenter.onButtonPressed(this, "nathan", "test");
+//        finish();
     }
 
     private void initializeViews(){
@@ -40,8 +41,8 @@ public class SignUpActivity extends AppCompatActivity implements SignUpPresenter
 
     private void initializeButtons(){
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        Button login = (Button)findViewById(R.id.log_in_button);
+        login.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
                 presenter.onButtonPressed(SignUpActivity.this, userNameText.getText().toString(),

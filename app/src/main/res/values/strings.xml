@@ -42,5 +42,8 @@
     <string name="title_activity_users">All Users</string>
 
     <string name="empty"> </string>
+    <string name="log_in_button">Log In</string>
+    <string name="sign_up_org_label">Don\'t have an organization yet?</string>
+    <string name="create_org_link"><u>Create one</u></string>
 
 </resources>
