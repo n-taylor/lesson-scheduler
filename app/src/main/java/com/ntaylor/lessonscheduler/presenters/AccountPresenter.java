@@ -115,6 +115,14 @@ public class AccountPresenter extends Presenter implements DataObserver {
     }
 
     /**
+     * Unhooks self from the list of data observers and ends the activity.
+     */
+    @Override
+    protected void end() {
+        view.destroySelf();
+    }
+
+    /**
      * To be called when an attempt to modify the user name has been fully attempted.
      *
      * @param successful true if the username was changed, false if not valid or already taken.

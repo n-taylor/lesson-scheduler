@@ -80,6 +80,14 @@ public class AssignmentsPresenter extends Presenter {
 
     // Overrides ===========================================================================
 
+    /**
+     * Unhooks self from the list of data observers and ends the activity.
+     */
+    @Override
+    protected void end() {
+        activity.destroySelf();
+    }
+
     @Override
     public void onAssignmentsUpdated(List<Assignment> assignments){
         this.assignments = assignments;

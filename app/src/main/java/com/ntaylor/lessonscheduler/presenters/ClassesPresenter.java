@@ -56,6 +56,14 @@ public class ClassesPresenter extends Presenter {
     }
 
     /**
+     * Unhooks self from the list of data observers and ends the activity.
+     */
+    @Override
+    protected void end() {
+        view.destroySelf();
+    }
+
+    /**
      * Displays account information for the current user.
      */
     public void onAccountItemPressed(Context context){

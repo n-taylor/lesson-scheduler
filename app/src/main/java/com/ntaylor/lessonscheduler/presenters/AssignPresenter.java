@@ -94,6 +94,14 @@ public class AssignPresenter extends Presenter {
     // Overrides ================================================================================
 
     /**
+     * Unhooks self from the list of data observers and ends the activity.
+     */
+    @Override
+    protected void end() {
+        view.destroySelf();
+    }
+
+    /**
      * To be called when the list of users in an organization has been updated.
      * Initialize the recyclerView adapter
      * @param users The current list of teachers in the user's organization.
