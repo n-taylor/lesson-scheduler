@@ -14,4 +14,6 @@
     <dimen name="account_button_width">180dp</dimen>
 
     <dimen name="list_item_padding_bottom">5dp</dimen>
+
+    <dimen name="check_mark_max_size">80dp</dimen>
 </resources>
