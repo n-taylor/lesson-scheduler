@@ -45,7 +45,7 @@
     <string name="log_in_button">Log In</string>
     <string name="sign_up_org_label">Don\'t have an organization yet?</string>
     <string name="create_org_link"><u>Create one</u></string>
-    <string name="title_activity_assigned">AssignedActivity</string>
+    <string name="title_activity_assigned">Current Assignments</string>
     <string name="assignment_top_label">Top Label</string>
     <string name="assignment_middle_label">Middle Label</string>
     <string name="assignment_bottom_label">Bottom Label</string>
