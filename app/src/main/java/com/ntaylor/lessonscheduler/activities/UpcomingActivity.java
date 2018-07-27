@@ -40,6 +40,12 @@ public class UpcomingActivity extends AppCompatActivity implements UpcomingPrese
     }
 
     @Override
+    public void destroySelf(){
+        DataProviderFactory.getDataProviderInstance().removeObserver(presenter);
+        finish();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater mi = getMenuInflater();
         mi.inflate(R.menu.menu_upcoming, menu);

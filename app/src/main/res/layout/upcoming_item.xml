@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="10dp"
-        android:background="@drawable/rounded_rect_gray">
+        android:background="@drawable/rounded_rect_purple">
 
         <include
             android:id="@+id/upcoming_numbered_box"

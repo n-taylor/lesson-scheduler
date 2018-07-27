@@ -99,10 +99,20 @@ public class UpcomingPresenter extends Presenter {
 
     // Overrides ============================================================================
 
+    /**
+     * Unhooks self from the list of data observers and ends the activity.
+     */
+    @Override
+    protected void end() {
+        activity.destroySelf();
+    }
+
     @Override
     public void onAssignmentsUpdated(List<Assignment> assignments) {
         this.assignments = assignments;
-        initializeAdapter();
+        if (assignments != null && this.classes != null) {
+            initializeAdapter();
+        }
     }
 
     /**
@@ -113,7 +123,9 @@ public class UpcomingPresenter extends Presenter {
     @Override
     public void onClassesUpdated(List<Classroom> classes) {
         this.classes = classes;
-        initializeAdapter();
+        if (assignments != null && this.classes != null) {
+            initializeAdapter();
+        }
     }
 
     // Private utility methods ==============================================================
@@ -154,6 +166,6 @@ public class UpcomingPresenter extends Presenter {
     }
 
     public interface View {
-
+        void destroySelf();
     }
 }

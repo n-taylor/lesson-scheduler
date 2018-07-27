@@ -131,6 +131,14 @@ public class UsersPresenter extends Presenter implements DataObserver {
         provider.fetchUsers();
     }
 
+    /**
+     * Unhooks self from the list of data observers and ends the activity.
+     */
+    @Override
+    protected void end() {
+        activity.destroySelf();
+    }
+
     @Override
     public void onUserNameChanged(boolean success, String name){
         provider.fetchUsers();

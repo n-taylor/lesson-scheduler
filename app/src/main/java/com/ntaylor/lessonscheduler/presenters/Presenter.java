@@ -20,6 +20,11 @@ import java.util.List;
 public abstract class Presenter implements DataObserver {
 
     /**
+     * Unhooks self from the list of data observers and ends the activity.
+     */
+    abstract protected void end();
+
+    /**
      * Opens the account info activity
      * @param context
      */
@@ -30,6 +35,7 @@ public abstract class Presenter implements DataObserver {
         intent.putExtra(AccountActivity.EXTRA_LAST_LESSON, UserInfo.getUserInfo().getLastLesson());
         intent.putExtra(AccountActivity.EXTRA_NEXT_LESSON, UserInfo.getUserInfo().getNextLesson());
         context.startActivity(intent);
+        end();
     }
 
     /**
@@ -38,6 +44,7 @@ public abstract class Presenter implements DataObserver {
     public void onClassesItemPressed(Context context){
         Intent intent = new Intent(context, ClassesActivity.class);
         context.startActivity(intent);
+        end();
     }
 
     /**
@@ -46,6 +53,7 @@ public abstract class Presenter implements DataObserver {
     public void onUpcomingItemPressed(Context context){
         Intent intent = new Intent(context, UpcomingActivity.class);
         context.startActivity(intent);
+        end();
     }
 
     /**
@@ -54,6 +62,7 @@ public abstract class Presenter implements DataObserver {
     public void onUsersItemPressed(Context context){
         Intent intent = new Intent(context, UsersActivity.class);
         context.startActivity(intent);
+        end();
     }
 
     /**
@@ -62,6 +71,7 @@ public abstract class Presenter implements DataObserver {
     public void onAssignmentsItemPressed(Context context){
         Intent intent = new Intent(context, AssignmentsActivity.class);
         context.startActivity(intent);
+        end();
     }
 
     // Implement DataObserver methods =======================================================
