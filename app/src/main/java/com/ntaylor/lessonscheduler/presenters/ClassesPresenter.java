@@ -1,7 +1,9 @@
 package com.ntaylor.lessonscheduler.presenters;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -17,9 +19,14 @@ import com.ntaylor.lessonscheduler.util.DataProvider;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 
 import java.util.List;
+import java.util.Locale;
 
 public class ClassesPresenter extends Presenter {
 
+    private static final String delete_class_title = "Delete Class";
+    private static final String delete_class_message = "Are you sure you want to delete %s?";
+    private static final String yes_delete = "Delete";
+    private static final String no_delete = "Cancel";
     private static final String classroomDeleteMessage = "Class successfully deleted.";
 
     private ClassesView view;
@@ -75,8 +82,20 @@ public class ClassesPresenter extends Presenter {
     /**
      * Deletes the classroom indicated.
      */
-    public void onDeletePressed(Classroom classroom){
-        DataProviderFactory.getDataProviderInstance().deleteClassroom(classroom);
+    public void onDeletePressed(final Classroom classroom){
+        String message = String.format(Locale.US, delete_class_message, classroom.getClassName());
+        AlertDialog.Builder builder = new AlertDialog.Builder((Activity)view);
+        builder.setTitle(delete_class_title)
+                .setMessage(message)
+                .setNegativeButton(no_delete, null)
+                .setPositiveButton(yes_delete, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        deleteClass(classroom);
+                    }
+                })
+                .create()
+                .show();
     }
 
     /**
@@ -107,6 +126,10 @@ public class ClassesPresenter extends Presenter {
     @Override
     public void onClassroomDeleted(){
         Toast.makeText((Activity)view, classroomDeleteMessage, Toast.LENGTH_SHORT).show();
+    }
+
+    private void deleteClass(Classroom classroom){
+        DataProviderFactory.getDataProviderInstance().deleteClassroom(classroom);
     }
 
     public interface ClassesView {
