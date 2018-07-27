@@ -50,5 +50,10 @@
     <string name="assignment_middle_label">Middle Label</string>
     <string name="assignment_bottom_label">Bottom Label</string>
     <string name="assignments_menu_title">Assignments</string>
+    <string name="title_activity_create">CreateActivity</string>
+    <string name="create_message">Choose an organization name</string>
+    <string name="create_org_name">Org Name</string>
+    <string name="create_code_hint">Code</string>
+    <string name="create_org_button">Check</string>
 
 </resources>
