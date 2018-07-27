@@ -110,7 +110,9 @@ public class UpcomingPresenter extends Presenter {
     @Override
     public void onAssignmentsUpdated(List<Assignment> assignments) {
         this.assignments = assignments;
-        initializeAdapter();
+        if (assignments != null && this.classes != null) {
+            initializeAdapter();
+        }
     }
 
     /**
@@ -121,7 +123,9 @@ public class UpcomingPresenter extends Presenter {
     @Override
     public void onClassesUpdated(List<Classroom> classes) {
         this.classes = classes;
-        initializeAdapter();
+        if (assignments != null && this.classes != null) {
+            initializeAdapter();
+        }
     }
 
     // Private utility methods ==============================================================
