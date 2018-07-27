@@ -26,6 +26,8 @@ public abstract class Presenter implements DataObserver {
         Intent intent = new Intent(context, AccountActivity.class);
         intent.putExtra(AccountActivity.EXTRA_USER_NAME, UserInfo.getUserInfo().getUserName());
         intent.putExtra(AccountActivity.EXTRA_USER_ID, UserInfo.getUserInfo().getUserId());
+        intent.putExtra(AccountActivity.EXTRA_LAST_LESSON, UserInfo.getUserInfo().getLastLesson());
+        intent.putExtra(AccountActivity.EXTRA_NEXT_LESSON, UserInfo.getUserInfo().getNextLesson());
         context.startActivity(intent);
     }
 

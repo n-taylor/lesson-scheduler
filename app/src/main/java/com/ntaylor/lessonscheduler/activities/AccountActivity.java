@@ -15,6 +15,8 @@ import com.ntaylor.lessonscheduler.R;
 import com.ntaylor.lessonscheduler.presenters.AccountPresenter;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 
+import org.w3c.dom.Text;
+
 /**
  * Displays, creates or edits a user's account information
  */
@@ -22,16 +24,21 @@ public class AccountActivity extends AppCompatActivity implements AccountPresent
 
     public static final String EXTRA_USER_NAME = "name";
     public static final String EXTRA_USER_ID = "id";
+    public static final String EXTRA_LAST_LESSON = "last";
+    public static final String EXTRA_NEXT_LESSON = "next";
+
+    private static final String add_user_title = "Add User";
 
     private AccountPresenter presenter;
     private EditText userNameText;
     private TextView orgText;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        toolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(toolbar);
 
         initializeViews();
@@ -51,7 +58,9 @@ public class AccountActivity extends AppCompatActivity implements AccountPresent
         Bundle bundle = getIntent().getExtras();
         String name = (bundle != null && bundle.containsKey(EXTRA_USER_NAME)) ? (String)bundle.get(EXTRA_USER_NAME) : null;
         String id = (bundle != null && bundle.containsKey(EXTRA_USER_ID)) ? (String)bundle.get(EXTRA_USER_ID) : null;
-        return new AccountPresenter(this, id, name);
+        String last = (bundle != null && bundle.containsKey(EXTRA_LAST_LESSON)) ? (String)bundle.get(EXTRA_LAST_LESSON) : null;
+        String next = (bundle != null && bundle.containsKey(EXTRA_NEXT_LESSON)) ? (String)bundle.get(EXTRA_NEXT_LESSON) : null;
+        return new AccountPresenter(this, id, name, last, next);
     }
 
     /**
@@ -110,6 +119,25 @@ public class AccountActivity extends AppCompatActivity implements AccountPresent
         }
     }
 
+    /**
+     * Rename the title in the action bar, hide "Last taught" labels
+     */
+    @Override
+    public void showAddUser() {
+        toolbar.setTitle(add_user_title);
+        setSupportActionBar(toolbar);
+
+        TextView lastLabel = (TextView)findViewById(R.id.account_last_lesson_label);
+        TextView lastLesson = (TextView)findViewById(R.id.account_last_lesson);
+        TextView nextLabel = (TextView)findViewById(R.id.account_next_lesson_label);
+        TextView nextLesson = (TextView)findViewById(R.id.account_next_lesson);
+
+        lastLabel.setVisibility(View.INVISIBLE);
+        lastLesson.setVisibility(View.INVISIBLE);
+        nextLabel.setVisibility(View.INVISIBLE);
+        nextLesson.setVisibility(View.INVISIBLE);
+    }
+
     @Override
     public void setUserText(String text) {
         if (userNameText != null)
@@ -131,7 +159,26 @@ public class AccountActivity extends AppCompatActivity implements AccountPresent
     }
 
     @Override
+    public void setTitle(String text) {
+        toolbar.setTitle(text);
+        setSupportActionBar(toolbar);
+    }
+
+    @Override
+    public void setLastLesson(String text) {
+        TextView lastLesson = (TextView)findViewById(R.id.account_last_lesson);
+        lastLesson.setText(text);
+    }
+
+    @Override
+    public void setNextLesson(String text) {
+        TextView nextLesson = (TextView)findViewById(R.id.account_next_lesson);
+        nextLesson.setText(text);
+    }
+
+    @Override
     public void destroySelf() {
+        DataProviderFactory.getDataProviderInstance().removeObserver(presenter);
         finish();
     }
 }

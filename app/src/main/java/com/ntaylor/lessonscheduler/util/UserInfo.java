@@ -8,9 +8,7 @@ import com.ntaylor.lessonscheduler.tasks.classroom.CreateClassroomTask;
  */
 public class UserInfo {
 
-    private String userId;
-    private String userName;
-    private String orgId;
+    private User user;
     private String orgName;
 
     private static UserInfo userInfo;
@@ -19,17 +17,14 @@ public class UserInfo {
      * This method MUST be called before getUserInfo(), or it will return null.
      * Initializes the instance of UserInfo for the session.
      *
-     * @param userId The user ID of the user logged in
-     * @param userName The user name of the user
-     * @param orgId The ID of the organization the user belongs to
      * @param orgName The name of the user's organization
      */
-    public static void startUserInfoSession(String userId, String userName, String orgId, String orgName){
-        userInfo = new UserInfo(userId, userName, orgId, orgName);
+    public static void startUserInfoSession(User user, String orgName){
+        userInfo = new UserInfo(user, orgName);
     }
 
     public static void changeUserInfo(User user, String orgName){
-        userInfo = new UserInfo(user.getUserId(), user.getUserName(), user.getOrgId(), orgName);
+        userInfo = new UserInfo(user, orgName);
     }
 
     /**
@@ -41,21 +36,21 @@ public class UserInfo {
         return userInfo;
     }
 
-    private UserInfo(String userId, String userName, String orgId, String orgName) {
-        this.userId = userId;
-        this.userName = userName;
-        this.orgId = orgId;
+    private UserInfo(User user, String orgName) {
+        this.user = user;
         this.orgName = orgName;
     }
 
-    public String getUserId(){ return this.userId; }
+    public String getUserId(){ return this.user.getUserId(); }
 
-    public String getOrgId() { return this.orgId; }
+    public String getOrgId() { return this.user.getOrgId(); }
 
-    public String getUserName() { return this.userName; }
-
-    public void setUserName(String name) { this.userName = name; }
+    public String getUserName() { return this.user.getUserName(); }
 
     public String getOrgName() { return this.orgName; }
+
+    public String getLastLesson() { return this.user.getLastClass(); }
+
+    public String getNextLesson() { return this.user.getNextClass(); }
 
 }

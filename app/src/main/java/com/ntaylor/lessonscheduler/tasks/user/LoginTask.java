@@ -50,7 +50,7 @@ public class LoginTask extends AsyncTask<Void, Void, Boolean> {
 
         if (user != null && org != null && user.getOrgId().equals(org.getOrgId())){
             // Start user info session
-            UserInfo.startUserInfoSession(user.getUserId(), user.getUserName(), user.getOrgId(), org.getOrgName());
+            UserInfo.startUserInfoSession(user, org.getOrgName());
             return true;
         }
         else {
