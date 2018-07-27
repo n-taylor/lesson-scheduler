@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -56,9 +57,10 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         View userView = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_item_layout, parent, false);
         TextView header = (TextView)userView.findViewById(R.id.user_name_label);
         TextView subtext = (TextView)userView.findViewById(R.id.user_subtext);
+        ImageButton delete = (ImageButton)userView.findViewById(R.id.user_delete_button);
 
         // create the view holder
-        return new ViewHolder(userView, header, subtext);
+        return new ViewHolder(userView, header, subtext, delete);
     }
 
     /**
@@ -103,6 +105,14 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
                 presenter.onTeacherPressed(users.get(pos));
             }
         });
+
+        holder.deleteButton.setVisibility(View.VISIBLE);
+        holder.deleteButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                presenter.onDeletePressed(users.get(pos));
+            }
+        });
     }
 
     /**
@@ -120,11 +130,13 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         public View userView;
         public TextView nameText;
         public TextView subtext;
-        public ViewHolder(View userView, TextView nameText, TextView subtext){
+        public ImageButton deleteButton;
+        public ViewHolder(View userView, TextView nameText, TextView subtext, ImageButton delete){
             super(userView);
             this.userView = userView;
             this.nameText = nameText;
             this.subtext = subtext;
+            this.deleteButton = delete;
         }
 
     }

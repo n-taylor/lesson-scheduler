@@ -2,10 +2,13 @@ package com.ntaylor.lessonscheduler.presenters;
 
 import android.accounts.Account;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.Toast;
 
 import com.ntaylor.lessonscheduler.activities.AccountActivity;
 import com.ntaylor.lessonscheduler.room.entities.User;
@@ -17,8 +20,16 @@ import com.ntaylor.lessonscheduler.util.UserInfo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class UsersPresenter extends Presenter implements DataObserver {
+
+    private static final String delete_title = "Delete Account";
+    private static final String delete_message = "Are you sure you want to delete %s's account?";
+    private static final String yes_delete = "Delete";
+    private static final String no_delete = "Cancel";
+    private static final String delete_success = "User successfully deleted";
+    private static final String delete_failure = "That's weird. There was a problem deleting the user.";
 
     private DataProvider provider;
     private UsersView activity;
@@ -66,6 +77,24 @@ public class UsersPresenter extends Presenter implements DataObserver {
         ((Activity)activity).startActivity(intent);
     }
 
+    /**
+     * Prompts for a confirmation to delete the selected user
+     * @param user The user to delete
+     */
+    public void onDeletePressed(final User user){
+        AlertDialog.Builder builder = new AlertDialog.Builder((Activity)activity);
+        builder.setTitle(delete_title);
+        builder.setMessage(String.format(Locale.US, delete_message, user.getUserName()));
+        builder.setNegativeButton(no_delete, null);
+        builder.setPositiveButton(yes_delete, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                deleteUser(user);
+            }
+        });
+        builder.create().show();
+    }
+
     // Overrides ==========================================================================
 
     /**
@@ -88,6 +117,16 @@ public class UsersPresenter extends Presenter implements DataObserver {
     }
 
     @Override
+    public void onUserDeleted(boolean success){
+        if (success) {
+            Toast.makeText((Activity) activity, delete_success, Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText((Activity) activity, delete_failure, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
     public void onUserCreationAttempted(boolean success, String name){
         provider.fetchUsers();
     }
@@ -98,6 +137,10 @@ public class UsersPresenter extends Presenter implements DataObserver {
     }
 
     // private methods ====================================================================
+
+    private void deleteUser(User user){
+        DataProviderFactory.getDataProviderInstance().deleteUser(user);
+    }
 
     public interface UsersView {
 

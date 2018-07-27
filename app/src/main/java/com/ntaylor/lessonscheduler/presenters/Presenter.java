@@ -106,4 +106,9 @@ public abstract class Presenter implements DataObserver {
     public void onUsersUpdated(List<User> users) {
 
     }
+
+    @Override
+    public void onUserDeleted(boolean success){
+
+    }
 }

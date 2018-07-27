@@ -23,6 +23,7 @@ import com.ntaylor.lessonscheduler.tasks.classroom.CreateClassroomTask;
 import com.ntaylor.lessonscheduler.tasks.classroom.DeleteClassroomTask;
 import com.ntaylor.lessonscheduler.tasks.classroom.GetClassroomsTask;
 import com.ntaylor.lessonscheduler.tasks.classroom.UpdateClassroomTask;
+import com.ntaylor.lessonscheduler.tasks.user.DeleteUserTask;
 import com.ntaylor.lessonscheduler.tasks.user.GetUsersTask;
 import com.ntaylor.lessonscheduler.tasks.user.LoginTask;
 
@@ -127,6 +128,29 @@ public class RoomRepository implements DataProvider {
     public void onUserNameChanged(boolean changed, String name) {
         for(DataObserver observer : observers){
             observer.onUserNameChanged(changed, name);
+        }
+    }
+
+    /**
+     * Deletes the given user.
+     *
+     * @param user The user to be deleted.
+     */
+    @Override
+    public void deleteUser(User user) {
+        DeleteUserTask task = new DeleteUserTask(user, usersDao);
+        task.execute();
+    }
+
+    /**
+     * Notifies data observers whether a user has been deleted.
+     *
+     * @param success True if the user was successfully deleted
+     */
+    @Override
+    public void onUserDeleted(boolean success) {
+        for (DataObserver observer : observers){
+            observer.onUserDeleted(success);
         }
     }
 

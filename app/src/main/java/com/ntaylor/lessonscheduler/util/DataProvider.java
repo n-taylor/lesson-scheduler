@@ -55,6 +55,18 @@ public interface DataProvider {
     void onUserNameChanged(boolean changed, String name);
 
     /**
+     * Deletes the given user.
+     * @param user The user to be deleted.
+     */
+    void deleteUser(User user);
+
+    /**
+     * Notifies data observers whether a user has been deleted.
+     * @param success True if the user was successfully deleted
+     */
+    void onUserDeleted(boolean success);
+
+    /**
      * Retrieves the users associated with the same organization as the current user
      */
     void fetchUsers();

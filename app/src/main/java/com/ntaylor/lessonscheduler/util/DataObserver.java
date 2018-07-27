@@ -42,4 +42,10 @@ public interface DataObserver {
      */
     void onUsersUpdated(List<User> users);
 
+    /**
+     * To be called when an attempt to delete a user has been made.
+     * @param success True if the user was deleted.
+     */
+    void onUserDeleted(boolean success);
+
 }

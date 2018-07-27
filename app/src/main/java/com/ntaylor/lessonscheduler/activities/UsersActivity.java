@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.ntaylor.lessonscheduler.R;
 import com.ntaylor.lessonscheduler.presenters.UsersPresenter;
@@ -47,6 +48,9 @@ public class UsersActivity extends AppCompatActivity implements UsersPresenter.U
                 return true;
             case R.id.action_account:
                 presenter.onAccountItemPressed(this);
+                return true;
+            case R.id.action_upcoming:
+                presenter.onUpcomingItemPressed(this);
                 return true;
             default:
                 // If we got here, the user's action was not recognized.
