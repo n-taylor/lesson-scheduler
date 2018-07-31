@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:textSize="24sp"
+        android:textSize="@dimen/create_message_size"
         android:text="@string/create_message"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -48,10 +48,17 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:text="@string/create_org_button"
-        app:layout_constraintBottom_toTopOf="@+id/create_org_code"
         app:layout_constraintStart_toEndOf="@+id/create_org_name"
-        app:layout_constraintTop_toBottomOf="@+id/create_org_name" />
+        app:layout_constraintTop_toTopOf="@+id/create_org_name" />
 
-
+    <View
+        android:id="@+id/create_divider"
+        style="@style/Divider"
+        android:layout_marginEnd="@dimen/divider_margin"
+        android:layout_marginStart="@dimen/divider_margin"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/create_org_code" />
 
 </android.support.constraint.ConstraintLayout>
