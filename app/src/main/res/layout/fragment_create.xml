@@ -43,7 +43,7 @@
         app:layout_constraintTop_toBottomOf="@+id/create_org_name" />
 
     <Button
-        android:id="@+id/create_org_button"
+        android:id="@+id/create_check_available"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -60,5 +60,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/create_org_code" />
+
+    <Button
+        android:id="@+id/create_join_org_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/create_join_button"
+        app:layout_constraintStart_toStartOf="@+id/create_check_available"
+        app:layout_constraintTop_toBottomOf="@+id/create_check_available" />
 
 </android.support.constraint.ConstraintLayout>

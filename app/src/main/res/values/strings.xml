@@ -55,5 +55,6 @@
     <string name="create_org_name">Org Name</string>
     <string name="create_code_hint">Code</string>
     <string name="create_org_button">Check</string>
+    <string name="create_join_button">Join</string>
 
 </resources>
