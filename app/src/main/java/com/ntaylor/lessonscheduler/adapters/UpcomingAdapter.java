@@ -1,4 +1,4 @@
-package com.ntaylor.lessonscheduler.upcoming;
+package com.ntaylor.lessonscheduler.adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

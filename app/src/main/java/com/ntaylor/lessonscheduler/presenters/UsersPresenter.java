@@ -1,6 +1,5 @@
 package com.ntaylor.lessonscheduler.presenters;
 
-import android.accounts.Account;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -12,7 +11,7 @@ import android.widget.Toast;
 
 import com.ntaylor.lessonscheduler.activities.AccountActivity;
 import com.ntaylor.lessonscheduler.room.entities.User;
-import com.ntaylor.lessonscheduler.users.UsersAdapter;
+import com.ntaylor.lessonscheduler.adapters.UsersAdapter;
 import com.ntaylor.lessonscheduler.util.DataObserver;
 import com.ntaylor.lessonscheduler.util.DataProvider;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;

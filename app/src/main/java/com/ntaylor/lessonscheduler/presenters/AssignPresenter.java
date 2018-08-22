@@ -6,16 +6,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.TextView;
 
 import com.ntaylor.lessonscheduler.R;
 import com.ntaylor.lessonscheduler.activities.AssignActivity;
-import com.ntaylor.lessonscheduler.assign.AssignAdapter;
-import com.ntaylor.lessonscheduler.room.entities.Assignment;
-import com.ntaylor.lessonscheduler.room.entities.Classroom;
+import com.ntaylor.lessonscheduler.adapters.AssignAdapter;
 import com.ntaylor.lessonscheduler.room.entities.User;
-import com.ntaylor.lessonscheduler.util.DataObserver;
 import com.ntaylor.lessonscheduler.util.DataProvider;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 import com.ntaylor.lessonscheduler.util.SimpleDate;

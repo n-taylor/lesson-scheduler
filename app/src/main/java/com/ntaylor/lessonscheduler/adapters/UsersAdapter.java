@@ -1,30 +1,32 @@
-package com.ntaylor.lessonscheduler.assign;
+package com.ntaylor.lessonscheduler.adapters;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.ntaylor.lessonscheduler.R;
-import com.ntaylor.lessonscheduler.presenters.AssignPresenter;
+import com.ntaylor.lessonscheduler.presenters.UsersPresenter;
 import com.ntaylor.lessonscheduler.room.entities.User;
 import com.ntaylor.lessonscheduler.util.SimpleDate;
 
 import java.util.List;
 import java.util.Locale;
 
-public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.ViewHolder> {
+public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> {
 
     private static final String subtext = "Last taught: %1$s\r\nNext assignment: %2$s";
     private static final String neverTaught = "";
     private static final String noUpcomingAssignment = "";
 
     private List<User> users;
-    private AssignPresenter presenter;
+    private UsersPresenter presenter;
 
-    public AssignAdapter(AssignPresenter presenter, List<User> users){
+    public UsersAdapter(UsersPresenter presenter, List<User> users){
         this.presenter = presenter;
         this.users = users;
     }
@@ -56,9 +58,10 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.ViewHolder
         View userView = LayoutInflater.from(parent.getContext()).inflate(R.layout.user_item_layout, parent, false);
         TextView header = (TextView)userView.findViewById(R.id.user_name_label);
         TextView subtext = (TextView)userView.findViewById(R.id.user_subtext);
+        ImageButton delete = (ImageButton)userView.findViewById(R.id.user_delete_button);
 
         // create the view holder
-        return new ViewHolder(userView, header, subtext);
+        return new ViewHolder(userView, header, subtext, delete);
     }
 
     /**
@@ -94,6 +97,11 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.ViewHolder
         holder.nameText.setText(user.getUserName());
         holder.subtext.setText(String.format(Locale.US, subtext, lastTaught, nextAssignment));
 
+        TextView image = (TextView)holder.userView.findViewById(R.id.upcoming_number_left);
+        View box = holder.userView.findViewById(R.id.user_image);
+        box.setBackgroundColor(Color.BLACK);
+        image.setText(user.getUserName().substring(0,1).toUpperCase());
+
         final int pos = position;
 
         // set up the on-click listener
@@ -101,6 +109,14 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.ViewHolder
             @Override
             public void onClick(View view) {
                 presenter.onTeacherPressed(users.get(pos));
+            }
+        });
+
+        holder.deleteButton.setVisibility(View.VISIBLE);
+        holder.deleteButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                presenter.onDeletePressed(users.get(pos));
             }
         });
     }
@@ -120,11 +136,13 @@ public class AssignAdapter extends RecyclerView.Adapter<AssignAdapter.ViewHolder
         public View userView;
         public TextView nameText;
         public TextView subtext;
-        public ViewHolder(View userView, TextView nameText, TextView subtext){
+        public ImageButton deleteButton;
+        public ViewHolder(View userView, TextView nameText, TextView subtext, ImageButton delete){
             super(userView);
             this.userView = userView;
             this.nameText = nameText;
             this.subtext = subtext;
+            this.deleteButton = delete;
         }
 
     }

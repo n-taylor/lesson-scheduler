@@ -1,4 +1,4 @@
-package com.ntaylor.lessonscheduler.classes;
+package com.ntaylor.lessonscheduler.adapters;
 
 import android.content.Context;
 import android.graphics.Color;

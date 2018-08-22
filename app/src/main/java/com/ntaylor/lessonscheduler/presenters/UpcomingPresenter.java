@@ -12,7 +12,7 @@ import com.ntaylor.lessonscheduler.activities.AssignActivity;
 import com.ntaylor.lessonscheduler.activities.UpcomingActivity;
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
-import com.ntaylor.lessonscheduler.upcoming.UpcomingAdapter;
+import com.ntaylor.lessonscheduler.adapters.UpcomingAdapter;
 import com.ntaylor.lessonscheduler.util.DataProvider;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 import com.ntaylor.lessonscheduler.util.SimpleDate;
