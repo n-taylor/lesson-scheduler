@@ -9,12 +9,13 @@ import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.ntaylor.lessonscheduler.R;
+import com.ntaylor.lessonscheduler.interfaces.UpcomingContract;
 import com.ntaylor.lessonscheduler.presenters.UpcomingPresenter;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 
-public class UpcomingActivity extends AppCompatActivity implements UpcomingPresenter.View {
+public class UpcomingActivity extends AppCompatActivity implements UpcomingContract.View {
 
-    private UpcomingPresenter presenter;
+    private UpcomingContract.Presenter presenter;
 
     private ListView listView;
 

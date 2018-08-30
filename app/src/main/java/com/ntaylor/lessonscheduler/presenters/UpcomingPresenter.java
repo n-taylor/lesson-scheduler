@@ -10,6 +10,7 @@ import android.widget.ListView;
 
 import com.ntaylor.lessonscheduler.activities.AssignActivity;
 import com.ntaylor.lessonscheduler.activities.UpcomingActivity;
+import com.ntaylor.lessonscheduler.interfaces.UpcomingContract;
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
 import com.ntaylor.lessonscheduler.adapters.UpcomingAdapter;
@@ -26,11 +27,11 @@ import java.util.List;
  * Created by Nathan Taylor on 5/14/2018.
  */
 
-public class UpcomingPresenter extends Presenter {
+public class UpcomingPresenter extends Presenter implements UpcomingContract.Presenter {
 
     private static final String select_class_title = "Which class do you want to assign?";
 
-    private View activity;
+    private UpcomingContract.View activity;
     private ListView listView;
 
     private DataProvider dataProvider;
@@ -42,7 +43,7 @@ public class UpcomingPresenter extends Presenter {
 
     private static final int weeks_to_show = 5;
 
-    public UpcomingPresenter(View activity){
+    public UpcomingPresenter(UpcomingContract.View activity){
         this.activity = activity;
         initializeDates();
         if (activity instanceof Activity){
@@ -103,7 +104,7 @@ public class UpcomingPresenter extends Presenter {
      * Unhooks self from the list of data observers and ends the activity.
      */
     @Override
-    protected void end() {
+    public void end() {
         activity.destroySelf();
     }
 
@@ -163,9 +164,5 @@ public class UpcomingPresenter extends Presenter {
             }
         }
         return null;
-    }
-
-    public interface View {
-        void destroySelf();
     }
 }

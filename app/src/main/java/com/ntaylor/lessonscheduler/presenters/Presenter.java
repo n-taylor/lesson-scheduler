@@ -9,6 +9,7 @@ import com.ntaylor.lessonscheduler.activities.AssignmentsActivity;
 import com.ntaylor.lessonscheduler.activities.ClassesActivity;
 import com.ntaylor.lessonscheduler.activities.UpcomingActivity;
 import com.ntaylor.lessonscheduler.activities.UsersActivity;
+import com.ntaylor.lessonscheduler.interfaces.BasePresenter;
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
 import com.ntaylor.lessonscheduler.room.entities.User;
@@ -17,12 +18,12 @@ import com.ntaylor.lessonscheduler.util.UserInfo;
 
 import java.util.List;
 
-public abstract class Presenter implements DataObserver {
+public abstract class Presenter implements BasePresenter {
 
     /**
      * Unhooks self from the list of data observers and ends the activity.
      */
-    abstract protected void end();
+    abstract public void end();
 
     /**
      * Opens the account info activity

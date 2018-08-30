@@ -12,17 +12,18 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.ntaylor.lessonscheduler.R;
+import com.ntaylor.lessonscheduler.interfaces.AssignContract;
 import com.ntaylor.lessonscheduler.presenters.AssignPresenter;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 
-public class AssignActivity extends AppCompatActivity implements AssignPresenter.AssignView {
+public class AssignActivity extends AppCompatActivity implements AssignContract.View {
 
     public static final String EXTRA_CLASS_ID = "id";
     public static final String EXTRA_CLASS_NAME = "name";
     public static final String EXTRA_DATE = "date";
 
     private RecyclerView recyclerView;
-    private AssignPresenter presenter;
+    private AssignContract.Presenter presenter;
 
     // Overrides =========================================================================
 

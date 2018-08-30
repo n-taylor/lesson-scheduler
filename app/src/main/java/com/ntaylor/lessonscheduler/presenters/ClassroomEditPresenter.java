@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.widget.Toast;
 
+import com.ntaylor.lessonscheduler.interfaces.ClassroomEditContract;
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
 import com.ntaylor.lessonscheduler.room.entities.User;
@@ -16,16 +17,16 @@ import com.ntaylor.lessonscheduler.util.UserInfo;
 
 import java.util.List;
 
-public class ClassroomEditPresenter extends Presenter {
+public class ClassroomEditPresenter extends Presenter implements ClassroomEditContract.Presenter {
 
     private static final String NO_NAME_MESSAGE = "Please enter a name for the class";
 
-    private ClassroomEditView view;
+    private ClassroomEditContract.View view;
     private DataProvider provider;
 
     private Classroom classroom;
 
-    public ClassroomEditPresenter(ClassroomEditView activity, Classroom classroom){
+    public ClassroomEditPresenter(ClassroomEditContract.View activity, Classroom classroom){
         this.view = activity;
         this.classroom = classroom;
         if (activity instanceof Activity){
@@ -73,36 +74,7 @@ public class ClassroomEditPresenter extends Presenter {
      * Unhooks self from the list of data observers and ends the activity.
      */
     @Override
-    protected void end() {
+    public void end() {
         view.destroySelf();
-    }
-
-    // Interface =====================================================================================
-
-    public interface ClassroomEditView {
-        /**
-         * @return The current text of the classroom name EditText, or null if not initialized
-         */
-        String getNameText();
-
-        /**
-         * Sets the text of the classroom name EditText
-         */
-        void setNameText(String text);
-
-        /**
-         * @return The current text of the classroom description EditText, or null if not initialized
-         */
-        String getDescriptionText();
-
-        /**
-         * Sets the text of the classroom description EditText
-         */
-        void setDescriptionText(String text);
-
-        /**
-         * Finish the activity.
-         */
-        void destroySelf();
     }
 }

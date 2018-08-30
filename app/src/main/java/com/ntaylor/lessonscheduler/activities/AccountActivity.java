@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ntaylor.lessonscheduler.R;
+import com.ntaylor.lessonscheduler.interfaces.AccountContract;
 import com.ntaylor.lessonscheduler.presenters.AccountPresenter;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 
@@ -20,7 +21,7 @@ import org.w3c.dom.Text;
 /**
  * Displays, creates or edits a user's account information
  */
-public class AccountActivity extends AppCompatActivity implements AccountPresenter.AccountView{
+public class AccountActivity extends AppCompatActivity implements AccountContract.View {
 
     public static final String EXTRA_USER_NAME = "name";
     public static final String EXTRA_USER_ID = "id";
@@ -29,7 +30,7 @@ public class AccountActivity extends AppCompatActivity implements AccountPresent
 
     private static final String add_user_title = "Add User";
 
-    private AccountPresenter presenter;
+    private AccountContract.Presenter presenter;
     private EditText userNameText;
     private TextView orgText;
     private Toolbar toolbar;
@@ -54,7 +55,7 @@ public class AccountActivity extends AppCompatActivity implements AccountPresent
         super.onDestroy();
     }
 
-    private AccountPresenter createPresenter(){
+    private AccountContract.Presenter createPresenter(){
         Bundle bundle = getIntent().getExtras();
         String name = (bundle != null && bundle.containsKey(EXTRA_USER_NAME)) ? (String)bundle.get(EXTRA_USER_NAME) : null;
         String id = (bundle != null && bundle.containsKey(EXTRA_USER_ID)) ? (String)bundle.get(EXTRA_USER_ID) : null;

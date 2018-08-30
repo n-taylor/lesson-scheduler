@@ -13,12 +13,13 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.ntaylor.lessonscheduler.R;
+import com.ntaylor.lessonscheduler.interfaces.AssignmentsContract;
 import com.ntaylor.lessonscheduler.presenters.AssignmentsPresenter;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 
-public class AssignmentsActivity extends AppCompatActivity implements AssignmentsPresenter.AssignmentsView {
+public class AssignmentsActivity extends AppCompatActivity implements AssignmentsContract.View {
 
-    private AssignmentsPresenter presenter;
+    private AssignmentsContract.Presenter presenter;
 
     // Overrides =========================================================================
 

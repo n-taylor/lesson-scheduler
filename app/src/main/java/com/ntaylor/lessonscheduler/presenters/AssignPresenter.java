@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.ntaylor.lessonscheduler.R;
 import com.ntaylor.lessonscheduler.activities.AssignActivity;
 import com.ntaylor.lessonscheduler.adapters.AssignAdapter;
+import com.ntaylor.lessonscheduler.interfaces.AssignContract;
 import com.ntaylor.lessonscheduler.room.entities.User;
 import com.ntaylor.lessonscheduler.util.DataProvider;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
@@ -19,13 +20,13 @@ import com.ntaylor.lessonscheduler.util.SimpleDate;
 import java.util.List;
 import java.util.Locale;
 
-public class AssignPresenter extends Presenter {
+public class AssignPresenter extends Presenter implements AssignContract.Presenter {
 
     private static final String confirm_assign = "Assign %1$s to teach %2$s?";
     private static final String confirm_yes = "Yes";
     private static final String confirm_no = "No";
 
-    private AssignView view;
+    private AssignContract.View view;
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;
     private RecyclerView.LayoutManager manager;
@@ -35,7 +36,7 @@ public class AssignPresenter extends Presenter {
     private String name;
     private String date;
 
-    public AssignPresenter(AssignView activity, String classId, String name, String date){
+    public AssignPresenter(AssignContract.View activity, String classId, String name, String date){
         this.view = activity;
         this.classId = classId;
         this.name = name;
@@ -93,7 +94,7 @@ public class AssignPresenter extends Presenter {
      * Unhooks self from the list of data observers and ends the activity.
      */
     @Override
-    protected void end() {
+    public void end() {
         view.destroySelf();
     }
 
@@ -118,9 +119,5 @@ public class AssignPresenter extends Presenter {
     private void makeAssignment(User teacher){
         provider.createAssignment(teacher.getUserId(), this.classId, SimpleDate.deserializeDate(this.date, true));
         view.destroySelf();
-    }
-
-    public interface AssignView {
-        void destroySelf();
     }
 }

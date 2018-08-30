@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.ntaylor.lessonscheduler.activities.AccountActivity;
 import com.ntaylor.lessonscheduler.activities.ClassroomEditActivity;
 import com.ntaylor.lessonscheduler.adapters.ClassesAdapter;
+import com.ntaylor.lessonscheduler.interfaces.ClassesContract;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
 import com.ntaylor.lessonscheduler.util.DataProvider;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
@@ -18,7 +19,7 @@ import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 import java.util.List;
 import java.util.Locale;
 
-public class ClassesPresenter extends Presenter {
+public class ClassesPresenter extends Presenter implements ClassesContract.Presenter {
 
     private static final String delete_class_title = "Delete Class";
     private static final String delete_class_message = "Are you sure you want to delete %s?";
@@ -26,7 +27,7 @@ public class ClassesPresenter extends Presenter {
     private static final String no_delete = "Cancel";
     private static final String classroomDeleteMessage = "Class successfully deleted.";
 
-    private ClassesView view;
+    private ClassesContract.View view;
     private ListView listView;
     private ClassesAdapter adapter;
 
@@ -36,7 +37,7 @@ public class ClassesPresenter extends Presenter {
      * Registers this presenter as a data observer.
      * @param activity Must also inherit from Activity
      */
-    public ClassesPresenter(ClassesView activity){
+    public ClassesPresenter(ClassesContract.View activity){
         this.view = activity;
         if (activity instanceof Activity){
             this.dataProvider = DataProviderFactory.getDataProviderInstance();
@@ -56,7 +57,7 @@ public class ClassesPresenter extends Presenter {
      * Unhooks self from the list of data observers and ends the activity.
      */
     @Override
-    protected void end() {
+    public void end() {
         view.destroySelf();
     }
 
@@ -135,12 +136,5 @@ public class ClassesPresenter extends Presenter {
 
     private void deleteClass(Classroom classroom){
         DataProviderFactory.getDataProviderInstance().deleteClassroom(classroom);
-    }
-
-    public interface ClassesView {
-        /**
-         * Call finish()
-         */
-        void destroySelf();
     }
 }

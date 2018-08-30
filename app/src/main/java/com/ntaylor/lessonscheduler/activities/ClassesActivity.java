@@ -11,12 +11,13 @@ import android.view.View;
 import android.widget.ListView;
 
 import com.ntaylor.lessonscheduler.R;
+import com.ntaylor.lessonscheduler.interfaces.ClassesContract;
 import com.ntaylor.lessonscheduler.presenters.ClassesPresenter;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 
-public class ClassesActivity extends AppCompatActivity implements ClassesPresenter.ClassesView {
+public class ClassesActivity extends AppCompatActivity implements ClassesContract.View {
 
-    private ClassesPresenter presenter;
+    private ClassesContract.Presenter presenter;
     private ListView listView;
 
     @Override

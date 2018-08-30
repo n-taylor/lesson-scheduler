@@ -13,10 +13,11 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.ntaylor.lessonscheduler.R;
+import com.ntaylor.lessonscheduler.interfaces.UsersContract;
 import com.ntaylor.lessonscheduler.presenters.UsersPresenter;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 
-public class UsersActivity extends AppCompatActivity implements UsersPresenter.UsersView {
+public class UsersActivity extends AppCompatActivity implements UsersContract.View {
 
     private UsersPresenter presenter;
 

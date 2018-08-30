@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.ntaylor.lessonscheduler.activities.AccountActivity;
+import com.ntaylor.lessonscheduler.interfaces.UsersContract;
 import com.ntaylor.lessonscheduler.room.entities.User;
 import com.ntaylor.lessonscheduler.adapters.UsersAdapter;
 import com.ntaylor.lessonscheduler.util.DataObserver;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class UsersPresenter extends Presenter implements DataObserver {
+public class UsersPresenter extends Presenter implements UsersContract.Presenter {
 
     private static final String delete_title = "Delete Account";
     private static final String delete_message = "Are you sure you want to delete %s's account?";
@@ -31,11 +32,10 @@ public class UsersPresenter extends Presenter implements DataObserver {
     private static final String delete_failure = "That's weird. There was a problem deleting the user.";
 
     private DataProvider provider;
-    private UsersView activity;
+    private UsersContract.View activity;
     private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager manager;
 
-    public UsersPresenter(UsersView activity){
+    public UsersPresenter(UsersContract.View activity){
         this.activity = activity;
         this.provider = DataProviderFactory.getDataProviderInstance();
         provider.addObserver(this);
@@ -48,7 +48,7 @@ public class UsersPresenter extends Presenter implements DataObserver {
         this.recyclerView.setHasFixedSize(true);
 
         // linear layout manager
-        manager = new LinearLayoutManager(context);
+        RecyclerView.LayoutManager manager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(manager);
 
         // fetch users
@@ -134,7 +134,7 @@ public class UsersPresenter extends Presenter implements DataObserver {
      * Unhooks self from the list of data observers and ends the activity.
      */
     @Override
-    protected void end() {
+    public void end() {
         activity.destroySelf();
     }
 
@@ -147,11 +147,5 @@ public class UsersPresenter extends Presenter implements DataObserver {
 
     private void deleteUser(User user){
         DataProviderFactory.getDataProviderInstance().deleteUser(user);
-    }
-
-    public interface UsersView {
-
-        void destroySelf();
-
     }
 }

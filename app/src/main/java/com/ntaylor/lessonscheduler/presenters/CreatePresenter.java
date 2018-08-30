@@ -46,7 +46,7 @@ public class CreatePresenter extends Presenter {
      * Unhooks self from the list of data observers and ends the activity.
      */
     @Override
-    protected void end() {
+    public void end() {
         activity.destroySelf();
     }
 

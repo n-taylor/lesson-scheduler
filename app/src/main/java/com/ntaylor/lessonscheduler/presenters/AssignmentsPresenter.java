@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
 
 import com.ntaylor.lessonscheduler.adapters.AssignmentsAdapter;
+import com.ntaylor.lessonscheduler.interfaces.AssignmentsContract;
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
 import com.ntaylor.lessonscheduler.room.entities.User;
@@ -18,7 +19,7 @@ import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 import java.util.HashMap;
 import java.util.List;
 
-public class AssignmentsPresenter extends Presenter {
+public class AssignmentsPresenter extends Presenter implements AssignmentsContract.Presenter {
 
     private static final String delete_title = "Delete Assignment";
     private static final String delete_message = "Are you sure you want to delete this assignment?";
@@ -27,7 +28,7 @@ public class AssignmentsPresenter extends Presenter {
     private static final String deleted_success = "Assignment successfully deleted";
     private static final String deleted_failure = "Hmm. We weren't able to delete that assignment.";
 
-    private AssignmentsView activity;
+    private AssignmentsContract.View activity;
     private DataProvider provider;
     private RecyclerView recycler;
     private RecyclerView.LayoutManager manager;
@@ -36,7 +37,7 @@ public class AssignmentsPresenter extends Presenter {
     private List<User> users;
     private List<Classroom> classes;
 
-    public AssignmentsPresenter(AssignmentsView activity){
+    public AssignmentsPresenter(AssignmentsContract.View activity){
         this.activity = activity;
         this.provider = DataProviderFactory.getDataProviderInstance();
         provider.addObserver(this);
@@ -84,7 +85,7 @@ public class AssignmentsPresenter extends Presenter {
      * Unhooks self from the list of data observers and ends the activity.
      */
     @Override
-    protected void end() {
+    public void end() {
         activity.destroySelf();
     }
 
@@ -137,10 +138,5 @@ public class AssignmentsPresenter extends Presenter {
             ids.put(user.getUserId(), user.getUserName());
         }
         return ids;
-    }
-
-    public interface AssignmentsView {
-
-        void destroySelf();
     }
 }

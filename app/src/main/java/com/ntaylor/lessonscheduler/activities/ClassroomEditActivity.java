@@ -11,6 +11,7 @@ import android.widget.EditText;
 
 import com.ntaylor.lessonscheduler.R;
 import com.ntaylor.lessonscheduler.fragments.ClassroomEditFragment;
+import com.ntaylor.lessonscheduler.interfaces.ClassroomEditContract;
 import com.ntaylor.lessonscheduler.presenters.ClassroomEditPresenter;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
 import com.ntaylor.lessonscheduler.util.DataProvider;
@@ -21,13 +22,13 @@ import com.ntaylor.lessonscheduler.util.UserInfo;
  * Updates, deletes or adds a classroom to the organization's list of classrooms.
  * To update a classroom, add it to this activity's bundle under the key CLASS_ID_KEY.
  */
-public class ClassroomEditActivity extends AppCompatActivity implements ClassroomEditPresenter.ClassroomEditView,
+public class ClassroomEditActivity extends AppCompatActivity implements ClassroomEditContract.View,
         ClassroomEditFragment.ClassroomEditFragmentListener {
 
     public static final String CLASS_ID_KEY = "class_id_key";
     public static final String CLASS_NAME_KEY = "class_name_key";
 
-    private ClassroomEditPresenter presenter;
+    private ClassroomEditContract.Presenter presenter;
     private Button deleteButton;
     private Button confirmButton;
     private EditText nameText;

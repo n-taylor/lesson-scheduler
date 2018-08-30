@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.ntaylor.lessonscheduler.activities.ClassesActivity;
+import com.ntaylor.lessonscheduler.interfaces.AccountContract;
 import com.ntaylor.lessonscheduler.util.DataObserver;
 import com.ntaylor.lessonscheduler.util.DataProvider;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
@@ -14,7 +15,7 @@ import com.ntaylor.lessonscheduler.util.UserInfo;
 
 import java.util.Locale;
 
-public class AccountPresenter extends Presenter implements DataObserver {
+public class AccountPresenter extends Presenter implements AccountContract.Presenter {
 
     private static final String EMPTY_NAME = "Please enter a non-empty name";
     private static final String SAME_NAME = "No changes found";
@@ -23,7 +24,7 @@ public class AccountPresenter extends Presenter implements DataObserver {
     private static final String USER_CREATED_SUCCESS = "%s was successfully added as a user";
     private static final String USER_INFO = "%s's Account";
 
-    private AccountView view;
+    private AccountContract.View view;
     private DataProvider provider;
 
     private String userId;
@@ -31,7 +32,7 @@ public class AccountPresenter extends Presenter implements DataObserver {
 
     private boolean createUser = false;
 
-    public AccountPresenter(AccountView view, String userID, String userName, String lastLesson, String nextLesson){
+    public AccountPresenter(AccountContract.View view, String userID, String userName, String lastLesson, String nextLesson){
 
         this.view = view;
         if (view instanceof Activity) {
@@ -118,7 +119,7 @@ public class AccountPresenter extends Presenter implements DataObserver {
      * Unhooks self from the list of data observers and ends the activity.
      */
     @Override
-    protected void end() {
+    public void end() {
         view.destroySelf();
     }
 
@@ -153,23 +154,5 @@ public class AccountPresenter extends Presenter implements DataObserver {
         else {
             Toast.makeText((Activity)view, NAME_CHANGE_FAIL, Toast.LENGTH_SHORT).show();
         }
-    }
-
-    public interface AccountView {
-
-        /**
-         * Rename the title in the action bar, hide "Last taught" labels
-         */
-        void showAddUser();
-
-        void setUserText(String text);
-        String getUserText();
-
-        void setOrgLabel(String text);
-        void setTitle(String text);
-        void setLastLesson(String text);
-        void setNextLesson(String text);
-
-        void destroySelf();
     }
 }
