@@ -10,6 +10,8 @@ import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
+import com.ntaylor.lessonscheduler.util.AuthLevel;
+
 import static android.arch.persistence.room.ForeignKey.CASCADE;
 
 @Entity (tableName = "users",
@@ -26,7 +28,6 @@ public class User {
     @ColumnInfo(name = "user_name")
     private String userName;
 
-    @NonNull
     @ColumnInfo(name = "org_id")
     private String orgId;
 
@@ -36,10 +37,19 @@ public class User {
     @ColumnInfo(name = "next_class")
     private String nextClass;
 
-    public User(@NonNull String userName, @NonNull String orgId){
+    @ColumnInfo(name = "auth_level")
+    private int authLevel;
+
+    public User(@NonNull String userName, String orgId){
         this.userId = UUID.randomUUID().toString();
         this.userName = userName;
         this.orgId = orgId;
+        if (orgId == null) {
+            this.authLevel = AuthLevel.NO_ORG;
+        }
+        else {
+            this.authLevel = AuthLevel.TEACHER;
+        }
     }
 
     @NonNull
@@ -60,7 +70,6 @@ public class User {
         this.userId = userId;
     }
 
-    @NonNull
     public String getOrgId() {
         return orgId;
     }
@@ -76,5 +85,13 @@ public class User {
     public String getNextClass() { return this.nextClass; }
 
     public void setNextClass(String nextClass) { this.nextClass = nextClass; }
+
+    public int getAuthLevel() {
+        return authLevel;
+    }
+
+    public void setAuthLevel(int authLevel) {
+        this.authLevel = authLevel;
+    }
 
 }
