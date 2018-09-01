@@ -15,6 +15,7 @@ import com.ntaylor.lessonscheduler.tasks.aws.assignment.GetFutureAssignmentsTask
 import com.ntaylor.lessonscheduler.tasks.aws.classroom.GetClassesTask;
 import com.ntaylor.lessonscheduler.tasks.aws.user.ChangeUserNameTask;
 import com.ntaylor.lessonscheduler.tasks.aws.user.CreateUserTask;
+import com.ntaylor.lessonscheduler.tasks.aws.user.DeleteUserTask;
 import com.ntaylor.lessonscheduler.tasks.aws.user.GetUsersTask;
 import com.ntaylor.lessonscheduler.tasks.aws.user.LoginTask;
 
@@ -126,7 +127,10 @@ public class AwsRepository implements DataProvider {
      */
     @Override
     public void deleteUser(User user) {
-
+        if (user != null) {
+            DeleteUserTask task = new DeleteUserTask(user);
+            task.execute();
+        }
     }
 
     /**
@@ -136,7 +140,9 @@ public class AwsRepository implements DataProvider {
      */
     @Override
     public void onUserDeleted(boolean success) {
-
+        for (DataObserver observer : observers){
+            observer.onUserDeleted(success);
+        }
     }
 
     /**

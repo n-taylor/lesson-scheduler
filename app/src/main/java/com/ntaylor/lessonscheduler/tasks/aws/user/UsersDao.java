@@ -17,6 +17,7 @@ public class UsersDao {
     private static final String UPDATE_USER = "/user/update";
     private static final String GET_USER_BY_NAME = "/user/byName/";
     private static final String POST_USER = "/user";
+    private static final String DELETE_USER = "/user/";
 
     public List<User> getUsersByOrg(String orgId){
 
@@ -41,6 +42,12 @@ public class UsersDao {
         String uri = Constants.SERVER_HOST + POST_USER;
 
         RestClient.getPostResponse(uri, stringify(user));
+    }
+
+    public boolean delete(String userId){
+        String uri = Constants.SERVER_HOST + DELETE_USER;
+
+        return Parser.isSuccess(RestClient.getPutResponse(uri, "{}"));
     }
 
     private String stringify(User user){
