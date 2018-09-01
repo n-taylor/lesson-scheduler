@@ -11,6 +11,7 @@ import com.ntaylor.lessonscheduler.room.entities.Classroom;
 import com.ntaylor.lessonscheduler.room.entities.User;
 import com.ntaylor.lessonscheduler.tasks.aws.user.LoginTask;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -21,6 +22,12 @@ public class AwsRepository implements DataProvider {
 
     private static final String LOGIN_FAIL = "Error logging you in. PLease check your credentials.";
     private static final String LOGIN_SUCCESS = "Successfully logged in as %s";
+
+    private List<DataObserver> observers;
+
+    public AwsRepository(){
+        observers = new ArrayList<>();
+    }
 
     /**
      * If userName already exists, displays an error message. Otherwise, creates the user and adds
@@ -189,7 +196,7 @@ public class AwsRepository implements DataProvider {
      */
     @Override
     public void addObserver(DataObserver observer) {
-
+        observers.add(observer);
     }
 
     /**
@@ -200,7 +207,7 @@ public class AwsRepository implements DataProvider {
      */
     @Override
     public void removeObserver(DataObserver observer) {
-
+        observers.remove(observer);
     }
 
     /**

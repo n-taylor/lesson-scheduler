@@ -1,10 +1,16 @@
 package com.ntaylor.lessonscheduler.tasks.aws.util;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
+import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Organization;
 import com.ntaylor.lessonscheduler.room.entities.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Parser {
 
@@ -20,21 +26,42 @@ public class Parser {
                 JsonObject top = elemTop.getAsJsonObject();
 
                 JsonElement userName = top.get("user_name");
-                if (userName != null){
+                JsonElement userId = top.get("user_id");
+
+                if (userName != null && userId != null){
                     String org = (top.get("org_id") != null) ? top.get("org_id").getAsString() : "";
+
                     User user = new User(userName.getAsString(), org);
 
-                    JsonElement userId = top.get("user_id");
-                    if (userId != null){
+                    user.setUserId(userId.getAsString());
+                    return user;
 
-                        user.setUserId(userId.getAsString());
-                        return user;
-                    }
                 }
             }
         }
         catch (Exception ex){
             return null;
+        }
+        return null;
+    }
+
+    public static Assignment parseAssignment(JsonElement element){
+        if (element != null) {
+            JsonObject top = element.getAsJsonObject();
+
+            JsonElement eDate = top.get("date");
+            JsonElement eOrgId = top.get("org_id");
+            JsonElement eClassId = top.get("class_id");
+            JsonElement eTeacherId = top.get("teacher_id");
+
+            if (eDate != null && eOrgId != null && eClassId != null && eTeacherId != null){
+                String date = eDate.getAsString();
+                String orgId = eOrgId.getAsString();
+                String classId = eClassId.getAsString();
+                String teacherId = eTeacherId.getAsString();
+
+                return new Assignment(date, orgId, classId, teacherId);
+            }
         }
         return null;
     }
@@ -64,5 +91,40 @@ public class Parser {
             return null;
         }
         return null;
+    }
+
+    /**
+     * Parses the JSON string into a list of users
+     */
+    public static List<User> parseUsers(String json){
+        List<User> usersList = new ArrayList<>();
+        JsonElement elemTop = new JsonParser().parse(json);
+
+        if (elemTop != null){
+            JsonArray users = elemTop.getAsJsonObject().getAsJsonArray("users");
+            if (users != null){
+                for (JsonElement user : users){
+                    String userJson = user.toString();
+                    usersList.add(parseSingleUser(userJson));
+                }
+            }
+        }
+
+        return usersList;
+    }
+
+    public static List<Assignment> parseAssignments(String json){
+        List<Assignment> assignmentsList = new ArrayList<>();
+        JsonElement eTop = new JsonParser().parse(json);
+
+        if (eTop != null){
+            JsonArray assignments = eTop.getAsJsonObject().getAsJsonArray("assignments");
+            if (assignments != null){
+                for (JsonElement assignment : assignments){
+                    assignmentsList.add(parseAssignment(assignment));
+                }
+            }
+        }
+        return assignmentsList;
     }
 }
