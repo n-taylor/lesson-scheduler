@@ -11,6 +11,7 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.CookieManager;
 import java.net.HttpCookie;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
@@ -46,7 +47,7 @@ public class RestClient {
      * @param method The type of HTTP connection (e.g. POST, GET)
      * @return The connection, or null if there was an error creating the connection
      */
-    private static HttpsURLConnection getConnection(String uri, String method) throws MalformedURLException {
+    private static HttpURLConnection getConnection(String uri, String method) throws MalformedURLException {
         if (cookieManager == null){
             cookieManager = new CookieManager();
         }
@@ -55,19 +56,11 @@ public class RestClient {
         URL url  = new URL(noSpaces);
         try{
             // Set up the connection
-            HttpsURLConnection connection = (HttpsURLConnection)url.openConnection();
-            connection.setSSLSocketFactory(socketFactory);
+            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
             connection.setConnectTimeout(TIMEOUT);
             connection.setReadTimeout(TIMEOUT);
             connection.setDoInput(true);
             connection.setRequestMethod(method);
-            connection.setHostnameVerifier(new HostnameVerifier() {
-                @Override
-                public boolean verify(String hostName, SSLSession sslSession) {
-                    Log.i(RestClient.class.toString(), "Approving host name: " + hostName);
-                    return true;
-                }
-            });
 
             // Set content type for POST requests
             if (method.equals(POST)){
@@ -97,7 +90,7 @@ public class RestClient {
      */
     public static String getPostResponse(String uri, String json){
         try {
-            HttpsURLConnection connection = getConnection(uri, RestClient.POST);
+            HttpURLConnection connection = getConnection(uri, RestClient.POST);
 
             if (connection == null) {
                 return null;
@@ -137,7 +130,7 @@ public class RestClient {
      */
     public static String getPutResponse(String uri, String json){
         try {
-            HttpsURLConnection connection = getConnection(uri, RestClient.PUT);
+            HttpURLConnection connection = getConnection(uri, RestClient.PUT);
 
             if (connection == null) {
                 return null;
@@ -176,7 +169,7 @@ public class RestClient {
      */
     public static String getGetResponse(String uri){
         try {
-            HttpsURLConnection connection = getConnection(uri, RestClient.GET);
+            HttpURLConnection connection = getConnection(uri, RestClient.GET);
 
             if (connection == null) {
                 return null;
@@ -206,7 +199,7 @@ public class RestClient {
      * Stores any cookies returned and closes the connection.
      * @param connection The connection to close
      */
-    private static void closeConnection(HttpsURLConnection connection){
+    private static void closeConnection(HttpURLConnection connection){
         Map<String, List<String>> params = connection.getHeaderFields();
         if (params != null && cookieManager != null){
             List<String> cookies = params.get(RECEIVE_COOKIES);
