@@ -147,16 +147,22 @@ public class Parser {
     }
 
     public static List<Assignment> parseAssignments(String json){
-        List<Assignment> assignmentsList = new ArrayList<>();
-        JsonElement eTop = new JsonParser().parse(json);
 
-        if (eTop != null){
-            JsonArray assignments = eTop.getAsJsonObject().getAsJsonArray("assignments");
-            if (assignments != null){
-                for (JsonElement assignment : assignments){
-                    assignmentsList.add(parseAssignment(assignment));
+        List<Assignment> assignmentsList = new ArrayList<>();
+        try {
+            JsonElement eTop = new JsonParser().parse(json);
+
+            if (eTop != null) {
+                JsonArray assignments = eTop.getAsJsonObject().getAsJsonArray("assignments");
+                if (assignments != null) {
+                    for (JsonElement assignment : assignments) {
+                        assignmentsList.add(parseAssignment(assignment));
+                    }
                 }
             }
+        }
+        catch (Exception ex){
+            ex.printStackTrace();
         }
         return assignmentsList;
     }
