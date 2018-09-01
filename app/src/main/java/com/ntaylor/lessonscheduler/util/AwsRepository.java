@@ -2,6 +2,7 @@ package com.ntaylor.lessonscheduler.util;
 
 import android.content.Context;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
 
@@ -13,6 +14,7 @@ import com.ntaylor.lessonscheduler.tasks.aws.assignment.CreateAssignmentTask;
 import com.ntaylor.lessonscheduler.tasks.aws.assignment.DeleteAssignmentTask;
 import com.ntaylor.lessonscheduler.tasks.aws.assignment.GetFutureAssignmentsTask;
 import com.ntaylor.lessonscheduler.tasks.aws.classroom.CreateClassroomTask;
+import com.ntaylor.lessonscheduler.tasks.aws.classroom.DeleteClassroomTask;
 import com.ntaylor.lessonscheduler.tasks.aws.classroom.GetClassesTask;
 import com.ntaylor.lessonscheduler.tasks.aws.classroom.UpdateClassroomTask;
 import com.ntaylor.lessonscheduler.tasks.aws.user.ChangeUserNameTask;
@@ -198,7 +200,8 @@ public class AwsRepository implements DataProvider {
      */
     @Override
     public void deleteClassroom(@NonNull Classroom classroom) {
-
+        DeleteClassroomTask task = new DeleteClassroomTask(classroom);
+        task.execute();
     }
 
     /**
@@ -206,7 +209,9 @@ public class AwsRepository implements DataProvider {
      */
     @Override
     public void onClassroomDeleted() {
-
+        for (DataObserver observer : observers){
+            observer.onClassroomDeleted();
+        }
     }
 
     /**
