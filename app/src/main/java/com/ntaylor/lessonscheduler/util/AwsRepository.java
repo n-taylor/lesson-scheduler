@@ -12,6 +12,7 @@ import com.ntaylor.lessonscheduler.room.entities.User;
 import com.ntaylor.lessonscheduler.tasks.aws.assignment.CreateAssignmentTask;
 import com.ntaylor.lessonscheduler.tasks.aws.assignment.DeleteAssignmentTask;
 import com.ntaylor.lessonscheduler.tasks.aws.assignment.GetFutureAssignmentsTask;
+import com.ntaylor.lessonscheduler.tasks.aws.classroom.CreateClassroomTask;
 import com.ntaylor.lessonscheduler.tasks.aws.classroom.GetClassesTask;
 import com.ntaylor.lessonscheduler.tasks.aws.user.ChangeUserNameTask;
 import com.ntaylor.lessonscheduler.tasks.aws.user.CreateUserTask;
@@ -174,7 +175,8 @@ public class AwsRepository implements DataProvider {
      */
     @Override
     public void createClassroom(@NonNull String className, @NonNull String orgId) {
-
+        CreateClassroomTask task = new CreateClassroomTask(className, orgId);
+        task.execute();
     }
 
     /**
@@ -325,6 +327,6 @@ public class AwsRepository implements DataProvider {
      */
     @Override
     public void deleteAssignmentByClass(String classId) {
-
+        // Implement if necessary. Unused right now
     }
 }
