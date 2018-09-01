@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
+import com.ntaylor.lessonscheduler.room.entities.Classroom;
 import com.ntaylor.lessonscheduler.room.entities.Organization;
 import com.ntaylor.lessonscheduler.room.entities.User;
 
@@ -13,6 +14,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Parser {
+
+    private static final String USER_NAME = "user_name";
+    private static final String USER_ID = "user_id";
+    private static final String ORG_ID = "org_id";
+    private static final String ORG_NAME = "org_name";
+    private static final String CLASS_ID = "class_id";
+    private static final String CLASS_NAME = "class_name";
+    private static final String DATE = "date";
+    private static final String TEACHER_ID = "teacher_id";
 
     /**
      * Parses the JSON to form a user object
@@ -71,7 +81,7 @@ public class Parser {
      * @param json
      * @return Null if an error occurred, the parsed organization otherwise
      */
-    public static Organization parseOrg(String json){
+    private static Organization parseOrg(String json){
         try {
             JsonElement elemTop = new JsonParser().parse(json);
             if (elemTop != null){
@@ -88,6 +98,29 @@ public class Parser {
             }
         }
         catch (Exception ex){
+            return null;
+        }
+        return null;
+    }
+
+    private static Classroom parseClassroom(JsonElement eTop){
+        try {
+            if (eTop != null){
+                JsonObject top = eTop.getAsJsonObject();
+
+                JsonElement classId = top.get("class_id");
+                JsonElement orgId = top.get("org_id");
+                JsonElement name = top.get("class_name");
+
+                if (classId != null && orgId != null && name != null){
+                    Classroom room = new Classroom(orgId.getAsString(), name.getAsString());
+                    room.setClassId(classId.getAsString());
+
+                    return room;
+                }
+            }
+        }
+        catch (Exception ex) {
             return null;
         }
         return null;
@@ -126,5 +159,21 @@ public class Parser {
             }
         }
         return assignmentsList;
+    }
+
+    public static List<Classroom> parseClasses(String json){
+        List<Classroom> classesList = new ArrayList<>();
+        JsonElement eTop = (new JsonParser()).parse(json);
+
+        if (eTop != null){
+            JsonArray classes = eTop.getAsJsonObject().getAsJsonArray("classes");
+            if (classes != null){
+                for (JsonElement classroom : classes){
+                    classesList.add(parseClassroom(classroom));
+                }
+            }
+        }
+
+        return classesList;
     }
 }

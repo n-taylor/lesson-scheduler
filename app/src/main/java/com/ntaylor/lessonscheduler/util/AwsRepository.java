@@ -9,6 +9,7 @@ import com.ntaylor.lessonscheduler.activities.UpcomingActivity;
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
 import com.ntaylor.lessonscheduler.room.entities.User;
+import com.ntaylor.lessonscheduler.tasks.aws.classroom.GetClassesTask;
 import com.ntaylor.lessonscheduler.tasks.aws.user.GetUsersTask;
 import com.ntaylor.lessonscheduler.tasks.aws.user.LoginTask;
 
@@ -25,6 +26,7 @@ public class AwsRepository implements DataProvider {
     private static final String LOGIN_SUCCESS = "Successfully logged in as %s";
 
     private List<DataObserver> observers;
+    private List<Classroom> classrooms;
 
     public AwsRepository(){
         observers = new ArrayList<>();
@@ -190,7 +192,7 @@ public class AwsRepository implements DataProvider {
      */
     @Override
     public List<Classroom> getClasses() {
-        return null;
+        return this.classrooms;
     }
 
     /**
@@ -259,7 +261,8 @@ public class AwsRepository implements DataProvider {
      */
     @Override
     public void fetchClasses() {
-
+        GetClassesTask task = new GetClassesTask(UserInfo.getUserInfo().getOrgId(), false);
+        task.execute();
     }
 
     /**
@@ -269,7 +272,11 @@ public class AwsRepository implements DataProvider {
      */
     @Override
     public void updateClasses(List<Classroom> classes) {
+        this.classrooms = classes;
 
+        for (DataObserver observer : observers){
+            observer.onClassesUpdated(classes);
+        }
     }
 
     /**
