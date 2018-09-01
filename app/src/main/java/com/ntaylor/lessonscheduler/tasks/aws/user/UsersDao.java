@@ -16,6 +16,7 @@ public class UsersDao {
     private static final String GET_USERS_PATH = "/user/byOrg/";
     private static final String UPDATE_USER = "/user/update";
     private static final String GET_USER_BY_NAME = "/user/byName/";
+    private static final String POST_USER = "/user";
 
     public List<User> getUsersByOrg(String orgId){
 
@@ -32,6 +33,12 @@ public class UsersDao {
 
     public void update(User user){
         String uri = Constants.SERVER_HOST + UPDATE_USER;
+
+        RestClient.getPostResponse(uri, stringify(user));
+    }
+
+    public void insert(User user){
+        String uri = Constants.SERVER_HOST + POST_USER;
 
         RestClient.getPostResponse(uri, stringify(user));
     }

@@ -4,14 +4,13 @@ import android.os.AsyncTask;
 
 import com.ntaylor.lessonscheduler.room.entities.Organization;
 import com.ntaylor.lessonscheduler.room.entities.User;
+import com.ntaylor.lessonscheduler.tasks.aws.organization.OrgDao;
 import com.ntaylor.lessonscheduler.tasks.aws.util.Parser;
 import com.ntaylor.lessonscheduler.tasks.aws.util.RestClient;
 import com.ntaylor.lessonscheduler.util.Constants;
 import com.ntaylor.lessonscheduler.util.UserInfo;
 
 public class LoginTask extends AsyncTask<Void, Void, Boolean> {
-
-    private static final String GET_ORG_PATH = "/org/";
 
     private String username;
     private String orgName;
@@ -25,11 +24,7 @@ public class LoginTask extends AsyncTask<Void, Void, Boolean> {
 
     @Override
     protected Boolean doInBackground(Void... voids) {
-        String getOrgUri = Constants.SERVER_HOST + GET_ORG_PATH + orgName.replace(" ", "%20");
-
-        String orgResponse = RestClient.getGetResponse(getOrgUri);
-
-        Organization parsedOrg = Parser.parseOrg(orgResponse);
+        Organization parsedOrg = new OrgDao().getOrgByName(orgName);
 
         if (parsedOrg != null) {
 

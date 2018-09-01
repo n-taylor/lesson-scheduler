@@ -12,6 +12,7 @@ import com.ntaylor.lessonscheduler.room.entities.User;
 import com.ntaylor.lessonscheduler.tasks.aws.assignment.GetFutureAssignmentsTask;
 import com.ntaylor.lessonscheduler.tasks.aws.classroom.GetClassesTask;
 import com.ntaylor.lessonscheduler.tasks.aws.user.ChangeUserNameTask;
+import com.ntaylor.lessonscheduler.tasks.aws.user.CreateUserTask;
 import com.ntaylor.lessonscheduler.tasks.aws.user.GetUsersTask;
 import com.ntaylor.lessonscheduler.tasks.aws.user.LoginTask;
 
@@ -73,7 +74,8 @@ public class AwsRepository implements DataProvider {
      */
     @Override
     public void attemptCreateUser(String userName, String orgId) {
-
+        CreateUserTask task = new CreateUserTask(userName, orgId);
+        task.execute();
     }
 
     /**
@@ -84,7 +86,9 @@ public class AwsRepository implements DataProvider {
      */
     @Override
     public void onUserCreationAttempted(boolean success, String name) {
-
+        for (DataObserver observer : observers){
+            observer.onUserCreationAttempted(success, name);
+        }
     }
 
     /**
