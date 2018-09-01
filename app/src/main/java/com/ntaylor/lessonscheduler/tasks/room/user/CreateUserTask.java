@@ -1,17 +1,13 @@
-package com.ntaylor.lessonscheduler.tasks.user;
-
-import android.content.Context;
+package com.ntaylor.lessonscheduler.tasks.room.user;
 
 import com.ntaylor.lessonscheduler.room.dao.OrganizationsDao;
 import com.ntaylor.lessonscheduler.room.dao.UsersDao;
 import com.ntaylor.lessonscheduler.room.entities.Organization;
 import com.ntaylor.lessonscheduler.room.entities.User;
-import com.ntaylor.lessonscheduler.tasks.util.RoomTask;
+import com.ntaylor.lessonscheduler.tasks.room.util.RoomTask;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
-import com.ntaylor.lessonscheduler.util.UserInfo;
 
 import java.util.List;
-import java.util.Locale;
 
 public class CreateUserTask extends RoomTask<Void, Void, Boolean> {
 

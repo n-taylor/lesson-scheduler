@@ -1,7 +1,6 @@
 package com.ntaylor.lessonscheduler.util;
 
 import com.ntaylor.lessonscheduler.room.entities.User;
-import com.ntaylor.lessonscheduler.tasks.classroom.CreateClassroomTask;
 
 /**
  * Stores information about the current user that is logged in.

@@ -1,6 +1,5 @@
-package com.ntaylor.lessonscheduler.tasks.classroom;
+package com.ntaylor.lessonscheduler.tasks.room.classroom;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
 import com.ntaylor.lessonscheduler.room.dao.ClassesDao;

@@ -1,11 +1,10 @@
-package com.ntaylor.lessonscheduler.tasks.user;
+package com.ntaylor.lessonscheduler.tasks.room.user;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.ntaylor.lessonscheduler.activities.UpcomingActivity;
 import com.ntaylor.lessonscheduler.activities.UsersActivity;
 import com.ntaylor.lessonscheduler.room.dao.OrganizationsDao;
 import com.ntaylor.lessonscheduler.room.dao.UsersDao;

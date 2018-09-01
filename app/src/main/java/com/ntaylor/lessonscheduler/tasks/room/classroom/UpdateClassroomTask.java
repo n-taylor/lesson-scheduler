@@ -1,4 +1,4 @@
-package com.ntaylor.lessonscheduler.tasks.classroom;
+package com.ntaylor.lessonscheduler.tasks.room.classroom;
 
 import android.os.AsyncTask;
 

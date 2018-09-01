@@ -1,11 +1,9 @@
-package com.ntaylor.lessonscheduler.tasks.classroom;
+package com.ntaylor.lessonscheduler.tasks.room.classroom;
 
-import android.content.Context;
 import android.os.AsyncTask;
 
 import com.ntaylor.lessonscheduler.room.dao.ClassesDao;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
-import com.ntaylor.lessonscheduler.util.DataProvider;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 
 public class CreateClassroomTask extends AsyncTask<Void, Void, Void> {

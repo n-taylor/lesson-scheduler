@@ -1,10 +1,10 @@
-package com.ntaylor.lessonscheduler.tasks.user;
+package com.ntaylor.lessonscheduler.tasks.room.user;
 
 import android.content.Context;
 
 import com.ntaylor.lessonscheduler.room.dao.UsersDao;
 import com.ntaylor.lessonscheduler.room.entities.User;
-import com.ntaylor.lessonscheduler.tasks.util.RoomTask;
+import com.ntaylor.lessonscheduler.tasks.room.util.RoomTask;
 import com.ntaylor.lessonscheduler.util.DataProviderFactory;
 import com.ntaylor.lessonscheduler.util.UserInfo;
 

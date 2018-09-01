@@ -6,7 +6,10 @@ import android.app.Application;
 public abstract class DataProviderFactory {
 
     public static final int ROOM_PROVIDER = 0;
-    private static RoomRepository roomRepository;
+    public static final int AWS_PROVIDER = 1;
+
+    private static final int PROVIDER = AWS_PROVIDER;
+    private static DataProvider roomRepository;
 
     public static DataProvider getDataProviderInstance(){
         return roomRepository;
@@ -17,14 +20,17 @@ public abstract class DataProviderFactory {
      * This method initializes the DataProvider so it can be accessible without a Context.
      *
      * @param activity Required to provide access to the database.
-     * @param type The type of database requested. Currently only ROOM_PROVIDER is supported.
      * @return The data provider initialized.
      */
-    public static DataProvider initializeDataProvider(Activity activity, int type){
-        switch(type){
+    public static DataProvider initializeDataProvider(Activity activity){
+        switch(PROVIDER){
             case ROOM_PROVIDER:
                 if (roomRepository == null)
                     roomRepository =  new RoomRepository(activity);
+                return roomRepository;
+            case AWS_PROVIDER:
+                if (roomRepository == null)
+                    roomRepository = new AwsRepository();
                 return roomRepository;
             default:
                 return null;
