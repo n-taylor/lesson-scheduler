@@ -11,6 +11,7 @@ import com.ntaylor.lessonscheduler.room.entities.Classroom;
 import com.ntaylor.lessonscheduler.room.entities.User;
 import com.ntaylor.lessonscheduler.tasks.aws.assignment.GetFutureAssignmentsTask;
 import com.ntaylor.lessonscheduler.tasks.aws.classroom.GetClassesTask;
+import com.ntaylor.lessonscheduler.tasks.aws.user.ChangeUserNameTask;
 import com.ntaylor.lessonscheduler.tasks.aws.user.GetUsersTask;
 import com.ntaylor.lessonscheduler.tasks.aws.user.LoginTask;
 
@@ -95,7 +96,8 @@ public class AwsRepository implements DataProvider {
      */
     @Override
     public void attemptChangeUserName(Context context, String userId, String name) {
-
+        ChangeUserNameTask task = new ChangeUserNameTask(userId, name);
+        task.execute();
     }
 
     /**
@@ -106,7 +108,9 @@ public class AwsRepository implements DataProvider {
      */
     @Override
     public void onUserNameChanged(boolean changed, String name) {
-
+        for(DataObserver observer : observers){
+            observer.onUserNameChanged(changed, name);
+        }
     }
 
     /**

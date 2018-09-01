@@ -11,7 +11,6 @@ import com.ntaylor.lessonscheduler.util.UserInfo;
 
 public class LoginTask extends AsyncTask<Void, Void, Boolean> {
 
-    private static final String LOGIN_PATH = "/user/login/";
     private static final String GET_ORG_PATH = "/org/";
 
     private String username;
@@ -35,11 +34,7 @@ public class LoginTask extends AsyncTask<Void, Void, Boolean> {
         if (parsedOrg != null) {
 
             // The organization exists, so get the user with the given name
-            String loginUri = Constants.SERVER_HOST + LOGIN_PATH + username.replace(" ", "%20");
-
-            String response = RestClient.getGetResponse(loginUri);
-
-            User parsedUser = Parser.parseSingleUser(response);
+            User parsedUser = new UsersDao().getUserByName(username);
             if (parsedUser != null) {
                 UserInfo.startUserInfoSession(parsedUser, parsedOrg.getOrgName());
             }

@@ -81,7 +81,7 @@ public class Parser {
      * @param json
      * @return Null if an error occurred, the parsed organization otherwise
      */
-    private static Organization parseOrg(String json){
+    public static Organization parseOrg(String json){
         try {
             JsonElement elemTop = new JsonParser().parse(json);
             if (elemTop != null){

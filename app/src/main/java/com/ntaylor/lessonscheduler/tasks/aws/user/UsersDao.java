@@ -14,13 +14,20 @@ import java.util.List;
 public class UsersDao {
 
     private static final String GET_USERS_PATH = "/user/byOrg/";
-    private static final String UPDATE_USER = "user/update";
+    private static final String UPDATE_USER = "/user/update";
+    private static final String GET_USER_BY_NAME = "/user/byName/";
 
     public List<User> getUsersByOrg(String orgId){
 
         String usersUri = Constants.SERVER_HOST + GET_USERS_PATH + orgId;
 
         return Parser.parseUsers(RestClient.getGetResponse(usersUri));
+    }
+
+    public User getUserByName(String name){
+        String uri = Constants.SERVER_HOST + GET_USER_BY_NAME + name.replace(" ", "%20");
+
+        return Parser.parseSingleUser(RestClient.getGetResponse(uri));
     }
 
     public void update(User user){
