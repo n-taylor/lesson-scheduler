@@ -29,6 +29,7 @@ import javax.net.ssl.SSLSocketFactory;
 public class RestClient {
 
     public static final String POST = "POST";
+    public static final String PUT = "PUT";
     public static final String GET = "GET";
 
     private static final String SEND_COOKIES = "Cookie";
@@ -97,6 +98,46 @@ public class RestClient {
     public static String getPostResponse(String uri, String json){
         try {
             HttpsURLConnection connection = getConnection(uri, RestClient.POST);
+
+            if (connection == null) {
+                return null;
+            }
+
+            // Send the JSON
+            OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream());
+            writer.write(json);
+
+            connection.connect();
+            writer.flush(); // Gets the message to the
+
+            int code = connection.getResponseCode();
+
+            // Get the message
+            InputStream input = ((code / 200) == 1) ? connection.getInputStream() : connection.getErrorStream();
+            String message = readResponse(input);
+
+            // Close resources
+            closeConnection(connection);
+            writer.close();
+
+            // Return the message
+            return message;
+        }
+        catch(Exception ex){
+            ex.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * Sends the given POST request to the uri specified and retrieves its response.
+     * @param uri The URI to send the message to
+     * @param json The body of the POST request
+     * @return The message received from the server, or null if no message was received or an error occurred
+     */
+    public static String getPutResponse(String uri, String json){
+        try {
+            HttpsURLConnection connection = getConnection(uri, RestClient.PUT);
 
             if (connection == null) {
                 return null;

@@ -176,4 +176,20 @@ public class Parser {
 
         return classesList;
     }
+
+    /**
+     * @param json The JSON object to analyze
+     * @return True if the object contains a member called "success" equal to true
+     */
+    public static boolean isSuccess(String json){
+        JsonElement eTop = new JsonParser().parse(json);
+
+        if (eTop != null){
+            JsonElement success = eTop.getAsJsonObject().get("success");
+
+            return success.getAsBoolean();
+        }
+
+        return false;
+    }
 }

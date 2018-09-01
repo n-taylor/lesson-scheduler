@@ -9,6 +9,8 @@ import com.ntaylor.lessonscheduler.activities.UpcomingActivity;
 import com.ntaylor.lessonscheduler.room.entities.Assignment;
 import com.ntaylor.lessonscheduler.room.entities.Classroom;
 import com.ntaylor.lessonscheduler.room.entities.User;
+import com.ntaylor.lessonscheduler.tasks.aws.assignment.CreateAssignmentTask;
+import com.ntaylor.lessonscheduler.tasks.aws.assignment.DeleteAssignmentTask;
 import com.ntaylor.lessonscheduler.tasks.aws.assignment.GetFutureAssignmentsTask;
 import com.ntaylor.lessonscheduler.tasks.aws.classroom.GetClassesTask;
 import com.ntaylor.lessonscheduler.tasks.aws.user.ChangeUserNameTask;
@@ -258,7 +260,8 @@ public class AwsRepository implements DataProvider {
      */
     @Override
     public void deleteAssignment(Assignment assignment) {
-
+        DeleteAssignmentTask task = new DeleteAssignmentTask(assignment);
+        task.execute();
     }
 
     /**
@@ -268,7 +271,9 @@ public class AwsRepository implements DataProvider {
      */
     @Override
     public void onAssignmentDeleted(boolean success) {
-
+        for (DataObserver observer : observers){
+            observer.onAssignmentDeleted(success);
+        }
     }
 
     /**
@@ -303,7 +308,8 @@ public class AwsRepository implements DataProvider {
      */
     @Override
     public void createAssignment(String teacherId, String classId, SimpleDate date) {
-
+        CreateAssignmentTask task = new CreateAssignmentTask(UserInfo.getUserInfo().getOrgId(), classId, teacherId, date);
+        task.execute();
     }
 
     /**
