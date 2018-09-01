@@ -14,6 +14,7 @@ public class ClassesDao {
     private static final String CLASSES_BY_ID = "/class/byId/";
     private static final String CLASSES_BY_ORG = "/class/byOrg";
     private static final String INSERT_CLASS = "/class";
+    private static final String UPDATE_CLASS = "/class";
 
     public List<Classroom> getClassesById(String classId){
         String uri = Constants.SERVER_HOST + CLASSES_BY_ID + classId;
@@ -31,6 +32,12 @@ public class ClassesDao {
         String uri = Constants.SERVER_HOST + INSERT_CLASS;
 
         RestClient.getPostResponse(uri, stringify(classroom));
+    }
+
+    public void updateClassroom(Classroom classroom){
+        String uri = Constants.SERVER_HOST + UPDATE_CLASS;
+
+        RestClient.getPutResponse(uri, stringify(classroom));
     }
 
     // private methods ==================================================================

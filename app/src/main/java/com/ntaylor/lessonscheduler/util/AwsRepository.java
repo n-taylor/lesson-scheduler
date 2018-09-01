@@ -14,6 +14,7 @@ import com.ntaylor.lessonscheduler.tasks.aws.assignment.DeleteAssignmentTask;
 import com.ntaylor.lessonscheduler.tasks.aws.assignment.GetFutureAssignmentsTask;
 import com.ntaylor.lessonscheduler.tasks.aws.classroom.CreateClassroomTask;
 import com.ntaylor.lessonscheduler.tasks.aws.classroom.GetClassesTask;
+import com.ntaylor.lessonscheduler.tasks.aws.classroom.UpdateClassroomTask;
 import com.ntaylor.lessonscheduler.tasks.aws.user.ChangeUserNameTask;
 import com.ntaylor.lessonscheduler.tasks.aws.user.CreateUserTask;
 import com.ntaylor.lessonscheduler.tasks.aws.user.DeleteUserTask;
@@ -186,7 +187,8 @@ public class AwsRepository implements DataProvider {
      */
     @Override
     public void updateClassroom(@NonNull Classroom classroom) {
-
+        UpdateClassroomTask task = new UpdateClassroomTask(classroom);
+        task.execute();
     }
 
     /**
