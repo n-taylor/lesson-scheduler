@@ -65,7 +65,10 @@ public class UpcomingPresenter extends Presenter implements UpcomingContract.Pre
         // If there is only 1 unassigned class, start the assign activity for that class
         // Otherwise, have the user select the course to assign
         if (unassigned.length == 0){
-            return;
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("No classes to assign");
+            builder.setMessage("You're all done! Hooray!");
+            builder.create().show();
         }
         else if (unassigned.length == 1){
             Classroom toAssign = getClassByName(unassigned[0].toString());

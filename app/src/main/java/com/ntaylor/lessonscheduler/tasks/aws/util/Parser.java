@@ -58,19 +58,23 @@ public class Parser {
     public static Assignment parseAssignment(JsonElement element){
         if (element != null) {
             JsonObject top = element.getAsJsonObject();
-
+            JsonElement eIndex = top.get("index");
             JsonElement eDate = top.get("date");
             JsonElement eOrgId = top.get("org_id");
             JsonElement eClassId = top.get("class_id");
             JsonElement eTeacherId = top.get("teacher_id");
 
-            if (eDate != null && eOrgId != null && eClassId != null && eTeacherId != null){
+            if (eIndex != null && eDate != null && eOrgId != null && eClassId != null && eTeacherId != null){
+                int index = eIndex.getAsInt();
                 String date = eDate.getAsString();
                 String orgId = eOrgId.getAsString();
                 String classId = eClassId.getAsString();
                 String teacherId = eTeacherId.getAsString();
 
-                return new Assignment(date, orgId, classId, teacherId);
+                Assignment temp = new Assignment(date, orgId, classId, teacherId);
+                temp.setIndex(index);
+
+                return temp;
             }
         }
         return null;
@@ -188,14 +192,18 @@ public class Parser {
      * @return True if the object contains a member called "success" equal to true
      */
     public static boolean isSuccess(String json){
-        JsonElement eTop = new JsonParser().parse(json);
+        try {
+            JsonElement eTop = new JsonParser().parse(json);
 
-        if (eTop != null){
-            JsonElement success = eTop.getAsJsonObject().get("success");
+            if (eTop != null) {
+                JsonElement success = eTop.getAsJsonObject().get("success");
 
-            return success.getAsBoolean();
+                return success.getAsBoolean();
+            }
         }
-
+        catch(Exception ex){
+            return false;
+        }
         return false;
     }
 }

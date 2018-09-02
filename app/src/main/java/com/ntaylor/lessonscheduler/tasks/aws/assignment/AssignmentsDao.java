@@ -52,13 +52,17 @@ public class AssignmentsDao {
     public void insert(Assignment assignment){
         String uri = Constants.SERVER_HOST + POST_ASSIGNMENT;
 
-        RestClient.getPostResponse(uri, stringify(assignment));
+        String body = stringify(assignment);
+
+        String result = RestClient.getPostResponse(uri, body);
     }
 
     public boolean delete(int index){
         String uri = Constants.SERVER_HOST + DELETE_ASSIGNMENT + index;
 
-        return Parser.isSuccess(RestClient.getPutResponse(uri, "{}"));
+        String result = RestClient.getPutResponse(uri, "{}");
+
+        return Parser.isSuccess(result);
     }
 
     // private methods ==================================================================

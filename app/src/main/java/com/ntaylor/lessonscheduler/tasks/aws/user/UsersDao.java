@@ -23,7 +23,9 @@ public class UsersDao {
 
         String usersUri = Constants.SERVER_HOST + GET_USERS_PATH + orgId;
 
-        return Parser.parseUsers(RestClient.getGetResponse(usersUri));
+        String response = RestClient.getGetResponse(usersUri);
+
+        return Parser.parseUsers(response);
     }
 
     public User getUserByName(String name){
@@ -41,13 +43,15 @@ public class UsersDao {
     public void insert(User user){
         String uri = Constants.SERVER_HOST + POST_USER;
 
-        RestClient.getPostResponse(uri, stringify(user));
+        String response = RestClient.getPostResponse(uri, stringify(user));
     }
 
     public boolean delete(String userId){
-        String uri = Constants.SERVER_HOST + DELETE_USER;
+        String uri = Constants.SERVER_HOST + DELETE_USER + userId;
 
-        return Parser.isSuccess(RestClient.getPutResponse(uri, "{}"));
+        String result = RestClient.getPutResponse(uri, "{}");
+
+        return Parser.isSuccess(result);
     }
 
     private String stringify(User user){
@@ -58,6 +62,13 @@ public class UsersDao {
         top.addProperty("last_class", user.getLastClass());
         top.addProperty("next_class", user.getNextClass());
         top.addProperty("auth_level", user.getAuthLevel());
+
+        return top.toString();
+    }
+
+    private String stringify(String userId){
+        JsonObject top = new JsonObject();
+        top.addProperty("user_id", userId);
 
         return top.toString();
     }

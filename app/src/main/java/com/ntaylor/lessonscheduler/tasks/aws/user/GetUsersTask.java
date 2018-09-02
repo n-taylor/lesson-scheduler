@@ -24,6 +24,8 @@ public class GetUsersTask extends AsyncTask<Void, Void, List<User>> {
 
     public GetUsersTask(String orgId){
         this.orgId = orgId;
+        usersDao = new UsersDao();
+        assignmentsDao = new AssignmentsDao();
     }
 
     @Override

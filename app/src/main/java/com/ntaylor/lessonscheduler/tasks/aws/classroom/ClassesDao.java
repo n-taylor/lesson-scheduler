@@ -12,7 +12,7 @@ import java.util.List;
 public class ClassesDao {
 
     private static final String CLASSES_BY_ID = "/class/byId/";
-    private static final String CLASSES_BY_ORG = "/class/byOrg";
+    private static final String CLASSES_BY_ORG = "/class/byOrg/";
     private static final String INSERT_CLASS = "/class";
     private static final String UPDATE_CLASS = "/class";
     private static final String DELETE_CLASS = "/class/";
@@ -32,7 +32,9 @@ public class ClassesDao {
     public void insertClass(Classroom classroom){
         String uri = Constants.SERVER_HOST + INSERT_CLASS;
 
-        RestClient.getPostResponse(uri, stringify(classroom));
+        String body = stringify(classroom);
+
+        String response = RestClient.getPostResponse(uri, body);
     }
 
     public void updateClassroom(Classroom classroom){

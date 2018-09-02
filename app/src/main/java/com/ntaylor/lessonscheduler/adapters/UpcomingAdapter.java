@@ -78,9 +78,7 @@ public class UpcomingAdapter extends ArrayAdapter<SimpleDate> {
         convertView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
-                if (numUnassigned > 0) {
-                    presenter.onDatePressed(context, dates.get(position).serializeDate(), getUnassignedClasses(date));
-                }
+                presenter.onDatePressed(context, dates.get(position).serializeDate(), getUnassignedClasses(date));
             }
         });
 
