@@ -50,7 +50,9 @@ public class ClassesPresenter extends Presenter implements ClassesContract.Prese
         if (adapter != null){
             listView.setAdapter(adapter);
         }
-        dataProvider.fetchClasses();
+        else {
+            setAdapter();
+        }
     }
 
     /**
@@ -136,5 +138,12 @@ public class ClassesPresenter extends Presenter implements ClassesContract.Prese
 
     private void deleteClass(Classroom classroom){
         DataProviderFactory.getDataProviderInstance().deleteClassroom(classroom);
+    }
+
+    private void setAdapter(){
+        adapter = new ClassesAdapter(((Activity)view).getApplicationContext(), dataProvider.getClasses(), this);
+        if (listView != null) {
+            listView.setAdapter(adapter);
+        }
     }
 }

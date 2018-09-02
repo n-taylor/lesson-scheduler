@@ -107,6 +107,10 @@ public interface DataProvider {
      */
     List<Classroom> getClasses();
 
+    List<User> getUsers();
+
+    List<Assignment> getAssignments();
+
     /**
      * Adds the specified DataObserver to the list of observers to be notified when data has been updated.
      *

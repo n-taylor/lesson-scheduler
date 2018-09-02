@@ -97,8 +97,9 @@ public class UpcomingPresenter extends Presenter implements UpcomingContract.Pre
      */
     public void initializeListView(ListView listView){
         this.listView = listView;
-        DataProviderFactory.getDataProviderInstance().fetchAssignments();
-        DataProviderFactory.getDataProviderInstance().fetchClasses();
+        this.assignments = dataProvider.getAssignments();
+        this.classes = dataProvider.getClasses();
+        initializeAdapter();
     }
 
     // Overrides ============================================================================
@@ -155,8 +156,14 @@ public class UpcomingPresenter extends Presenter implements UpcomingContract.Pre
     }
 
     private void initializeAdapter() {
-        adapter = new UpcomingAdapter(this, ((UpcomingActivity) activity), dates, assignments, classes);
-        listView.setAdapter(adapter);
+        if (assignments != null && classes != null) {
+            adapter = new UpcomingAdapter(this, ((UpcomingActivity) activity), dates, assignments, classes);
+            listView.setAdapter(adapter);
+        }
+        else {
+            dataProvider.fetchAssignments();
+            dataProvider.fetchClasses();
+        }
     }
 
     private Classroom getClassByName(@NonNull String name){

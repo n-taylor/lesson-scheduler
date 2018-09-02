@@ -68,6 +68,16 @@ public class RoomRepository implements DataProvider {
         return classes;
     }
 
+    @Override
+    public List<User> getUsers() {
+        return null;
+    }
+
+    @Override
+    public List<Assignment> getAssignments() {
+        return null;
+    }
+
     /**
      * If userName already exists, displays an error message. Otherwise, creates the user and adds
      * it to the specified organization.

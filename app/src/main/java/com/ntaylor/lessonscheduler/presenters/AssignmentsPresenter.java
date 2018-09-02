@@ -42,9 +42,9 @@ public class AssignmentsPresenter extends Presenter implements AssignmentsContra
         this.provider = DataProviderFactory.getDataProviderInstance();
         provider.addObserver(this);
 
-        provider.fetchUsers();
-        provider.fetchClasses();
-        provider.fetchAssignments();
+        this.users = provider.getUsers();
+        this.assignments = provider.getAssignments();
+        this.classes = provider.getClasses();
     }
 
     // public methods ======================================================================
@@ -57,6 +57,8 @@ public class AssignmentsPresenter extends Presenter implements AssignmentsContra
 
         this.manager = new LinearLayoutManager(context);
         this.recycler.setLayoutManager(this.manager);
+
+        setAdapter();
     }
 
     /**
@@ -92,28 +94,19 @@ public class AssignmentsPresenter extends Presenter implements AssignmentsContra
     @Override
     public void onAssignmentsUpdated(List<Assignment> assignments){
         this.assignments = assignments;
-        if (assignments != null && users != null && classes != null){
-            AssignmentsAdapter adapter = new AssignmentsAdapter(assignments, mapClassIds(classes), mapUserIds(users), this);
-            recycler.setAdapter(adapter);
-        }
+        setAdapter();
     }
 
     @Override
     public void onUsersUpdated(List<User> users){
         this.users = users;
-        if (assignments != null && users != null && classes != null){
-            AssignmentsAdapter adapter = new AssignmentsAdapter(assignments, mapClassIds(classes), mapUserIds(users), this);
-            recycler.setAdapter(adapter);
-        }
+        setAdapter();
     }
 
     @Override
     public void onClassesUpdated(List<Classroom> classes){
         this.classes = classes;
-        if (assignments != null && users != null && classes != null){
-            AssignmentsAdapter adapter = new AssignmentsAdapter(assignments, mapClassIds(classes), mapUserIds(users), this);
-            recycler.setAdapter(adapter);
-        }
+        setAdapter();
     }
 
     @Override
@@ -138,5 +131,17 @@ public class AssignmentsPresenter extends Presenter implements AssignmentsContra
             ids.put(user.getUserId(), user.getUserName());
         }
         return ids;
+    }
+
+    private void setAdapter(){
+        if (assignments != null && users != null && classes != null){
+            AssignmentsAdapter adapter = new AssignmentsAdapter(assignments, mapClassIds(classes), mapUserIds(users), this);
+            recycler.setAdapter(adapter);
+        }
+        else {
+            provider.getAssignments();
+            provider.fetchClasses();
+            provider.fetchUsers();
+        }
     }
 }

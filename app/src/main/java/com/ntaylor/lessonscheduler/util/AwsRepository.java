@@ -36,6 +36,7 @@ public class AwsRepository implements DataProvider {
     private static final String LOGIN_SUCCESS = "Successfully logged in as %s";
 
     private List<DataObserver> observers;
+    private List<User> users;
     private List<Classroom> classrooms;
     private List<Assignment> assignments;
 
@@ -58,6 +59,13 @@ public class AwsRepository implements DataProvider {
             @Override
             public void onResponse(boolean loggedIn) {
                 if (loggedIn){
+
+                    // Get data
+                    fetchAssignments();
+                    fetchClasses();
+                    fetchUsers();
+
+                    // Show a logged in message
                     String message = String.format(Locale.US, LOGIN_SUCCESS, userName);
                     Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
 
@@ -165,6 +173,7 @@ public class AwsRepository implements DataProvider {
      */
     @Override
     public void updateUsers(List<User> users) {
+        this.users = users;
         for (DataObserver observer : observers){
             observer.onUsersUpdated(users);
         }
@@ -220,6 +229,16 @@ public class AwsRepository implements DataProvider {
     @Override
     public List<Classroom> getClasses() {
         return this.classrooms;
+    }
+
+    @Override
+    public List<User> getUsers() {
+        return this.users;
+    }
+
+    @Override
+    public List<Assignment> getAssignments() {
+        return this.assignments;
     }
 
     /**

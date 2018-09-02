@@ -66,8 +66,8 @@ public class AssignPresenter extends Presenter implements AssignContract.Present
         manager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(manager);
 
-        // fetch users
-        provider.fetchUsers();
+        // set the adapter
+        setAdapter();
     }
 
     /**
@@ -119,5 +119,10 @@ public class AssignPresenter extends Presenter implements AssignContract.Present
     private void makeAssignment(User teacher){
         provider.createAssignment(teacher.getUserId(), this.classId, SimpleDate.deserializeDate(this.date, true));
         view.destroySelf();
+    }
+
+    private void setAdapter(){
+        AssignAdapter adapter = new AssignAdapter(this, provider.getUsers());
+        recyclerView.setAdapter(adapter);
     }
 }

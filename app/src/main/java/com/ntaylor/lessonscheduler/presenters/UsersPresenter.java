@@ -51,8 +51,8 @@ public class UsersPresenter extends Presenter implements UsersContract.Presenter
         RecyclerView.LayoutManager manager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(manager);
 
-        // fetch users
-        provider.fetchUsers();
+        // set the adapter and fill it with all users except the current one
+        setAdapter();
     }
 
     /**
@@ -102,17 +102,7 @@ public class UsersPresenter extends Presenter implements UsersContract.Presenter
      */
     @Override
     public void onUsersUpdated(List<User> users){
-        // Remove the current user's name from the list
-        ArrayList<User> temp = new ArrayList<>(users);
-        for (User user : temp){
-            if (user.getUserId().equals(UserInfo.getUserInfo().getUserId())){
-                users.remove(user);
-            }
-        }
-
-        // Initialize the adapter
-        UsersAdapter adapter = new UsersAdapter(this, users);
-        recyclerView.setAdapter(adapter);
+        setAdapter();
     }
 
     @Override
@@ -147,5 +137,19 @@ public class UsersPresenter extends Presenter implements UsersContract.Presenter
 
     private void deleteUser(User user){
         DataProviderFactory.getDataProviderInstance().deleteUser(user);
+    }
+
+    private void setAdapter(){
+        // Remove the current user's name from the list
+        ArrayList<User> temp = new ArrayList<>(provider.getUsers());
+        for (User user : provider.getUsers()){
+            if (user.getUserId().equals(UserInfo.getUserInfo().getUserId())){
+                temp.remove(user);
+            }
+        }
+
+        // Initialize the adapter
+        UsersAdapter adapter = new UsersAdapter(this, temp);
+        recyclerView.setAdapter(adapter);
     }
 }
